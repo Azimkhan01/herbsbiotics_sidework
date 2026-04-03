@@ -1,3 +1,4 @@
+import cloudinary from "@/lib/cloudinary";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
@@ -63,7 +64,7 @@ export async function PUT(req, context) {
 // ✅ DELETE PRODUCT
 export async function DELETE(req, context) {
     try {
-        const { id } = context.params;
+        const { id } = await context.params;
 
         // 🔥 GET ALL IMAGES
         const images = await prisma.image.findMany({
