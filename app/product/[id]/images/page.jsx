@@ -9,11 +9,16 @@ export default function ProductImagesPage() {
 
   const [product, setProduct] = useState(null);
   const [preview, setPreview] = useState([]);
+  const [uploading, setUploading] = useState(false); // upload loader
+  const [deletingId, setDeletingId] = useState(null); // per image delete loader
+  const [loading, setLoading] = useState(true); // product fetch loader
 
   const fetchProduct = async () => {
+    setLoading(true);
     const res = await fetch(`/api/product/${id}`);
     const data = await res.json();
     setProduct(data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -26,18 +31,16 @@ export default function ProductImagesPage() {
 
     const currentCount = product.images?.length || 0;
 
-    if (currentCount >= 5) {
-      return alert("Max 5 images allowed");
-    }
+    if (currentCount >= 5) return alert("Max 5 images allowed");
 
     if (acceptedFiles.length + currentCount > 5) {
       return alert(`Only ${5 - currentCount} images allowed`);
     }
 
-    const previews = acceptedFiles.map((f) =>
-      URL.createObjectURL(f)
-    );
+    const previews = acceptedFiles.map((f) => URL.createObjectURL(f));
     setPreview(previews);
+
+    setUploading(true);
 
     for (const file of acceptedFiles) {
       const formData = new FormData();
@@ -51,14 +54,15 @@ export default function ProductImagesPage() {
     }
 
     setPreview([]);
+    setUploading(false);
     fetchProduct();
   };
 
   // DELETE IMAGE
   const handleDeleteImage = async (imageId) => {
-    await fetch(`/api/upload/${imageId}`, {
-      method: "DELETE",
-    });
+    setDeletingId(imageId);
+    await fetch(`/api/upload/${imageId}`, { method: "DELETE" });
+    setDeletingId(null);
     fetchProduct();
   };
 
@@ -68,7 +72,25 @@ export default function ProductImagesPage() {
     multiple: true,
   });
 
-  if (!product) return <p>Loading...</p>;
+  if (loading) {
+    // Skeleton loader
+    return (
+      <div className="min-h-screen bg-gray-100 p-6">
+        <div className="max-w-5xl mx-auto space-y-4">
+          <div className="h-6 bg-gray-300 rounded w-1/3 animate-pulse"></div>
+          <div className="h-4 bg-gray-200 rounded w-1/4 animate-pulse"></div>
+          <div className="h-32 bg-gray-200 rounded animate-pulse"></div>
+          <div className="grid grid-cols-3 gap-4">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="h-32 bg-gray-200 rounded animate-pulse"></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!product) return <p>Product not found</p>;
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -91,13 +113,14 @@ export default function ProductImagesPage() {
           `}
         >
           <input {...getInputProps()} />
-
-          <p className="text-gray-600">
-            Drag & drop images here
-          </p>
-          <p className="text-sm text-gray-400">
-            or click to upload
-          </p>
+          {uploading ? (
+            <p className="text-gray-600">Uploading...</p>
+          ) : (
+            <>
+              <p className="text-gray-600">Drag & drop images here</p>
+              <p className="text-sm text-gray-400">or click to upload</p>
+            </>
+          )}
         </div>
 
         {/* PREVIEW */}
@@ -124,9 +147,10 @@ export default function ProductImagesPage() {
 
               <button
                 onClick={() => handleDeleteImage(img.id)}
+                disabled={deletingId === img.id}
                 className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs rounded"
               >
-                Delete
+                {deletingId === img.id ? "Deleting..." : "Delete"}
               </button>
             </div>
           ))}
