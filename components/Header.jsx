@@ -7,7 +7,7 @@ function Header() {
       <nav className="flex justify-center gap-5 font-bold  underline">
         <Link href="/category">Category</Link>
         <Link href="/product">Product</Link>
-        <Link href="/product">Product</Link>
+        {/* <Link href="/product">Product</Link> */}
         <Link href="/recommendation">Recommendation</Link>
 
       </nav>
