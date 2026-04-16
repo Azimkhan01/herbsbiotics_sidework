@@ -33,10 +33,10 @@ model Product {
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
-  images Image[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  images      Image[]
+  recommended RecommendedProduct?
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
 
   @@index([categoryId])
 }
@@ -63,4 +63,15 @@ model Image {
   createdAt DateTime @default(now())
 
   @@index([productId])
+}
+
+model RecommendedProduct {
+  id String @id @default(uuid())
+
+  productId String  @unique
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  status Boolean @default(true) // true = recommended, false = not
+
+  createdAt DateTime @default(now())
 }
