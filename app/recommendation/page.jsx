@@ -5,49 +5,83 @@ import { useEffect, useState } from "react";
 export default function RecommendProducts() {
   const [products, setProducts] = useState([]);
   const [recommended, setRecommended] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // fetch all products
-  const fetchProducts = async () => {
-    const res = await fetch("/api/product");
-    const data = await res.json();
-    setProducts(data);
-  };
+  // fetch all data together (better performance)
+  const fetchData = async () => {
+    try {
+      setLoading(true);
 
-  // fetch recommended
-  const fetchRecommended = async () => {
-    const res = await fetch("/api/recommendation");
-    const data = await res.json();
+      const [productRes, recRes] = await Promise.all([
+        fetch("/api/product"),
+        fetch("/api/recommendation"),
+      ]);
 
-    // store productIds only
-    const ids = data.map((item) => item.productId);
-    setRecommended(ids);
+      const productData = await productRes.json();
+      const recData = await recRes.json();
+
+      if (Array.isArray(productData)) {
+        setProducts(productData);
+      }
+
+      if (Array.isArray(recData)) {
+        const ids = recData.map((item) => item.productId);
+        setRecommended(ids);
+      }
+    } catch (err) {
+      console.error("FETCH ERROR:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    fetchProducts();
-    fetchRecommended();
+    fetchData();
   }, []);
 
-  // toggle recommendation
+  // ⚡ Optimistic UI
   const toggleRecommend = async (productId) => {
     const isRecommended = recommended.includes(productId);
 
-    if (isRecommended) {
-      // remove
-      await fetch("/api/recommendation", {
-        method: "DELETE",
-        body: JSON.stringify({ productId }),
-      });
-    } else {
-      // add
-      await fetch("/api/recommendation", {
-        method: "POST",
-        body: JSON.stringify({ productId }),
-      });
-    }
+    // instant UI update
+    setRecommended((prev) =>
+      isRecommended
+        ? prev.filter((id) => id !== productId)
+        : [...prev, productId]
+    );
 
-    fetchRecommended();
+    try {
+      await fetch("/api/recommendation", {
+        method: isRecommended ? "DELETE" : "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ productId }),
+      });
+    } catch (err) {
+      console.error(err);
+      fetchData(); // fallback if failed
+    }
   };
+
+  // ✅ LOADING STATE
+  if (loading) {
+    return (
+      <div className="p-6 grid grid-cols-3 gap-4">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div
+            key={i}
+            className="animate-pulse border p-4 rounded-lg"
+          >
+            <div className="h-40 bg-gray-300 rounded"></div>
+            <div className="h-4 bg-gray-300 mt-3 w-3/4"></div>
+            <div className="h-4 bg-gray-200 mt-2 w-1/2"></div>
+            <div className="h-10 bg-gray-300 mt-4 rounded"></div>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div className="p-6">
