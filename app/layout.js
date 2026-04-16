@@ -21,13 +21,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <>
-      <head>
+      {/* <head>
         <Script
           src="//unpkg.com/react-scan/dist/auto.global.js"
           crossOrigin="anonymous"
           strategy="beforeInteractive"
         />
-      </head>
+      </head> */}
       <html
         lang="en"
         className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
