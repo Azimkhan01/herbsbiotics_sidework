@@ -16,9 +16,11 @@ export default function ProductPage() {
     categoryId: "",
   });
 
-  const [loading, setLoading] = useState(true); // page loading
-  const [submitting, setSubmitting] = useState(false); // create product
-  const [deletingId, setDeletingId] = useState(null); // delete per item
+  const [editingProduct, setEditingProduct] = useState(null);
+
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [deletingId, setDeletingId] = useState(null);
 
   // FETCH DATA
   const fetchData = async () => {
@@ -35,7 +37,7 @@ export default function ProductPage() {
     fetchData();
   }, []);
 
-  // CREATE PRODUCT
+  // CREATE
   const handleCreate = async () => {
     if (!form.name || !form.categoryId) {
       return alert("Fill required fields");
@@ -49,11 +51,49 @@ export default function ProductPage() {
         ...form,
         price: Number(form.price),
         stock: Number(form.stock),
-        description: form.description.split(","),
-        highlights: form.highlights.split(","),
+        description: form.description.split(",").map((s) => s.trim()),
+        highlights: form.highlights.split(",").map((s) => s.trim()),
       }),
     });
 
+    resetForm();
+    setSubmitting(false);
+    fetchData();
+  };
+
+  // UPDATE
+  const handleUpdate = async () => {
+    if (!editingProduct) return;
+
+    setSubmitting(true);
+
+    await fetch(`/api/product/${editingProduct.id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        ...form,
+        price: Number(form.price),
+        stock: Number(form.stock),
+        description: form.description.split(",").map((s) => s.trim()),
+        highlights: form.highlights.split(",").map((s) => s.trim()),
+      }),
+    });
+
+    resetForm();
+    setEditingProduct(null);
+    setSubmitting(false);
+    fetchData();
+  };
+
+  // DELETE
+  const handleDelete = async (id) => {
+    setDeletingId(id);
+    await fetch(`/api/product/${id}`, { method: "DELETE" });
+    setDeletingId(null);
+    fetchData();
+  };
+
+  // RESET FORM
+  const resetForm = () => {
     setForm({
       name: "",
       description: "",
@@ -62,17 +102,6 @@ export default function ProductPage() {
       stock: "",
       categoryId: "",
     });
-
-    setSubmitting(false);
-    fetchData();
-  };
-
-  // DELETE PRODUCT
-  const handleDelete = async (id) => {
-    setDeletingId(id);
-    await fetch(`/api/product/${id}`, { method: "DELETE" });
-    setDeletingId(null);
-    fetchData();
   };
 
   return (
@@ -87,7 +116,7 @@ export default function ProductPage() {
         {/* FORM */}
         <div className="bg-white p-6 rounded-2xl shadow-lg mb-8">
           <h2 className="text-2xl font-semibold mb-4">
-            Create Product
+            {editingProduct ? "Edit Product" : "Create Product"}
           </h2>
 
           <div className="grid md:grid-cols-2 gap-4">
@@ -95,17 +124,23 @@ export default function ProductPage() {
               className="border p-3 rounded-lg"
               placeholder="Product Name"
               value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, name: e.target.value })
+              }
             />
 
             <select
               className="border p-3 rounded-lg"
               value={form.categoryId}
-              onChange={(e) => setForm({ ...form, categoryId: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, categoryId: e.target.value })
+              }
             >
               <option value="">Select Category</option>
               {categories.map((c) => (
-                <option key={c.id} value={c.id}>{c.name}</option>
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
               ))}
             </select>
 
@@ -113,14 +148,18 @@ export default function ProductPage() {
               className="border p-3 rounded-lg"
               placeholder="Description (comma separated)"
               value={form.description}
-              onChange={(e) => setForm({ ...form, description: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, description: e.target.value })
+              }
             />
 
             <input
               className="border p-3 rounded-lg"
               placeholder="Highlights (comma separated)"
               value={form.highlights}
-              onChange={(e) => setForm({ ...form, highlights: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, highlights: e.target.value })
+              }
             />
 
             <input
@@ -128,7 +167,9 @@ export default function ProductPage() {
               type="number"
               placeholder="Price"
               value={form.price}
-              onChange={(e) => setForm({ ...form, price: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, price: e.target.value })
+              }
             />
 
             <input
@@ -136,17 +177,42 @@ export default function ProductPage() {
               type="number"
               placeholder="Stock"
               value={form.stock}
-              onChange={(e) => setForm({ ...form, stock: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, stock: e.target.value })
+              }
             />
           </div>
 
-          <button
-            onClick={handleCreate}
-            disabled={submitting}
-            className="mt-6 px-6 py-2 bg-blue-600 text-white rounded-xl flex items-center justify-center"
-          >
-            {submitting ? "Creating..." : "➕ Create Product"}
-          </button>
+          {/* BUTTONS */}
+          <div className="flex items-center mt-6">
+            <button
+              onClick={editingProduct ? handleUpdate : handleCreate}
+              disabled={submitting}
+              className={`px-6 py-2 text-white rounded-xl ${
+                editingProduct ? "bg-yellow-600" : "bg-blue-600"
+              }`}
+            >
+              {submitting
+                ? editingProduct
+                  ? "Updating..."
+                  : "Creating..."
+                : editingProduct
+                ? "✏️ Update Product"
+                : "➕ Create Product"}
+            </button>
+
+            {editingProduct && (
+              <button
+                onClick={() => {
+                  setEditingProduct(null);
+                  resetForm();
+                }}
+                className="ml-4 px-4 py-2 bg-gray-400 text-white rounded-xl"
+              >
+                Cancel
+              </button>
+            )}
+          </div>
         </div>
 
         {/* PRODUCT LIST */}
@@ -160,10 +226,6 @@ export default function ProductPage() {
                 <div className="h-6 bg-gray-300 rounded mb-2 w-3/4"></div>
                 <div className="h-4 bg-gray-200 rounded mb-2 w-1/2"></div>
                 <div className="h-20 bg-gray-200 rounded mb-2"></div>
-                <div className="flex gap-2">
-                  <div className="h-8 w-24 bg-gray-300 rounded"></div>
-                  <div className="h-8 w-24 bg-gray-300 rounded"></div>
-                </div>
               </div>
             ))}
           </div>
@@ -203,18 +265,40 @@ export default function ProductPage() {
                 {/* ACTIONS */}
                 <div className="flex justify-between items-center gap-2">
                   <Link href={`/product/${p.id}/images`}>
-                    <button className="px-3 py-1 bg-purple-500 text-white rounded-lg hover:bg-purple-600">
+                    <button className="px-3 py-1 bg-purple-500 text-white rounded-lg">
                       Manage Images
                     </button>
                   </Link>
 
-                  <button
-                    onClick={() => handleDelete(p.id)}
-                    disabled={deletingId === p.id}
-                    className="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600"
-                  >
-                    {deletingId === p.id ? "Deleting..." : "Delete"}
-                  </button>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={(e) => {
+                        window.scrollTo({top:0,behavior:"smooth"})
+                        setEditingProduct(p);
+                        setForm({
+                          name: p.name,
+                          description: p.description.join(", "),
+                          highlights: p.highlights.join(", "),
+                          price: p.price,
+                          stock: p.stock,
+                          categoryId: p.categoryId,
+                        });
+                      }}
+                      className="px-3 py-1 bg-yellow-500 text-white rounded-lg"
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      onClick={() => handleDelete(p.id)}
+                      disabled={deletingId === p.id}
+                      className="px-3 py-1 bg-red-500 text-white rounded-lg"
+                    >
+                      {deletingId === p.id
+                        ? "Deleting..."
+                        : "Delete"}
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}

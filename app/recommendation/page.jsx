@@ -7,7 +7,6 @@ export default function RecommendProducts() {
   const [recommended, setRecommended] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // fetch all data together (better performance)
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -39,11 +38,9 @@ export default function RecommendProducts() {
     fetchData();
   }, []);
 
-  // ⚡ Optimistic UI
   const toggleRecommend = async (productId) => {
     const isRecommended = recommended.includes(productId);
 
-    // instant UI update
     setRecommended((prev) =>
       isRecommended
         ? prev.filter((id) => id !== productId)
@@ -60,14 +57,14 @@ export default function RecommendProducts() {
       });
     } catch (err) {
       console.error(err);
-      fetchData(); // fallback if failed
+      fetchData();
     }
   };
 
-  // ✅ LOADING STATE
+  // 🔹 Skeleton Loader (Responsive)
   if (loading) {
     return (
-      <div className="p-6 grid grid-cols-3 gap-4">
+      <div className="p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {Array.from({ length: 6 }).map((_, i) => (
           <div
             key={i}
@@ -84,27 +81,27 @@ export default function RecommendProducts() {
   }
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">
+    <div className="p-4 sm:p-6 max-w-7xl mx-auto">
+      <h1 className="text-xl sm:text-2xl font-bold mb-4">
         Manage Recommended Products
       </h1>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {products.map((product) => {
           const isRecommended = recommended.includes(product.id);
 
           return (
             <div
               key={product.id}
-              className="border p-4 rounded-lg shadow"
+              className="border p-3 sm:p-4 rounded-lg shadow-sm hover:shadow-md transition"
             >
               <img
                 src={product.images?.[0]?.url}
-                alt=""
-                className="h-40 w-full object-cover rounded"
+                alt={product.name}
+                className="h-40 sm:h-44 w-full object-cover rounded"
               />
 
-              <h2 className="font-semibold mt-2">
+              <h2 className="font-semibold mt-2 text-sm sm:text-base line-clamp-1">
                 {product.name}
               </h2>
 
@@ -114,15 +111,15 @@ export default function RecommendProducts() {
 
               <button
                 onClick={() => toggleRecommend(product.id)}
-                className={`mt-3 w-full py-2 rounded ${
+                className={`mt-3 w-full py-2.5 text-sm sm:text-base rounded font-medium transition ${
                   isRecommended
-                    ? "bg-red-500 text-white"
-                    : "bg-green-500 text-white"
-                }`}
+                    ? "bg-red-500 active:bg-red-600"
+                    : "bg-green-500 active:bg-green-600"
+                } text-white`}
               >
                 {isRecommended
-                  ? "Remove Recommendation"
-                  : "Mark as Recommended"}
+                  ? "Remove"
+                  : "Recommend"}
               </button>
             </div>
           );
