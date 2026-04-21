@@ -9,6 +9,7 @@ function Header() {
         <Link href="/product">Product</Link>
         {/* <Link href="/product">Product</Link> */}
         <Link href="/recommendation">Recommendation</Link>
+        <Link href="/coupon">Coupon</Link>
 
       </nav>
     </header>

@@ -75,3 +75,29 @@ model RecommendedProduct {
 
   createdAt DateTime @default(now())
 }
+
+model Coupon {
+  id            String       @id @default(uuid())
+  code          String       @unique
+  discountType  DiscountType
+  discountValue Float
+
+  minAmount   Float? // optional condition
+  maxDiscount Float? // cap for % discount
+
+  startDate DateTime
+  endDate   DateTime
+
+  usageLimit Int? // total usage
+  usedCount  Int  @default(0)
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum DiscountType {
+  PERCENT
+  FLAT
+}
