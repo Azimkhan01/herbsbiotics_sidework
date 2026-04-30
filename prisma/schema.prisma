@@ -1,5 +1,3 @@
-// This is your Prisma schema file
-
 generator client {
   provider = "prisma-client-js"
   output   = "../lib/generated/prisma"
@@ -7,73 +5,59 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  // url      = env("DATABASE_URL")
 }
 
 model Category {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   name      String
-  slug      String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  products Product[]
+  slug      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  products  Product[]
 }
 
 model Product {
-  id   String @id @default(uuid())
-  name String
-
-  description String[] // ✅ bullet points
-  highlights  String[] // ✅ key points like "50gm", "Organic", etc.
-
-  price Float
-  stock Int   @default(0)
-
-  categoryId String
-  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-
-  images      Image[]
-  recommended RecommendedProduct?
+  id          String              @id @default(uuid())
+  name        String
+  price       Float
+  stock       Int                 @default(0)
+  categoryId  String
   createdAt   DateTime            @default(now())
   updatedAt   DateTime            @updatedAt
+  highlights  String[]
+  description String[]
+  images      Image[]
+  orderItem   OrderItem[]
+  category    Category            @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  recommended RecommendedProduct?
 
   @@index([categoryId])
 }
 
 model Image {
-  id String @id @default(uuid())
-
+  id        String   @id @default(uuid())
   productId String
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-
-  // Cloudinary Data
-  url      String // secure_url
-  publicId String // cloudinary public_id
-  format   String? // jpg, png, webp
-  width    Int?
-  height   Int?
-  size     Int? // bytes
-
-  // Optional extras (very useful)
+  url       String
+  publicId  String
+  format    String?
+  width     Int?
+  height    Int?
+  size      Int?
   altText   String?
-  isPrimary Boolean @default(false) // main product image
-  order     Int     @default(0) // for sorting images
-
+  isPrimary Boolean  @default(false)
+  order     Int      @default(0)
   createdAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@index([productId])
 }
 
 model RecommendedProduct {
-  id String @id @default(uuid())
-
-  productId String  @unique
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-
-  status Boolean @default(true) // true = recommended, false = not
-
+  id        String   @id @default(uuid())
+  productId String   @unique
+  status    Boolean  @default(true)
   createdAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model Coupon {
@@ -81,23 +65,56 @@ model Coupon {
   code          String       @unique
   discountType  DiscountType
   discountValue Float
+  minAmount     Float?
+  maxDiscount   Float?
+  startDate     DateTime
+  endDate       DateTime
+  usageLimit    Int?
+  usedCount     Int          @default(0)
+  isActive      Boolean      @default(true)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
 
-  minAmount   Float? // optional condition
-  maxDiscount Float? // cap for % discount
+model Order {
+  id                  String        @id @default(cuid())
+  firstName           String
+  lastName            String
+  address             String
+  phone               String
+  email               String
+  subtotal            Float
+  gst                 Float
+  total               Float
+  razorpay_order_id   String?       @unique
+  razorpay_payment_id String?
+  razorpay_signature  String?
+  payment_status      PaymentStatus @default(PENDING)
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  items               OrderItem[]
+}
 
-  startDate DateTime
-  endDate   DateTime
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Decimal
+  Order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  Product   Product @relation(fields: [productId], references: [id])
 
-  usageLimit Int? // total usage
-  usedCount  Int  @default(0)
-
-  isActive Boolean @default(true)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  @@index([orderId])
+  @@index([productId])
 }
 
 enum DiscountType {
   PERCENT
   FLAT
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
 }
