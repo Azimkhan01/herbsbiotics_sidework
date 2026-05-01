@@ -15,7 +15,16 @@ async function getOrders() {
     },
   });
 
-  return orders;
+  // 🔥 SERIALIZE HERE
+  const safeOrders = orders.map((order) => ({
+    ...order,
+    items: order.items.map((item) => ({
+      ...item,
+      price: Number(item.price), // ✅ FIX Decimal
+    })),
+  }));
+
+  return safeOrders;
 }
 
 export default async function Page() {

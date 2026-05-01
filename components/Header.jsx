@@ -10,6 +10,7 @@ function Header() {
         {/* <Link href="/product">Product</Link> */}
         <Link href="/recommendation">Recommendation</Link>
         <Link href="/coupon">Coupon</Link>
+        <Link href="/orders">Orders</Link>
 
       </nav>
     </header>
