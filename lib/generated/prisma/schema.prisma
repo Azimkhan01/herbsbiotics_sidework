@@ -122,22 +122,30 @@ enum PaymentStatus {
 }
 
 model Offer {
-  id          String  @id @default(uuid())
+  id String @id @default(uuid())
+
   title       String
-  slug        String  @unique
   description String?
 
   discountType  DiscountType
   discountValue Float
 
+  applyType OfferApplyType
+
+  // NEW
+
+  minQuantity Int?
+
+  minAmount Float?
+
+  maxDiscount Float?
+
+  priority Int @default(0)
+
   startDate DateTime
   endDate   DateTime
 
   isActive Boolean @default(true)
-
-  bannerImage String?
-
-  applyType OfferApplyType
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -173,7 +181,8 @@ model OfferCategory {
 }
 
 enum OfferApplyType {
+  ALL
   PRODUCT
   CATEGORY
-  ALL
+  BULK
 }

@@ -86,9 +86,10 @@ export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
 
 
 export const OfferApplyType: {
+  ALL: 'ALL',
   PRODUCT: 'PRODUCT',
   CATEGORY: 'CATEGORY',
-  ALL: 'ALL'
+  BULK: 'BULK'
 };
 
 export type OfferApplyType = (typeof OfferApplyType)[keyof typeof OfferApplyType]
@@ -10018,24 +10019,34 @@ export namespace Prisma {
 
   export type OfferAvgAggregateOutputType = {
     discountValue: number | null
+    minQuantity: number | null
+    minAmount: number | null
+    maxDiscount: number | null
+    priority: number | null
   }
 
   export type OfferSumAggregateOutputType = {
     discountValue: number | null
+    minQuantity: number | null
+    minAmount: number | null
+    maxDiscount: number | null
+    priority: number | null
   }
 
   export type OfferMinAggregateOutputType = {
     id: string | null
     title: string | null
-    slug: string | null
     description: string | null
     discountType: $Enums.DiscountType | null
     discountValue: number | null
+    applyType: $Enums.OfferApplyType | null
+    minQuantity: number | null
+    minAmount: number | null
+    maxDiscount: number | null
+    priority: number | null
     startDate: Date | null
     endDate: Date | null
     isActive: boolean | null
-    bannerImage: string | null
-    applyType: $Enums.OfferApplyType | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -10043,15 +10054,17 @@ export namespace Prisma {
   export type OfferMaxAggregateOutputType = {
     id: string | null
     title: string | null
-    slug: string | null
     description: string | null
     discountType: $Enums.DiscountType | null
     discountValue: number | null
+    applyType: $Enums.OfferApplyType | null
+    minQuantity: number | null
+    minAmount: number | null
+    maxDiscount: number | null
+    priority: number | null
     startDate: Date | null
     endDate: Date | null
     isActive: boolean | null
-    bannerImage: string | null
-    applyType: $Enums.OfferApplyType | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -10059,15 +10072,17 @@ export namespace Prisma {
   export type OfferCountAggregateOutputType = {
     id: number
     title: number
-    slug: number
     description: number
     discountType: number
     discountValue: number
+    applyType: number
+    minQuantity: number
+    minAmount: number
+    maxDiscount: number
+    priority: number
     startDate: number
     endDate: number
     isActive: number
-    bannerImage: number
-    applyType: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -10076,24 +10091,34 @@ export namespace Prisma {
 
   export type OfferAvgAggregateInputType = {
     discountValue?: true
+    minQuantity?: true
+    minAmount?: true
+    maxDiscount?: true
+    priority?: true
   }
 
   export type OfferSumAggregateInputType = {
     discountValue?: true
+    minQuantity?: true
+    minAmount?: true
+    maxDiscount?: true
+    priority?: true
   }
 
   export type OfferMinAggregateInputType = {
     id?: true
     title?: true
-    slug?: true
     description?: true
     discountType?: true
     discountValue?: true
+    applyType?: true
+    minQuantity?: true
+    minAmount?: true
+    maxDiscount?: true
+    priority?: true
     startDate?: true
     endDate?: true
     isActive?: true
-    bannerImage?: true
-    applyType?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -10101,15 +10126,17 @@ export namespace Prisma {
   export type OfferMaxAggregateInputType = {
     id?: true
     title?: true
-    slug?: true
     description?: true
     discountType?: true
     discountValue?: true
+    applyType?: true
+    minQuantity?: true
+    minAmount?: true
+    maxDiscount?: true
+    priority?: true
     startDate?: true
     endDate?: true
     isActive?: true
-    bannerImage?: true
-    applyType?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -10117,15 +10144,17 @@ export namespace Prisma {
   export type OfferCountAggregateInputType = {
     id?: true
     title?: true
-    slug?: true
     description?: true
     discountType?: true
     discountValue?: true
+    applyType?: true
+    minQuantity?: true
+    minAmount?: true
+    maxDiscount?: true
+    priority?: true
     startDate?: true
     endDate?: true
     isActive?: true
-    bannerImage?: true
-    applyType?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -10220,15 +10249,17 @@ export namespace Prisma {
   export type OfferGroupByOutputType = {
     id: string
     title: string
-    slug: string
     description: string | null
     discountType: $Enums.DiscountType
     discountValue: number
+    applyType: $Enums.OfferApplyType
+    minQuantity: number | null
+    minAmount: number | null
+    maxDiscount: number | null
+    priority: number
     startDate: Date
     endDate: Date
     isActive: boolean
-    bannerImage: string | null
-    applyType: $Enums.OfferApplyType
     createdAt: Date
     updatedAt: Date
     _count: OfferCountAggregateOutputType | null
@@ -10255,15 +10286,17 @@ export namespace Prisma {
   export type OfferSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    slug?: boolean
     description?: boolean
     discountType?: boolean
     discountValue?: boolean
+    applyType?: boolean
+    minQuantity?: boolean
+    minAmount?: boolean
+    maxDiscount?: boolean
+    priority?: boolean
     startDate?: boolean
     endDate?: boolean
     isActive?: boolean
-    bannerImage?: boolean
-    applyType?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     products?: boolean | Offer$productsArgs<ExtArgs>
@@ -10274,15 +10307,17 @@ export namespace Prisma {
   export type OfferSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    slug?: boolean
     description?: boolean
     discountType?: boolean
     discountValue?: boolean
+    applyType?: boolean
+    minQuantity?: boolean
+    minAmount?: boolean
+    maxDiscount?: boolean
+    priority?: boolean
     startDate?: boolean
     endDate?: boolean
     isActive?: boolean
-    bannerImage?: boolean
-    applyType?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["offer"]>
@@ -10290,15 +10325,17 @@ export namespace Prisma {
   export type OfferSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    slug?: boolean
     description?: boolean
     discountType?: boolean
     discountValue?: boolean
+    applyType?: boolean
+    minQuantity?: boolean
+    minAmount?: boolean
+    maxDiscount?: boolean
+    priority?: boolean
     startDate?: boolean
     endDate?: boolean
     isActive?: boolean
-    bannerImage?: boolean
-    applyType?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["offer"]>
@@ -10306,20 +10343,22 @@ export namespace Prisma {
   export type OfferSelectScalar = {
     id?: boolean
     title?: boolean
-    slug?: boolean
     description?: boolean
     discountType?: boolean
     discountValue?: boolean
+    applyType?: boolean
+    minQuantity?: boolean
+    minAmount?: boolean
+    maxDiscount?: boolean
+    priority?: boolean
     startDate?: boolean
     endDate?: boolean
     isActive?: boolean
-    bannerImage?: boolean
-    applyType?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type OfferOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "description" | "discountType" | "discountValue" | "startDate" | "endDate" | "isActive" | "bannerImage" | "applyType" | "createdAt" | "updatedAt", ExtArgs["result"]["offer"]>
+  export type OfferOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "discountType" | "discountValue" | "applyType" | "minQuantity" | "minAmount" | "maxDiscount" | "priority" | "startDate" | "endDate" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["offer"]>
   export type OfferInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     products?: boolean | Offer$productsArgs<ExtArgs>
     categories?: boolean | Offer$categoriesArgs<ExtArgs>
@@ -10337,15 +10376,17 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
-      slug: string
       description: string | null
       discountType: $Enums.DiscountType
       discountValue: number
+      applyType: $Enums.OfferApplyType
+      minQuantity: number | null
+      minAmount: number | null
+      maxDiscount: number | null
+      priority: number
       startDate: Date
       endDate: Date
       isActive: boolean
-      bannerImage: string | null
-      applyType: $Enums.OfferApplyType
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["offer"]>
@@ -10775,15 +10816,17 @@ export namespace Prisma {
   interface OfferFieldRefs {
     readonly id: FieldRef<"Offer", 'String'>
     readonly title: FieldRef<"Offer", 'String'>
-    readonly slug: FieldRef<"Offer", 'String'>
     readonly description: FieldRef<"Offer", 'String'>
     readonly discountType: FieldRef<"Offer", 'DiscountType'>
     readonly discountValue: FieldRef<"Offer", 'Float'>
+    readonly applyType: FieldRef<"Offer", 'OfferApplyType'>
+    readonly minQuantity: FieldRef<"Offer", 'Int'>
+    readonly minAmount: FieldRef<"Offer", 'Float'>
+    readonly maxDiscount: FieldRef<"Offer", 'Float'>
+    readonly priority: FieldRef<"Offer", 'Int'>
     readonly startDate: FieldRef<"Offer", 'DateTime'>
     readonly endDate: FieldRef<"Offer", 'DateTime'>
     readonly isActive: FieldRef<"Offer", 'Boolean'>
-    readonly bannerImage: FieldRef<"Offer", 'String'>
-    readonly applyType: FieldRef<"Offer", 'OfferApplyType'>
     readonly createdAt: FieldRef<"Offer", 'DateTime'>
     readonly updatedAt: FieldRef<"Offer", 'DateTime'>
   }
@@ -13457,15 +13500,17 @@ export namespace Prisma {
   export const OfferScalarFieldEnum: {
     id: 'id',
     title: 'title',
-    slug: 'slug',
     description: 'description',
     discountType: 'discountType',
     discountValue: 'discountValue',
+    applyType: 'applyType',
+    minQuantity: 'minQuantity',
+    minAmount: 'minAmount',
+    maxDiscount: 'maxDiscount',
+    priority: 'priority',
     startDate: 'startDate',
     endDate: 'endDate',
     isActive: 'isActive',
-    bannerImage: 'bannerImage',
-    applyType: 'applyType',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -14198,15 +14243,17 @@ export namespace Prisma {
     NOT?: OfferWhereInput | OfferWhereInput[]
     id?: StringFilter<"Offer"> | string
     title?: StringFilter<"Offer"> | string
-    slug?: StringFilter<"Offer"> | string
     description?: StringNullableFilter<"Offer"> | string | null
     discountType?: EnumDiscountTypeFilter<"Offer"> | $Enums.DiscountType
     discountValue?: FloatFilter<"Offer"> | number
+    applyType?: EnumOfferApplyTypeFilter<"Offer"> | $Enums.OfferApplyType
+    minQuantity?: IntNullableFilter<"Offer"> | number | null
+    minAmount?: FloatNullableFilter<"Offer"> | number | null
+    maxDiscount?: FloatNullableFilter<"Offer"> | number | null
+    priority?: IntFilter<"Offer"> | number
     startDate?: DateTimeFilter<"Offer"> | Date | string
     endDate?: DateTimeFilter<"Offer"> | Date | string
     isActive?: BoolFilter<"Offer"> | boolean
-    bannerImage?: StringNullableFilter<"Offer"> | string | null
-    applyType?: EnumOfferApplyTypeFilter<"Offer"> | $Enums.OfferApplyType
     createdAt?: DateTimeFilter<"Offer"> | Date | string
     updatedAt?: DateTimeFilter<"Offer"> | Date | string
     products?: OfferProductListRelationFilter
@@ -14216,15 +14263,17 @@ export namespace Prisma {
   export type OfferOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
-    slug?: SortOrder
     description?: SortOrderInput | SortOrder
     discountType?: SortOrder
     discountValue?: SortOrder
+    applyType?: SortOrder
+    minQuantity?: SortOrderInput | SortOrder
+    minAmount?: SortOrderInput | SortOrder
+    maxDiscount?: SortOrderInput | SortOrder
+    priority?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     isActive?: SortOrder
-    bannerImage?: SortOrderInput | SortOrder
-    applyType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     products?: OfferProductOrderByRelationAggregateInput
@@ -14233,7 +14282,6 @@ export namespace Prisma {
 
   export type OfferWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    slug?: string
     AND?: OfferWhereInput | OfferWhereInput[]
     OR?: OfferWhereInput[]
     NOT?: OfferWhereInput | OfferWhereInput[]
@@ -14241,29 +14289,34 @@ export namespace Prisma {
     description?: StringNullableFilter<"Offer"> | string | null
     discountType?: EnumDiscountTypeFilter<"Offer"> | $Enums.DiscountType
     discountValue?: FloatFilter<"Offer"> | number
+    applyType?: EnumOfferApplyTypeFilter<"Offer"> | $Enums.OfferApplyType
+    minQuantity?: IntNullableFilter<"Offer"> | number | null
+    minAmount?: FloatNullableFilter<"Offer"> | number | null
+    maxDiscount?: FloatNullableFilter<"Offer"> | number | null
+    priority?: IntFilter<"Offer"> | number
     startDate?: DateTimeFilter<"Offer"> | Date | string
     endDate?: DateTimeFilter<"Offer"> | Date | string
     isActive?: BoolFilter<"Offer"> | boolean
-    bannerImage?: StringNullableFilter<"Offer"> | string | null
-    applyType?: EnumOfferApplyTypeFilter<"Offer"> | $Enums.OfferApplyType
     createdAt?: DateTimeFilter<"Offer"> | Date | string
     updatedAt?: DateTimeFilter<"Offer"> | Date | string
     products?: OfferProductListRelationFilter
     categories?: OfferCategoryListRelationFilter
-  }, "id" | "slug">
+  }, "id">
 
   export type OfferOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
-    slug?: SortOrder
     description?: SortOrderInput | SortOrder
     discountType?: SortOrder
     discountValue?: SortOrder
+    applyType?: SortOrder
+    minQuantity?: SortOrderInput | SortOrder
+    minAmount?: SortOrderInput | SortOrder
+    maxDiscount?: SortOrderInput | SortOrder
+    priority?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     isActive?: SortOrder
-    bannerImage?: SortOrderInput | SortOrder
-    applyType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: OfferCountOrderByAggregateInput
@@ -14279,15 +14332,17 @@ export namespace Prisma {
     NOT?: OfferScalarWhereWithAggregatesInput | OfferScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Offer"> | string
     title?: StringWithAggregatesFilter<"Offer"> | string
-    slug?: StringWithAggregatesFilter<"Offer"> | string
     description?: StringNullableWithAggregatesFilter<"Offer"> | string | null
     discountType?: EnumDiscountTypeWithAggregatesFilter<"Offer"> | $Enums.DiscountType
     discountValue?: FloatWithAggregatesFilter<"Offer"> | number
+    applyType?: EnumOfferApplyTypeWithAggregatesFilter<"Offer"> | $Enums.OfferApplyType
+    minQuantity?: IntNullableWithAggregatesFilter<"Offer"> | number | null
+    minAmount?: FloatNullableWithAggregatesFilter<"Offer"> | number | null
+    maxDiscount?: FloatNullableWithAggregatesFilter<"Offer"> | number | null
+    priority?: IntWithAggregatesFilter<"Offer"> | number
     startDate?: DateTimeWithAggregatesFilter<"Offer"> | Date | string
     endDate?: DateTimeWithAggregatesFilter<"Offer"> | Date | string
     isActive?: BoolWithAggregatesFilter<"Offer"> | boolean
-    bannerImage?: StringNullableWithAggregatesFilter<"Offer"> | string | null
-    applyType?: EnumOfferApplyTypeWithAggregatesFilter<"Offer"> | $Enums.OfferApplyType
     createdAt?: DateTimeWithAggregatesFilter<"Offer"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Offer"> | Date | string
   }
@@ -15004,15 +15059,17 @@ export namespace Prisma {
   export type OfferCreateInput = {
     id?: string
     title: string
-    slug: string
     description?: string | null
     discountType: $Enums.DiscountType
     discountValue: number
+    applyType: $Enums.OfferApplyType
+    minQuantity?: number | null
+    minAmount?: number | null
+    maxDiscount?: number | null
+    priority?: number
     startDate: Date | string
     endDate: Date | string
     isActive?: boolean
-    bannerImage?: string | null
-    applyType: $Enums.OfferApplyType
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: OfferProductCreateNestedManyWithoutOfferInput
@@ -15022,15 +15079,17 @@ export namespace Prisma {
   export type OfferUncheckedCreateInput = {
     id?: string
     title: string
-    slug: string
     description?: string | null
     discountType: $Enums.DiscountType
     discountValue: number
+    applyType: $Enums.OfferApplyType
+    minQuantity?: number | null
+    minAmount?: number | null
+    maxDiscount?: number | null
+    priority?: number
     startDate: Date | string
     endDate: Date | string
     isActive?: boolean
-    bannerImage?: string | null
-    applyType: $Enums.OfferApplyType
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: OfferProductUncheckedCreateNestedManyWithoutOfferInput
@@ -15040,15 +15099,17 @@ export namespace Prisma {
   export type OfferUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     discountType?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
     discountValue?: FloatFieldUpdateOperationsInput | number
+    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
+    minQuantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxDiscount?: NullableFloatFieldUpdateOperationsInput | number | null
+    priority?: IntFieldUpdateOperationsInput | number
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    bannerImage?: NullableStringFieldUpdateOperationsInput | string | null
-    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: OfferProductUpdateManyWithoutOfferNestedInput
@@ -15058,15 +15119,17 @@ export namespace Prisma {
   export type OfferUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     discountType?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
     discountValue?: FloatFieldUpdateOperationsInput | number
+    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
+    minQuantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxDiscount?: NullableFloatFieldUpdateOperationsInput | number | null
+    priority?: IntFieldUpdateOperationsInput | number
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    bannerImage?: NullableStringFieldUpdateOperationsInput | string | null
-    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: OfferProductUncheckedUpdateManyWithoutOfferNestedInput
@@ -15076,15 +15139,17 @@ export namespace Prisma {
   export type OfferCreateManyInput = {
     id?: string
     title: string
-    slug: string
     description?: string | null
     discountType: $Enums.DiscountType
     discountValue: number
+    applyType: $Enums.OfferApplyType
+    minQuantity?: number | null
+    minAmount?: number | null
+    maxDiscount?: number | null
+    priority?: number
     startDate: Date | string
     endDate: Date | string
     isActive?: boolean
-    bannerImage?: string | null
-    applyType: $Enums.OfferApplyType
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -15092,15 +15157,17 @@ export namespace Prisma {
   export type OfferUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     discountType?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
     discountValue?: FloatFieldUpdateOperationsInput | number
+    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
+    minQuantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxDiscount?: NullableFloatFieldUpdateOperationsInput | number | null
+    priority?: IntFieldUpdateOperationsInput | number
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    bannerImage?: NullableStringFieldUpdateOperationsInput | string | null
-    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15108,15 +15175,17 @@ export namespace Prisma {
   export type OfferUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     discountType?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
     discountValue?: FloatFieldUpdateOperationsInput | number
+    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
+    minQuantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxDiscount?: NullableFloatFieldUpdateOperationsInput | number | null
+    priority?: IntFieldUpdateOperationsInput | number
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    bannerImage?: NullableStringFieldUpdateOperationsInput | string | null
-    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15877,35 +15946,43 @@ export namespace Prisma {
   export type OfferCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    slug?: SortOrder
     description?: SortOrder
     discountType?: SortOrder
     discountValue?: SortOrder
+    applyType?: SortOrder
+    minQuantity?: SortOrder
+    minAmount?: SortOrder
+    maxDiscount?: SortOrder
+    priority?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     isActive?: SortOrder
-    bannerImage?: SortOrder
-    applyType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type OfferAvgOrderByAggregateInput = {
     discountValue?: SortOrder
+    minQuantity?: SortOrder
+    minAmount?: SortOrder
+    maxDiscount?: SortOrder
+    priority?: SortOrder
   }
 
   export type OfferMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    slug?: SortOrder
     description?: SortOrder
     discountType?: SortOrder
     discountValue?: SortOrder
+    applyType?: SortOrder
+    minQuantity?: SortOrder
+    minAmount?: SortOrder
+    maxDiscount?: SortOrder
+    priority?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     isActive?: SortOrder
-    bannerImage?: SortOrder
-    applyType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -15913,21 +15990,27 @@ export namespace Prisma {
   export type OfferMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    slug?: SortOrder
     description?: SortOrder
     discountType?: SortOrder
     discountValue?: SortOrder
+    applyType?: SortOrder
+    minQuantity?: SortOrder
+    minAmount?: SortOrder
+    maxDiscount?: SortOrder
+    priority?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     isActive?: SortOrder
-    bannerImage?: SortOrder
-    applyType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type OfferSumOrderByAggregateInput = {
     discountValue?: SortOrder
+    minQuantity?: SortOrder
+    minAmount?: SortOrder
+    maxDiscount?: SortOrder
+    priority?: SortOrder
   }
 
   export type EnumOfferApplyTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -17664,15 +17747,17 @@ export namespace Prisma {
   export type OfferCreateWithoutProductsInput = {
     id?: string
     title: string
-    slug: string
     description?: string | null
     discountType: $Enums.DiscountType
     discountValue: number
+    applyType: $Enums.OfferApplyType
+    minQuantity?: number | null
+    minAmount?: number | null
+    maxDiscount?: number | null
+    priority?: number
     startDate: Date | string
     endDate: Date | string
     isActive?: boolean
-    bannerImage?: string | null
-    applyType: $Enums.OfferApplyType
     createdAt?: Date | string
     updatedAt?: Date | string
     categories?: OfferCategoryCreateNestedManyWithoutOfferInput
@@ -17681,15 +17766,17 @@ export namespace Prisma {
   export type OfferUncheckedCreateWithoutProductsInput = {
     id?: string
     title: string
-    slug: string
     description?: string | null
     discountType: $Enums.DiscountType
     discountValue: number
+    applyType: $Enums.OfferApplyType
+    minQuantity?: number | null
+    minAmount?: number | null
+    maxDiscount?: number | null
+    priority?: number
     startDate: Date | string
     endDate: Date | string
     isActive?: boolean
-    bannerImage?: string | null
-    applyType: $Enums.OfferApplyType
     createdAt?: Date | string
     updatedAt?: Date | string
     categories?: OfferCategoryUncheckedCreateNestedManyWithoutOfferInput
@@ -17749,15 +17836,17 @@ export namespace Prisma {
   export type OfferUpdateWithoutProductsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     discountType?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
     discountValue?: FloatFieldUpdateOperationsInput | number
+    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
+    minQuantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxDiscount?: NullableFloatFieldUpdateOperationsInput | number | null
+    priority?: IntFieldUpdateOperationsInput | number
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    bannerImage?: NullableStringFieldUpdateOperationsInput | string | null
-    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categories?: OfferCategoryUpdateManyWithoutOfferNestedInput
@@ -17766,15 +17855,17 @@ export namespace Prisma {
   export type OfferUncheckedUpdateWithoutProductsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     discountType?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
     discountValue?: FloatFieldUpdateOperationsInput | number
+    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
+    minQuantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxDiscount?: NullableFloatFieldUpdateOperationsInput | number | null
+    priority?: IntFieldUpdateOperationsInput | number
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    bannerImage?: NullableStringFieldUpdateOperationsInput | string | null
-    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categories?: OfferCategoryUncheckedUpdateManyWithoutOfferNestedInput
@@ -17824,15 +17915,17 @@ export namespace Prisma {
   export type OfferCreateWithoutCategoriesInput = {
     id?: string
     title: string
-    slug: string
     description?: string | null
     discountType: $Enums.DiscountType
     discountValue: number
+    applyType: $Enums.OfferApplyType
+    minQuantity?: number | null
+    minAmount?: number | null
+    maxDiscount?: number | null
+    priority?: number
     startDate: Date | string
     endDate: Date | string
     isActive?: boolean
-    bannerImage?: string | null
-    applyType: $Enums.OfferApplyType
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: OfferProductCreateNestedManyWithoutOfferInput
@@ -17841,15 +17934,17 @@ export namespace Prisma {
   export type OfferUncheckedCreateWithoutCategoriesInput = {
     id?: string
     title: string
-    slug: string
     description?: string | null
     discountType: $Enums.DiscountType
     discountValue: number
+    applyType: $Enums.OfferApplyType
+    minQuantity?: number | null
+    minAmount?: number | null
+    maxDiscount?: number | null
+    priority?: number
     startDate: Date | string
     endDate: Date | string
     isActive?: boolean
-    bannerImage?: string | null
-    applyType: $Enums.OfferApplyType
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: OfferProductUncheckedCreateNestedManyWithoutOfferInput
@@ -17897,15 +17992,17 @@ export namespace Prisma {
   export type OfferUpdateWithoutCategoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     discountType?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
     discountValue?: FloatFieldUpdateOperationsInput | number
+    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
+    minQuantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxDiscount?: NullableFloatFieldUpdateOperationsInput | number | null
+    priority?: IntFieldUpdateOperationsInput | number
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    bannerImage?: NullableStringFieldUpdateOperationsInput | string | null
-    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: OfferProductUpdateManyWithoutOfferNestedInput
@@ -17914,15 +18011,17 @@ export namespace Prisma {
   export type OfferUncheckedUpdateWithoutCategoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     discountType?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
     discountValue?: FloatFieldUpdateOperationsInput | number
+    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
+    minQuantity?: NullableIntFieldUpdateOperationsInput | number | null
+    minAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxDiscount?: NullableFloatFieldUpdateOperationsInput | number | null
+    priority?: IntFieldUpdateOperationsInput | number
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    bannerImage?: NullableStringFieldUpdateOperationsInput | string | null
-    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: OfferProductUncheckedUpdateManyWithoutOfferNestedInput

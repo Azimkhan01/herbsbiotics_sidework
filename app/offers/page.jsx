@@ -9,9 +9,11 @@ function Page() {
 
   const [products, setProducts] = useState([]);
 
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] =
+    useState([]);
 
-  const [editingId, setEditingId] = useState(null);
+  const [editingId, setEditingId] =
+    useState(null);
 
   const [productSearch, setProductSearch] =
     useState("");
@@ -19,21 +21,34 @@ function Page() {
   const [categorySearch, setCategorySearch] =
     useState("");
 
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
+  const [formData, setFormData] =
+    useState({
+      title: "",
 
-    discountType: "PERCENT",
-    discountValue: "",
+      description: "",
 
-    applyType: "ALL",
+      discountType: "PERCENT",
 
-    startDate: "",
-    endDate: "",
+      discountValue: "",
 
-    productIds: [],
-    categoryIds: [],
-  });
+      applyType: "ALL",
+
+      startDate: "",
+
+      endDate: "",
+
+      productIds: [],
+
+      categoryIds: [],
+
+      // BULK OFFER
+
+      minQuantity: "",
+
+      minAmount: "",
+
+      maxDiscount: "",
+    });
 
   // ================= FETCH =================
 
@@ -75,7 +90,9 @@ function Page() {
 
   useEffect(() => {
     fetchOffers();
+
     fetchProducts();
+
     fetchCategories();
   }, []);
 
@@ -115,7 +132,9 @@ function Page() {
     setFormData((prev) => ({
       ...prev,
 
-      productIds: prev.productIds.includes(id)
+      productIds: prev.productIds.includes(
+        id
+      )
         ? prev.productIds.filter(
             (item) => item !== id
           )
@@ -166,6 +185,18 @@ function Page() {
           discountValue: Number(
             formData.discountValue
           ),
+
+          minQuantity: Number(
+            formData.minQuantity
+          ),
+
+          minAmount: Number(
+            formData.minAmount
+          ),
+
+          maxDiscount: Number(
+            formData.maxDiscount
+          ),
         }),
       });
 
@@ -173,18 +204,28 @@ function Page() {
 
       setFormData({
         title: "",
+
         description: "",
 
         discountType: "PERCENT",
+
         discountValue: "",
 
         applyType: "ALL",
 
         startDate: "",
+
         endDate: "",
 
         productIds: [],
+
         categoryIds: [],
+
+        minQuantity: "",
+
+        minAmount: "",
+
+        maxDiscount: "",
       });
 
       fetchOffers();
@@ -242,10 +283,23 @@ function Page() {
         offer.categories?.map(
           (item) => item.categoryId
         ) || [],
+
+      minQuantity: String(
+        offer.minQuantity || ""
+      ),
+
+      minAmount: String(
+        offer.minAmount || ""
+      ),
+
+      maxDiscount: String(
+        offer.maxDiscount || ""
+      ),
     });
 
     window.scrollTo({
       top: 0,
+
       behavior: "smooth",
     });
   };
@@ -262,8 +316,9 @@ function Page() {
 
           <p className="text-zinc-400 mt-3">
             Create product discounts,
-            category offers and
-            sitewide campaigns
+            category offers, bulk
+            quantity discounts and
+            storewide campaigns
           </p>
         </div>
 
@@ -291,13 +346,15 @@ function Page() {
               className="bg-zinc-950 border border-zinc-800 rounded-2xl p-4 outline-none"
             />
 
-            {/* DISCOUNT */}
+            {/* DISCOUNT VALUE */}
 
             <input
               type="number"
               name="discountValue"
               placeholder="Discount value"
-              value={formData.discountValue}
+              value={
+                formData.discountValue
+              }
               onChange={handleChange}
               className="bg-zinc-950 border border-zinc-800 rounded-2xl p-4 outline-none"
             />
@@ -306,7 +363,9 @@ function Page() {
 
             <select
               name="discountType"
-              value={formData.discountType}
+              value={
+                formData.discountType
+              }
               onChange={handleChange}
               className="bg-zinc-950 border border-zinc-800 rounded-2xl p-4 outline-none"
             >
@@ -315,7 +374,7 @@ function Page() {
               </option>
 
               <option value="FLAT">
-                Flat
+                Flat Amount
               </option>
             </select>
 
@@ -337,6 +396,10 @@ function Page() {
 
               <option value="CATEGORY">
                 Category Offer
+              </option>
+
+              <option value="BULK">
+                Bulk Quantity Offer
               </option>
             </select>
 
@@ -369,6 +432,46 @@ function Page() {
               onChange={handleChange}
               className="md:col-span-2 bg-zinc-950 border border-zinc-800 rounded-2xl p-4 outline-none min-h-[120px]"
             />
+
+            {/* ================= BULK OFFER ================= */}
+
+            {formData.applyType ===
+              "BULK" && (
+              <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-5">
+                <input
+                  type="number"
+                  name="minQuantity"
+                  placeholder="Minimum quantity"
+                  value={
+                    formData.minQuantity
+                  }
+                  onChange={handleChange}
+                  className="bg-zinc-950 border border-zinc-800 rounded-2xl p-4 outline-none"
+                />
+
+                <input
+                  type="number"
+                  name="minAmount"
+                  placeholder="Minimum amount"
+                  value={
+                    formData.minAmount
+                  }
+                  onChange={handleChange}
+                  className="bg-zinc-950 border border-zinc-800 rounded-2xl p-4 outline-none"
+                />
+
+                <input
+                  type="number"
+                  name="maxDiscount"
+                  placeholder="Maximum discount"
+                  value={
+                    formData.maxDiscount
+                  }
+                  onChange={handleChange}
+                  className="bg-zinc-950 border border-zinc-800 rounded-2xl p-4 outline-none"
+                />
+              </div>
+            )}
 
             {/* ================= PRODUCTS ================= */}
 
@@ -427,28 +530,25 @@ function Page() {
                           formData.productIds.includes(
                             product.id
                           )
-                            ? "bg-white text-black border-white scale-[0.98]"
+                            ? "bg-white text-black border-white"
                             : "border-zinc-700 bg-zinc-950 hover:border-zinc-500"
                         }`}
                       >
-                        <div>
-                          <h3 className="font-medium text-sm line-clamp-1">
-                            {product.name}
-                          </h3>
+                        <h3 className="font-medium text-sm line-clamp-1">
+                          {product.name}
+                        </h3>
 
-                          <p className="text-xs opacity-70 mt-2">
-                            ₹
-                            {product.price}
-                          </p>
+                        <p className="text-xs opacity-70 mt-2">
+                          ₹
+                          {product.price}
+                        </p>
 
-                          <p className="text-xs opacity-50 mt-1">
-                            {
-                              product
-                                .category
-                                ?.name
-                            }
-                          </p>
-                        </div>
+                        <p className="text-xs opacity-50 mt-1">
+                          {
+                            product.category
+                              ?.name
+                          }
+                        </p>
                       </button>
                     )
                   )}
@@ -514,23 +614,21 @@ function Page() {
                           formData.categoryIds.includes(
                             category.id
                           )
-                            ? "bg-white text-black border-white scale-[0.98]"
+                            ? "bg-white text-black border-white"
                             : "border-zinc-700 bg-zinc-950 hover:border-zinc-500"
                         }`}
                       >
-                        <div>
-                          <h3 className="font-medium text-sm">
-                            {
-                              category.name
-                            }
-                          </h3>
+                        <h3 className="font-medium text-sm">
+                          {
+                            category.name
+                          }
+                        </h3>
 
-                          <p className="text-xs opacity-60 mt-2">
-                            {
-                              category.slug
-                            }
-                          </p>
-                        </div>
+                        <p className="text-xs opacity-60 mt-2">
+                          {
+                            category.slug
+                          }
+                        </p>
                       </button>
                     )
                   )}
@@ -582,6 +680,41 @@ function Page() {
                       {offer.applyType}
                     </span>
                   </div>
+
+                  {/* BULK DETAILS */}
+
+                  {offer.applyType ===
+                    "BULK" && (
+                    <div className="mt-5 flex flex-wrap gap-3">
+                      <span className="bg-purple-500/20 text-purple-400 px-4 py-2 rounded-full text-sm">
+                        Min Qty:
+                        {" "}
+                        {
+                          offer.minQuantity
+                        }
+                      </span>
+
+                      <span className="bg-yellow-500/20 text-yellow-400 px-4 py-2 rounded-full text-sm">
+                        Min Amount:
+                        {" "}
+                        ₹
+                        {
+                          offer.minAmount
+                        }
+                      </span>
+
+                      {offer.maxDiscount && (
+                        <span className="bg-red-500/20 text-red-400 px-4 py-2 rounded-full text-sm">
+                          Max Discount:
+                          {" "}
+                          ₹
+                          {
+                            offer.maxDiscount
+                          }
+                        </span>
+                      )}
+                    </div>
+                  )}
 
                   {/* PRODUCTS */}
 

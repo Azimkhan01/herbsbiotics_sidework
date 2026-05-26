@@ -8,13 +8,13 @@ datasource db {
 }
 
 model Category {
-  id        String    @id @default(uuid())
+  id        String          @id @default(uuid())
   name      String
-  slug      String    @unique
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  slug      String          @unique
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
   products  Product[]
-  offers OfferCategory[]
+  offers    OfferCategory[]
 }
 
 model Product {
@@ -29,7 +29,7 @@ model Product {
   description String[]
   images      Image[]
   orderItem   OrderItem[]
-  offers OfferProduct[]
+  offers      OfferProduct[]
   category    Category            @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   recommended RecommendedProduct?
 
@@ -122,38 +122,46 @@ enum PaymentStatus {
 }
 
 model Offer {
-  id              String          @id @default(uuid())
-  title           String
-  slug            String          @unique
-  description     String?
+  id String @id @default(uuid())
 
-  discountType    DiscountType
-  discountValue   Float
+  title       String
+  description String?
 
-  startDate       DateTime
-  endDate         DateTime
+  discountType  DiscountType
+  discountValue Float
 
-  isActive        Boolean         @default(true)
+  applyType OfferApplyType
 
-  bannerImage     String?
+  // NEW
 
-  applyType       OfferApplyType
+  minQuantity Int?
 
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
+  minAmount Float?
 
-  products        OfferProduct[]
-  categories      OfferCategory[]
+  maxDiscount Float?
+
+  priority Int @default(0)
+
+  startDate DateTime
+  endDate   DateTime
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  products   OfferProduct[]
+  categories OfferCategory[]
 }
 
 model OfferProduct {
-  id          String    @id @default(uuid())
+  id String @id @default(uuid())
 
-  offerId     String
-  productId   String
+  offerId   String
+  productId String
 
-  offer       Offer     @relation(fields: [offerId], references: [id], onDelete: Cascade)
-  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  offer   Offer   @relation(fields: [offerId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@unique([offerId, productId])
   @@index([offerId])
@@ -161,19 +169,20 @@ model OfferProduct {
 }
 
 model OfferCategory {
-  id          String    @id @default(uuid())
+  id String @id @default(uuid())
 
-  offerId     String
-  categoryId  String
+  offerId    String
+  categoryId String
 
-  offer       Offer     @relation(fields: [offerId], references: [id], onDelete: Cascade)
-  category    Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  offer    Offer    @relation(fields: [offerId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@unique([offerId, categoryId])
 }
 
 enum OfferApplyType {
+  ALL
   PRODUCT
   CATEGORY
-  ALL
+  BULK
 }
