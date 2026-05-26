@@ -121,7 +121,7 @@ export default function CouponAdmin() {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-5xl mx-auto">
-
+        <p className="text-red-500 font-bold text-xl animate-pulse">No More Applied this page is no more active ignore this page </p>
         {/* HEADER */}
         <h1 className="text-2xl font-bold mb-6">
           Coupon Management
