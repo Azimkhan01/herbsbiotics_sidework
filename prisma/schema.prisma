@@ -14,6 +14,7 @@ model Category {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   products  Product[]
+  offers OfferCategory[]
 }
 
 model Product {
@@ -28,6 +29,7 @@ model Product {
   description String[]
   images      Image[]
   orderItem   OrderItem[]
+  offers OfferProduct[]
   category    Category            @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   recommended RecommendedProduct?
 
@@ -117,4 +119,61 @@ enum PaymentStatus {
   PENDING
   PAID
   FAILED
+}
+
+model Offer {
+  id              String          @id @default(uuid())
+  title           String
+  slug            String          @unique
+  description     String?
+
+  discountType    DiscountType
+  discountValue   Float
+
+  startDate       DateTime
+  endDate         DateTime
+
+  isActive        Boolean         @default(true)
+
+  bannerImage     String?
+
+  applyType       OfferApplyType
+
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  products        OfferProduct[]
+  categories      OfferCategory[]
+}
+
+model OfferProduct {
+  id          String    @id @default(uuid())
+
+  offerId     String
+  productId   String
+
+  offer       Offer     @relation(fields: [offerId], references: [id], onDelete: Cascade)
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([offerId, productId])
+  @@index([offerId])
+  @@index([productId])
+}
+
+model OfferCategory {
+  id          String    @id @default(uuid())
+
+  offerId     String
+  categoryId  String
+
+  offer       Offer     @relation(fields: [offerId], references: [id], onDelete: Cascade)
+  category    Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([offerId, categoryId])
+}
+
+enum OfferApplyType {
+  PRODUCT
+  CATEGORY
+  ALL
 }

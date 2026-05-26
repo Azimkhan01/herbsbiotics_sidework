@@ -48,6 +48,21 @@ export type Order = $Result.DefaultSelection<Prisma.$OrderPayload>
  * 
  */
 export type OrderItem = $Result.DefaultSelection<Prisma.$OrderItemPayload>
+/**
+ * Model Offer
+ * 
+ */
+export type Offer = $Result.DefaultSelection<Prisma.$OfferPayload>
+/**
+ * Model OfferProduct
+ * 
+ */
+export type OfferProduct = $Result.DefaultSelection<Prisma.$OfferProductPayload>
+/**
+ * Model OfferCategory
+ * 
+ */
+export type OfferCategory = $Result.DefaultSelection<Prisma.$OfferCategoryPayload>
 
 /**
  * Enums
@@ -69,6 +84,15 @@ export const PaymentStatus: {
 
 export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
 
+
+export const OfferApplyType: {
+  PRODUCT: 'PRODUCT',
+  CATEGORY: 'CATEGORY',
+  ALL: 'ALL'
+};
+
+export type OfferApplyType = (typeof OfferApplyType)[keyof typeof OfferApplyType]
+
 }
 
 export type DiscountType = $Enums.DiscountType
@@ -78,6 +102,10 @@ export const DiscountType: typeof $Enums.DiscountType
 export type PaymentStatus = $Enums.PaymentStatus
 
 export const PaymentStatus: typeof $Enums.PaymentStatus
+
+export type OfferApplyType = $Enums.OfferApplyType
+
+export const OfferApplyType: typeof $Enums.OfferApplyType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -269,6 +297,36 @@ export class PrismaClient<
     * ```
     */
   get orderItem(): Prisma.OrderItemDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.offer`: Exposes CRUD operations for the **Offer** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Offers
+    * const offers = await prisma.offer.findMany()
+    * ```
+    */
+  get offer(): Prisma.OfferDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.offerProduct`: Exposes CRUD operations for the **OfferProduct** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OfferProducts
+    * const offerProducts = await prisma.offerProduct.findMany()
+    * ```
+    */
+  get offerProduct(): Prisma.OfferProductDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.offerCategory`: Exposes CRUD operations for the **OfferCategory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OfferCategories
+    * const offerCategories = await prisma.offerCategory.findMany()
+    * ```
+    */
+  get offerCategory(): Prisma.OfferCategoryDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -709,7 +767,10 @@ export namespace Prisma {
     RecommendedProduct: 'RecommendedProduct',
     Coupon: 'Coupon',
     Order: 'Order',
-    OrderItem: 'OrderItem'
+    OrderItem: 'OrderItem',
+    Offer: 'Offer',
+    OfferProduct: 'OfferProduct',
+    OfferCategory: 'OfferCategory'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -725,7 +786,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "category" | "product" | "image" | "recommendedProduct" | "coupon" | "order" | "orderItem"
+      modelProps: "category" | "product" | "image" | "recommendedProduct" | "coupon" | "order" | "orderItem" | "offer" | "offerProduct" | "offerCategory"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1247,6 +1308,228 @@ export namespace Prisma {
           }
         }
       }
+      Offer: {
+        payload: Prisma.$OfferPayload<ExtArgs>
+        fields: Prisma.OfferFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OfferFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OfferFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferPayload>
+          }
+          findFirst: {
+            args: Prisma.OfferFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OfferFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferPayload>
+          }
+          findMany: {
+            args: Prisma.OfferFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferPayload>[]
+          }
+          create: {
+            args: Prisma.OfferCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferPayload>
+          }
+          createMany: {
+            args: Prisma.OfferCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OfferCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferPayload>[]
+          }
+          delete: {
+            args: Prisma.OfferDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferPayload>
+          }
+          update: {
+            args: Prisma.OfferUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferPayload>
+          }
+          deleteMany: {
+            args: Prisma.OfferDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OfferUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.OfferUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferPayload>[]
+          }
+          upsert: {
+            args: Prisma.OfferUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferPayload>
+          }
+          aggregate: {
+            args: Prisma.OfferAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOffer>
+          }
+          groupBy: {
+            args: Prisma.OfferGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OfferGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OfferCountArgs<ExtArgs>
+            result: $Utils.Optional<OfferCountAggregateOutputType> | number
+          }
+        }
+      }
+      OfferProduct: {
+        payload: Prisma.$OfferProductPayload<ExtArgs>
+        fields: Prisma.OfferProductFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OfferProductFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferProductPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OfferProductFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferProductPayload>
+          }
+          findFirst: {
+            args: Prisma.OfferProductFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferProductPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OfferProductFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferProductPayload>
+          }
+          findMany: {
+            args: Prisma.OfferProductFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferProductPayload>[]
+          }
+          create: {
+            args: Prisma.OfferProductCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferProductPayload>
+          }
+          createMany: {
+            args: Prisma.OfferProductCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OfferProductCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferProductPayload>[]
+          }
+          delete: {
+            args: Prisma.OfferProductDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferProductPayload>
+          }
+          update: {
+            args: Prisma.OfferProductUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferProductPayload>
+          }
+          deleteMany: {
+            args: Prisma.OfferProductDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OfferProductUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.OfferProductUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferProductPayload>[]
+          }
+          upsert: {
+            args: Prisma.OfferProductUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferProductPayload>
+          }
+          aggregate: {
+            args: Prisma.OfferProductAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOfferProduct>
+          }
+          groupBy: {
+            args: Prisma.OfferProductGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OfferProductGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OfferProductCountArgs<ExtArgs>
+            result: $Utils.Optional<OfferProductCountAggregateOutputType> | number
+          }
+        }
+      }
+      OfferCategory: {
+        payload: Prisma.$OfferCategoryPayload<ExtArgs>
+        fields: Prisma.OfferCategoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OfferCategoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferCategoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OfferCategoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferCategoryPayload>
+          }
+          findFirst: {
+            args: Prisma.OfferCategoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferCategoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OfferCategoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferCategoryPayload>
+          }
+          findMany: {
+            args: Prisma.OfferCategoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferCategoryPayload>[]
+          }
+          create: {
+            args: Prisma.OfferCategoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferCategoryPayload>
+          }
+          createMany: {
+            args: Prisma.OfferCategoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OfferCategoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferCategoryPayload>[]
+          }
+          delete: {
+            args: Prisma.OfferCategoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferCategoryPayload>
+          }
+          update: {
+            args: Prisma.OfferCategoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferCategoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.OfferCategoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OfferCategoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.OfferCategoryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferCategoryPayload>[]
+          }
+          upsert: {
+            args: Prisma.OfferCategoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfferCategoryPayload>
+          }
+          aggregate: {
+            args: Prisma.OfferCategoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOfferCategory>
+          }
+          groupBy: {
+            args: Prisma.OfferCategoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OfferCategoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OfferCategoryCountArgs<ExtArgs>
+            result: $Utils.Optional<OfferCategoryCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1362,6 +1645,9 @@ export namespace Prisma {
     coupon?: CouponOmit
     order?: OrderOmit
     orderItem?: OrderItemOmit
+    offer?: OfferOmit
+    offerProduct?: OfferProductOmit
+    offerCategory?: OfferCategoryOmit
   }
 
   /* Types for Logging */
@@ -1443,10 +1729,12 @@ export namespace Prisma {
 
   export type CategoryCountOutputType = {
     products: number
+    offers: number
   }
 
   export type CategoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     products?: boolean | CategoryCountOutputTypeCountProductsArgs
+    offers?: boolean | CategoryCountOutputTypeCountOffersArgs
   }
 
   // Custom InputTypes
@@ -1467,6 +1755,13 @@ export namespace Prisma {
     where?: ProductWhereInput
   }
 
+  /**
+   * CategoryCountOutputType without action
+   */
+  export type CategoryCountOutputTypeCountOffersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OfferCategoryWhereInput
+  }
+
 
   /**
    * Count Type ProductCountOutputType
@@ -1475,11 +1770,13 @@ export namespace Prisma {
   export type ProductCountOutputType = {
     images: number
     orderItem: number
+    offers: number
   }
 
   export type ProductCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     images?: boolean | ProductCountOutputTypeCountImagesArgs
     orderItem?: boolean | ProductCountOutputTypeCountOrderItemArgs
+    offers?: boolean | ProductCountOutputTypeCountOffersArgs
   }
 
   // Custom InputTypes
@@ -1505,6 +1802,13 @@ export namespace Prisma {
    */
   export type ProductCountOutputTypeCountOrderItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OrderItemWhereInput
+  }
+
+  /**
+   * ProductCountOutputType without action
+   */
+  export type ProductCountOutputTypeCountOffersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OfferProductWhereInput
   }
 
 
@@ -1536,6 +1840,46 @@ export namespace Prisma {
    */
   export type OrderCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OrderItemWhereInput
+  }
+
+
+  /**
+   * Count Type OfferCountOutputType
+   */
+
+  export type OfferCountOutputType = {
+    products: number
+    categories: number
+  }
+
+  export type OfferCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    products?: boolean | OfferCountOutputTypeCountProductsArgs
+    categories?: boolean | OfferCountOutputTypeCountCategoriesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * OfferCountOutputType without action
+   */
+  export type OfferCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferCountOutputType
+     */
+    select?: OfferCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * OfferCountOutputType without action
+   */
+  export type OfferCountOutputTypeCountProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OfferProductWhereInput
+  }
+
+  /**
+   * OfferCountOutputType without action
+   */
+  export type OfferCountOutputTypeCountCategoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OfferCategoryWhereInput
   }
 
 
@@ -1708,6 +2052,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     products?: boolean | Category$productsArgs<ExtArgs>
+    offers?: boolean | Category$offersArgs<ExtArgs>
     _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["category"]>
 
@@ -1738,6 +2083,7 @@ export namespace Prisma {
   export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "createdAt" | "updatedAt", ExtArgs["result"]["category"]>
   export type CategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     products?: boolean | Category$productsArgs<ExtArgs>
+    offers?: boolean | Category$offersArgs<ExtArgs>
     _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1747,6 +2093,7 @@ export namespace Prisma {
     name: "Category"
     objects: {
       products: Prisma.$ProductPayload<ExtArgs>[]
+      offers: Prisma.$OfferCategoryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2149,6 +2496,7 @@ export namespace Prisma {
   export interface Prisma__CategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     products<T extends Category$productsArgs<ExtArgs> = {}>(args?: Subset<T, Category$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    offers<T extends Category$offersArgs<ExtArgs> = {}>(args?: Subset<T, Category$offersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2600,6 +2948,30 @@ export namespace Prisma {
   }
 
   /**
+   * Category.offers
+   */
+  export type Category$offersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferCategory
+     */
+    select?: OfferCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferCategory
+     */
+    omit?: OfferCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferCategoryInclude<ExtArgs> | null
+    where?: OfferCategoryWhereInput
+    orderBy?: OfferCategoryOrderByWithRelationInput | OfferCategoryOrderByWithRelationInput[]
+    cursor?: OfferCategoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OfferCategoryScalarFieldEnum | OfferCategoryScalarFieldEnum[]
+  }
+
+  /**
    * Category without action
    */
   export type CategoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2846,6 +3218,7 @@ export namespace Prisma {
     description?: boolean
     images?: boolean | Product$imagesArgs<ExtArgs>
     orderItem?: boolean | Product$orderItemArgs<ExtArgs>
+    offers?: boolean | Product$offersArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     recommended?: boolean | Product$recommendedArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
@@ -2893,6 +3266,7 @@ export namespace Prisma {
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     images?: boolean | Product$imagesArgs<ExtArgs>
     orderItem?: boolean | Product$orderItemArgs<ExtArgs>
+    offers?: boolean | Product$offersArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     recommended?: boolean | Product$recommendedArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
@@ -2909,6 +3283,7 @@ export namespace Prisma {
     objects: {
       images: Prisma.$ImagePayload<ExtArgs>[]
       orderItem: Prisma.$OrderItemPayload<ExtArgs>[]
+      offers: Prisma.$OfferProductPayload<ExtArgs>[]
       category: Prisma.$CategoryPayload<ExtArgs>
       recommended: Prisma.$RecommendedProductPayload<ExtArgs> | null
     }
@@ -3318,6 +3693,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     images<T extends Product$imagesArgs<ExtArgs> = {}>(args?: Subset<T, Product$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     orderItem<T extends Product$orderItemArgs<ExtArgs> = {}>(args?: Subset<T, Product$orderItemArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    offers<T extends Product$offersArgs<ExtArgs> = {}>(args?: Subset<T, Product$offersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     recommended<T extends Product$recommendedArgs<ExtArgs> = {}>(args?: Subset<T, Product$recommendedArgs<ExtArgs>>): Prisma__RecommendedProductClient<$Result.GetResult<Prisma.$RecommendedProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
@@ -3804,6 +4180,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: OrderItemScalarFieldEnum | OrderItemScalarFieldEnum[]
+  }
+
+  /**
+   * Product.offers
+   */
+  export type Product$offersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferProduct
+     */
+    select?: OfferProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferProduct
+     */
+    omit?: OfferProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferProductInclude<ExtArgs> | null
+    where?: OfferProductWhereInput
+    orderBy?: OfferProductOrderByWithRelationInput | OfferProductOrderByWithRelationInput[]
+    cursor?: OfferProductWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OfferProductScalarFieldEnum | OfferProductScalarFieldEnum[]
   }
 
   /**
@@ -9605,6 +10005,3337 @@ export namespace Prisma {
 
 
   /**
+   * Model Offer
+   */
+
+  export type AggregateOffer = {
+    _count: OfferCountAggregateOutputType | null
+    _avg: OfferAvgAggregateOutputType | null
+    _sum: OfferSumAggregateOutputType | null
+    _min: OfferMinAggregateOutputType | null
+    _max: OfferMaxAggregateOutputType | null
+  }
+
+  export type OfferAvgAggregateOutputType = {
+    discountValue: number | null
+  }
+
+  export type OfferSumAggregateOutputType = {
+    discountValue: number | null
+  }
+
+  export type OfferMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    slug: string | null
+    description: string | null
+    discountType: $Enums.DiscountType | null
+    discountValue: number | null
+    startDate: Date | null
+    endDate: Date | null
+    isActive: boolean | null
+    bannerImage: string | null
+    applyType: $Enums.OfferApplyType | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OfferMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    slug: string | null
+    description: string | null
+    discountType: $Enums.DiscountType | null
+    discountValue: number | null
+    startDate: Date | null
+    endDate: Date | null
+    isActive: boolean | null
+    bannerImage: string | null
+    applyType: $Enums.OfferApplyType | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OfferCountAggregateOutputType = {
+    id: number
+    title: number
+    slug: number
+    description: number
+    discountType: number
+    discountValue: number
+    startDate: number
+    endDate: number
+    isActive: number
+    bannerImage: number
+    applyType: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type OfferAvgAggregateInputType = {
+    discountValue?: true
+  }
+
+  export type OfferSumAggregateInputType = {
+    discountValue?: true
+  }
+
+  export type OfferMinAggregateInputType = {
+    id?: true
+    title?: true
+    slug?: true
+    description?: true
+    discountType?: true
+    discountValue?: true
+    startDate?: true
+    endDate?: true
+    isActive?: true
+    bannerImage?: true
+    applyType?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type OfferMaxAggregateInputType = {
+    id?: true
+    title?: true
+    slug?: true
+    description?: true
+    discountType?: true
+    discountValue?: true
+    startDate?: true
+    endDate?: true
+    isActive?: true
+    bannerImage?: true
+    applyType?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type OfferCountAggregateInputType = {
+    id?: true
+    title?: true
+    slug?: true
+    description?: true
+    discountType?: true
+    discountValue?: true
+    startDate?: true
+    endDate?: true
+    isActive?: true
+    bannerImage?: true
+    applyType?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type OfferAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Offer to aggregate.
+     */
+    where?: OfferWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Offers to fetch.
+     */
+    orderBy?: OfferOrderByWithRelationInput | OfferOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OfferWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Offers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Offers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Offers
+    **/
+    _count?: true | OfferCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: OfferAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: OfferSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OfferMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OfferMaxAggregateInputType
+  }
+
+  export type GetOfferAggregateType<T extends OfferAggregateArgs> = {
+        [P in keyof T & keyof AggregateOffer]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOffer[P]>
+      : GetScalarType<T[P], AggregateOffer[P]>
+  }
+
+
+
+
+  export type OfferGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OfferWhereInput
+    orderBy?: OfferOrderByWithAggregationInput | OfferOrderByWithAggregationInput[]
+    by: OfferScalarFieldEnum[] | OfferScalarFieldEnum
+    having?: OfferScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OfferCountAggregateInputType | true
+    _avg?: OfferAvgAggregateInputType
+    _sum?: OfferSumAggregateInputType
+    _min?: OfferMinAggregateInputType
+    _max?: OfferMaxAggregateInputType
+  }
+
+  export type OfferGroupByOutputType = {
+    id: string
+    title: string
+    slug: string
+    description: string | null
+    discountType: $Enums.DiscountType
+    discountValue: number
+    startDate: Date
+    endDate: Date
+    isActive: boolean
+    bannerImage: string | null
+    applyType: $Enums.OfferApplyType
+    createdAt: Date
+    updatedAt: Date
+    _count: OfferCountAggregateOutputType | null
+    _avg: OfferAvgAggregateOutputType | null
+    _sum: OfferSumAggregateOutputType | null
+    _min: OfferMinAggregateOutputType | null
+    _max: OfferMaxAggregateOutputType | null
+  }
+
+  type GetOfferGroupByPayload<T extends OfferGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OfferGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OfferGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OfferGroupByOutputType[P]>
+            : GetScalarType<T[P], OfferGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OfferSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    slug?: boolean
+    description?: boolean
+    discountType?: boolean
+    discountValue?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    isActive?: boolean
+    bannerImage?: boolean
+    applyType?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    products?: boolean | Offer$productsArgs<ExtArgs>
+    categories?: boolean | Offer$categoriesArgs<ExtArgs>
+    _count?: boolean | OfferCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["offer"]>
+
+  export type OfferSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    slug?: boolean
+    description?: boolean
+    discountType?: boolean
+    discountValue?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    isActive?: boolean
+    bannerImage?: boolean
+    applyType?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["offer"]>
+
+  export type OfferSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    slug?: boolean
+    description?: boolean
+    discountType?: boolean
+    discountValue?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    isActive?: boolean
+    bannerImage?: boolean
+    applyType?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["offer"]>
+
+  export type OfferSelectScalar = {
+    id?: boolean
+    title?: boolean
+    slug?: boolean
+    description?: boolean
+    discountType?: boolean
+    discountValue?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    isActive?: boolean
+    bannerImage?: boolean
+    applyType?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type OfferOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "description" | "discountType" | "discountValue" | "startDate" | "endDate" | "isActive" | "bannerImage" | "applyType" | "createdAt" | "updatedAt", ExtArgs["result"]["offer"]>
+  export type OfferInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    products?: boolean | Offer$productsArgs<ExtArgs>
+    categories?: boolean | Offer$categoriesArgs<ExtArgs>
+    _count?: boolean | OfferCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type OfferIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type OfferIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $OfferPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Offer"
+    objects: {
+      products: Prisma.$OfferProductPayload<ExtArgs>[]
+      categories: Prisma.$OfferCategoryPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      slug: string
+      description: string | null
+      discountType: $Enums.DiscountType
+      discountValue: number
+      startDate: Date
+      endDate: Date
+      isActive: boolean
+      bannerImage: string | null
+      applyType: $Enums.OfferApplyType
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["offer"]>
+    composites: {}
+  }
+
+  type OfferGetPayload<S extends boolean | null | undefined | OfferDefaultArgs> = $Result.GetResult<Prisma.$OfferPayload, S>
+
+  type OfferCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<OfferFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OfferCountAggregateInputType | true
+    }
+
+  export interface OfferDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Offer'], meta: { name: 'Offer' } }
+    /**
+     * Find zero or one Offer that matches the filter.
+     * @param {OfferFindUniqueArgs} args - Arguments to find a Offer
+     * @example
+     * // Get one Offer
+     * const offer = await prisma.offer.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OfferFindUniqueArgs>(args: SelectSubset<T, OfferFindUniqueArgs<ExtArgs>>): Prisma__OfferClient<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Offer that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OfferFindUniqueOrThrowArgs} args - Arguments to find a Offer
+     * @example
+     * // Get one Offer
+     * const offer = await prisma.offer.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OfferFindUniqueOrThrowArgs>(args: SelectSubset<T, OfferFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OfferClient<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Offer that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferFindFirstArgs} args - Arguments to find a Offer
+     * @example
+     * // Get one Offer
+     * const offer = await prisma.offer.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OfferFindFirstArgs>(args?: SelectSubset<T, OfferFindFirstArgs<ExtArgs>>): Prisma__OfferClient<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Offer that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferFindFirstOrThrowArgs} args - Arguments to find a Offer
+     * @example
+     * // Get one Offer
+     * const offer = await prisma.offer.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OfferFindFirstOrThrowArgs>(args?: SelectSubset<T, OfferFindFirstOrThrowArgs<ExtArgs>>): Prisma__OfferClient<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Offers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Offers
+     * const offers = await prisma.offer.findMany()
+     * 
+     * // Get first 10 Offers
+     * const offers = await prisma.offer.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const offerWithIdOnly = await prisma.offer.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OfferFindManyArgs>(args?: SelectSubset<T, OfferFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Offer.
+     * @param {OfferCreateArgs} args - Arguments to create a Offer.
+     * @example
+     * // Create one Offer
+     * const Offer = await prisma.offer.create({
+     *   data: {
+     *     // ... data to create a Offer
+     *   }
+     * })
+     * 
+     */
+    create<T extends OfferCreateArgs>(args: SelectSubset<T, OfferCreateArgs<ExtArgs>>): Prisma__OfferClient<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Offers.
+     * @param {OfferCreateManyArgs} args - Arguments to create many Offers.
+     * @example
+     * // Create many Offers
+     * const offer = await prisma.offer.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OfferCreateManyArgs>(args?: SelectSubset<T, OfferCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Offers and returns the data saved in the database.
+     * @param {OfferCreateManyAndReturnArgs} args - Arguments to create many Offers.
+     * @example
+     * // Create many Offers
+     * const offer = await prisma.offer.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Offers and only return the `id`
+     * const offerWithIdOnly = await prisma.offer.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OfferCreateManyAndReturnArgs>(args?: SelectSubset<T, OfferCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Offer.
+     * @param {OfferDeleteArgs} args - Arguments to delete one Offer.
+     * @example
+     * // Delete one Offer
+     * const Offer = await prisma.offer.delete({
+     *   where: {
+     *     // ... filter to delete one Offer
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OfferDeleteArgs>(args: SelectSubset<T, OfferDeleteArgs<ExtArgs>>): Prisma__OfferClient<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Offer.
+     * @param {OfferUpdateArgs} args - Arguments to update one Offer.
+     * @example
+     * // Update one Offer
+     * const offer = await prisma.offer.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OfferUpdateArgs>(args: SelectSubset<T, OfferUpdateArgs<ExtArgs>>): Prisma__OfferClient<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Offers.
+     * @param {OfferDeleteManyArgs} args - Arguments to filter Offers to delete.
+     * @example
+     * // Delete a few Offers
+     * const { count } = await prisma.offer.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OfferDeleteManyArgs>(args?: SelectSubset<T, OfferDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Offers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Offers
+     * const offer = await prisma.offer.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OfferUpdateManyArgs>(args: SelectSubset<T, OfferUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Offers and returns the data updated in the database.
+     * @param {OfferUpdateManyAndReturnArgs} args - Arguments to update many Offers.
+     * @example
+     * // Update many Offers
+     * const offer = await prisma.offer.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Offers and only return the `id`
+     * const offerWithIdOnly = await prisma.offer.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends OfferUpdateManyAndReturnArgs>(args: SelectSubset<T, OfferUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Offer.
+     * @param {OfferUpsertArgs} args - Arguments to update or create a Offer.
+     * @example
+     * // Update or create a Offer
+     * const offer = await prisma.offer.upsert({
+     *   create: {
+     *     // ... data to create a Offer
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Offer we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OfferUpsertArgs>(args: SelectSubset<T, OfferUpsertArgs<ExtArgs>>): Prisma__OfferClient<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Offers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferCountArgs} args - Arguments to filter Offers to count.
+     * @example
+     * // Count the number of Offers
+     * const count = await prisma.offer.count({
+     *   where: {
+     *     // ... the filter for the Offers we want to count
+     *   }
+     * })
+    **/
+    count<T extends OfferCountArgs>(
+      args?: Subset<T, OfferCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OfferCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Offer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OfferAggregateArgs>(args: Subset<T, OfferAggregateArgs>): Prisma.PrismaPromise<GetOfferAggregateType<T>>
+
+    /**
+     * Group by Offer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OfferGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OfferGroupByArgs['orderBy'] }
+        : { orderBy?: OfferGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OfferGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOfferGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Offer model
+   */
+  readonly fields: OfferFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Offer.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OfferClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    products<T extends Offer$productsArgs<ExtArgs> = {}>(args?: Subset<T, Offer$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    categories<T extends Offer$categoriesArgs<ExtArgs> = {}>(args?: Subset<T, Offer$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Offer model
+   */
+  interface OfferFieldRefs {
+    readonly id: FieldRef<"Offer", 'String'>
+    readonly title: FieldRef<"Offer", 'String'>
+    readonly slug: FieldRef<"Offer", 'String'>
+    readonly description: FieldRef<"Offer", 'String'>
+    readonly discountType: FieldRef<"Offer", 'DiscountType'>
+    readonly discountValue: FieldRef<"Offer", 'Float'>
+    readonly startDate: FieldRef<"Offer", 'DateTime'>
+    readonly endDate: FieldRef<"Offer", 'DateTime'>
+    readonly isActive: FieldRef<"Offer", 'Boolean'>
+    readonly bannerImage: FieldRef<"Offer", 'String'>
+    readonly applyType: FieldRef<"Offer", 'OfferApplyType'>
+    readonly createdAt: FieldRef<"Offer", 'DateTime'>
+    readonly updatedAt: FieldRef<"Offer", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Offer findUnique
+   */
+  export type OfferFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Offer
+     */
+    select?: OfferSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Offer
+     */
+    omit?: OfferOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferInclude<ExtArgs> | null
+    /**
+     * Filter, which Offer to fetch.
+     */
+    where: OfferWhereUniqueInput
+  }
+
+  /**
+   * Offer findUniqueOrThrow
+   */
+  export type OfferFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Offer
+     */
+    select?: OfferSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Offer
+     */
+    omit?: OfferOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferInclude<ExtArgs> | null
+    /**
+     * Filter, which Offer to fetch.
+     */
+    where: OfferWhereUniqueInput
+  }
+
+  /**
+   * Offer findFirst
+   */
+  export type OfferFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Offer
+     */
+    select?: OfferSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Offer
+     */
+    omit?: OfferOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferInclude<ExtArgs> | null
+    /**
+     * Filter, which Offer to fetch.
+     */
+    where?: OfferWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Offers to fetch.
+     */
+    orderBy?: OfferOrderByWithRelationInput | OfferOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Offers.
+     */
+    cursor?: OfferWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Offers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Offers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Offers.
+     */
+    distinct?: OfferScalarFieldEnum | OfferScalarFieldEnum[]
+  }
+
+  /**
+   * Offer findFirstOrThrow
+   */
+  export type OfferFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Offer
+     */
+    select?: OfferSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Offer
+     */
+    omit?: OfferOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferInclude<ExtArgs> | null
+    /**
+     * Filter, which Offer to fetch.
+     */
+    where?: OfferWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Offers to fetch.
+     */
+    orderBy?: OfferOrderByWithRelationInput | OfferOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Offers.
+     */
+    cursor?: OfferWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Offers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Offers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Offers.
+     */
+    distinct?: OfferScalarFieldEnum | OfferScalarFieldEnum[]
+  }
+
+  /**
+   * Offer findMany
+   */
+  export type OfferFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Offer
+     */
+    select?: OfferSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Offer
+     */
+    omit?: OfferOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferInclude<ExtArgs> | null
+    /**
+     * Filter, which Offers to fetch.
+     */
+    where?: OfferWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Offers to fetch.
+     */
+    orderBy?: OfferOrderByWithRelationInput | OfferOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Offers.
+     */
+    cursor?: OfferWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Offers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Offers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Offers.
+     */
+    distinct?: OfferScalarFieldEnum | OfferScalarFieldEnum[]
+  }
+
+  /**
+   * Offer create
+   */
+  export type OfferCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Offer
+     */
+    select?: OfferSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Offer
+     */
+    omit?: OfferOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Offer.
+     */
+    data: XOR<OfferCreateInput, OfferUncheckedCreateInput>
+  }
+
+  /**
+   * Offer createMany
+   */
+  export type OfferCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Offers.
+     */
+    data: OfferCreateManyInput | OfferCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Offer createManyAndReturn
+   */
+  export type OfferCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Offer
+     */
+    select?: OfferSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Offer
+     */
+    omit?: OfferOmit<ExtArgs> | null
+    /**
+     * The data used to create many Offers.
+     */
+    data: OfferCreateManyInput | OfferCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Offer update
+   */
+  export type OfferUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Offer
+     */
+    select?: OfferSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Offer
+     */
+    omit?: OfferOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Offer.
+     */
+    data: XOR<OfferUpdateInput, OfferUncheckedUpdateInput>
+    /**
+     * Choose, which Offer to update.
+     */
+    where: OfferWhereUniqueInput
+  }
+
+  /**
+   * Offer updateMany
+   */
+  export type OfferUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Offers.
+     */
+    data: XOR<OfferUpdateManyMutationInput, OfferUncheckedUpdateManyInput>
+    /**
+     * Filter which Offers to update
+     */
+    where?: OfferWhereInput
+    /**
+     * Limit how many Offers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Offer updateManyAndReturn
+   */
+  export type OfferUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Offer
+     */
+    select?: OfferSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Offer
+     */
+    omit?: OfferOmit<ExtArgs> | null
+    /**
+     * The data used to update Offers.
+     */
+    data: XOR<OfferUpdateManyMutationInput, OfferUncheckedUpdateManyInput>
+    /**
+     * Filter which Offers to update
+     */
+    where?: OfferWhereInput
+    /**
+     * Limit how many Offers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Offer upsert
+   */
+  export type OfferUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Offer
+     */
+    select?: OfferSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Offer
+     */
+    omit?: OfferOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Offer to update in case it exists.
+     */
+    where: OfferWhereUniqueInput
+    /**
+     * In case the Offer found by the `where` argument doesn't exist, create a new Offer with this data.
+     */
+    create: XOR<OfferCreateInput, OfferUncheckedCreateInput>
+    /**
+     * In case the Offer was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OfferUpdateInput, OfferUncheckedUpdateInput>
+  }
+
+  /**
+   * Offer delete
+   */
+  export type OfferDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Offer
+     */
+    select?: OfferSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Offer
+     */
+    omit?: OfferOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferInclude<ExtArgs> | null
+    /**
+     * Filter which Offer to delete.
+     */
+    where: OfferWhereUniqueInput
+  }
+
+  /**
+   * Offer deleteMany
+   */
+  export type OfferDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Offers to delete
+     */
+    where?: OfferWhereInput
+    /**
+     * Limit how many Offers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Offer.products
+   */
+  export type Offer$productsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferProduct
+     */
+    select?: OfferProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferProduct
+     */
+    omit?: OfferProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferProductInclude<ExtArgs> | null
+    where?: OfferProductWhereInput
+    orderBy?: OfferProductOrderByWithRelationInput | OfferProductOrderByWithRelationInput[]
+    cursor?: OfferProductWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OfferProductScalarFieldEnum | OfferProductScalarFieldEnum[]
+  }
+
+  /**
+   * Offer.categories
+   */
+  export type Offer$categoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferCategory
+     */
+    select?: OfferCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferCategory
+     */
+    omit?: OfferCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferCategoryInclude<ExtArgs> | null
+    where?: OfferCategoryWhereInput
+    orderBy?: OfferCategoryOrderByWithRelationInput | OfferCategoryOrderByWithRelationInput[]
+    cursor?: OfferCategoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OfferCategoryScalarFieldEnum | OfferCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * Offer without action
+   */
+  export type OfferDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Offer
+     */
+    select?: OfferSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Offer
+     */
+    omit?: OfferOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model OfferProduct
+   */
+
+  export type AggregateOfferProduct = {
+    _count: OfferProductCountAggregateOutputType | null
+    _min: OfferProductMinAggregateOutputType | null
+    _max: OfferProductMaxAggregateOutputType | null
+  }
+
+  export type OfferProductMinAggregateOutputType = {
+    id: string | null
+    offerId: string | null
+    productId: string | null
+  }
+
+  export type OfferProductMaxAggregateOutputType = {
+    id: string | null
+    offerId: string | null
+    productId: string | null
+  }
+
+  export type OfferProductCountAggregateOutputType = {
+    id: number
+    offerId: number
+    productId: number
+    _all: number
+  }
+
+
+  export type OfferProductMinAggregateInputType = {
+    id?: true
+    offerId?: true
+    productId?: true
+  }
+
+  export type OfferProductMaxAggregateInputType = {
+    id?: true
+    offerId?: true
+    productId?: true
+  }
+
+  export type OfferProductCountAggregateInputType = {
+    id?: true
+    offerId?: true
+    productId?: true
+    _all?: true
+  }
+
+  export type OfferProductAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OfferProduct to aggregate.
+     */
+    where?: OfferProductWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OfferProducts to fetch.
+     */
+    orderBy?: OfferProductOrderByWithRelationInput | OfferProductOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OfferProductWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OfferProducts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OfferProducts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OfferProducts
+    **/
+    _count?: true | OfferProductCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OfferProductMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OfferProductMaxAggregateInputType
+  }
+
+  export type GetOfferProductAggregateType<T extends OfferProductAggregateArgs> = {
+        [P in keyof T & keyof AggregateOfferProduct]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOfferProduct[P]>
+      : GetScalarType<T[P], AggregateOfferProduct[P]>
+  }
+
+
+
+
+  export type OfferProductGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OfferProductWhereInput
+    orderBy?: OfferProductOrderByWithAggregationInput | OfferProductOrderByWithAggregationInput[]
+    by: OfferProductScalarFieldEnum[] | OfferProductScalarFieldEnum
+    having?: OfferProductScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OfferProductCountAggregateInputType | true
+    _min?: OfferProductMinAggregateInputType
+    _max?: OfferProductMaxAggregateInputType
+  }
+
+  export type OfferProductGroupByOutputType = {
+    id: string
+    offerId: string
+    productId: string
+    _count: OfferProductCountAggregateOutputType | null
+    _min: OfferProductMinAggregateOutputType | null
+    _max: OfferProductMaxAggregateOutputType | null
+  }
+
+  type GetOfferProductGroupByPayload<T extends OfferProductGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OfferProductGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OfferProductGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OfferProductGroupByOutputType[P]>
+            : GetScalarType<T[P], OfferProductGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OfferProductSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    offerId?: boolean
+    productId?: boolean
+    offer?: boolean | OfferDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["offerProduct"]>
+
+  export type OfferProductSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    offerId?: boolean
+    productId?: boolean
+    offer?: boolean | OfferDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["offerProduct"]>
+
+  export type OfferProductSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    offerId?: boolean
+    productId?: boolean
+    offer?: boolean | OfferDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["offerProduct"]>
+
+  export type OfferProductSelectScalar = {
+    id?: boolean
+    offerId?: boolean
+    productId?: boolean
+  }
+
+  export type OfferProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "offerId" | "productId", ExtArgs["result"]["offerProduct"]>
+  export type OfferProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    offer?: boolean | OfferDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }
+  export type OfferProductIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    offer?: boolean | OfferDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }
+  export type OfferProductIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    offer?: boolean | OfferDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }
+
+  export type $OfferProductPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OfferProduct"
+    objects: {
+      offer: Prisma.$OfferPayload<ExtArgs>
+      product: Prisma.$ProductPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      offerId: string
+      productId: string
+    }, ExtArgs["result"]["offerProduct"]>
+    composites: {}
+  }
+
+  type OfferProductGetPayload<S extends boolean | null | undefined | OfferProductDefaultArgs> = $Result.GetResult<Prisma.$OfferProductPayload, S>
+
+  type OfferProductCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<OfferProductFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OfferProductCountAggregateInputType | true
+    }
+
+  export interface OfferProductDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OfferProduct'], meta: { name: 'OfferProduct' } }
+    /**
+     * Find zero or one OfferProduct that matches the filter.
+     * @param {OfferProductFindUniqueArgs} args - Arguments to find a OfferProduct
+     * @example
+     * // Get one OfferProduct
+     * const offerProduct = await prisma.offerProduct.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OfferProductFindUniqueArgs>(args: SelectSubset<T, OfferProductFindUniqueArgs<ExtArgs>>): Prisma__OfferProductClient<$Result.GetResult<Prisma.$OfferProductPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one OfferProduct that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OfferProductFindUniqueOrThrowArgs} args - Arguments to find a OfferProduct
+     * @example
+     * // Get one OfferProduct
+     * const offerProduct = await prisma.offerProduct.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OfferProductFindUniqueOrThrowArgs>(args: SelectSubset<T, OfferProductFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OfferProductClient<$Result.GetResult<Prisma.$OfferProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OfferProduct that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferProductFindFirstArgs} args - Arguments to find a OfferProduct
+     * @example
+     * // Get one OfferProduct
+     * const offerProduct = await prisma.offerProduct.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OfferProductFindFirstArgs>(args?: SelectSubset<T, OfferProductFindFirstArgs<ExtArgs>>): Prisma__OfferProductClient<$Result.GetResult<Prisma.$OfferProductPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OfferProduct that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferProductFindFirstOrThrowArgs} args - Arguments to find a OfferProduct
+     * @example
+     * // Get one OfferProduct
+     * const offerProduct = await prisma.offerProduct.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OfferProductFindFirstOrThrowArgs>(args?: SelectSubset<T, OfferProductFindFirstOrThrowArgs<ExtArgs>>): Prisma__OfferProductClient<$Result.GetResult<Prisma.$OfferProductPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more OfferProducts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferProductFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OfferProducts
+     * const offerProducts = await prisma.offerProduct.findMany()
+     * 
+     * // Get first 10 OfferProducts
+     * const offerProducts = await prisma.offerProduct.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const offerProductWithIdOnly = await prisma.offerProduct.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OfferProductFindManyArgs>(args?: SelectSubset<T, OfferProductFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a OfferProduct.
+     * @param {OfferProductCreateArgs} args - Arguments to create a OfferProduct.
+     * @example
+     * // Create one OfferProduct
+     * const OfferProduct = await prisma.offerProduct.create({
+     *   data: {
+     *     // ... data to create a OfferProduct
+     *   }
+     * })
+     * 
+     */
+    create<T extends OfferProductCreateArgs>(args: SelectSubset<T, OfferProductCreateArgs<ExtArgs>>): Prisma__OfferProductClient<$Result.GetResult<Prisma.$OfferProductPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many OfferProducts.
+     * @param {OfferProductCreateManyArgs} args - Arguments to create many OfferProducts.
+     * @example
+     * // Create many OfferProducts
+     * const offerProduct = await prisma.offerProduct.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OfferProductCreateManyArgs>(args?: SelectSubset<T, OfferProductCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OfferProducts and returns the data saved in the database.
+     * @param {OfferProductCreateManyAndReturnArgs} args - Arguments to create many OfferProducts.
+     * @example
+     * // Create many OfferProducts
+     * const offerProduct = await prisma.offerProduct.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OfferProducts and only return the `id`
+     * const offerProductWithIdOnly = await prisma.offerProduct.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OfferProductCreateManyAndReturnArgs>(args?: SelectSubset<T, OfferProductCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferProductPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a OfferProduct.
+     * @param {OfferProductDeleteArgs} args - Arguments to delete one OfferProduct.
+     * @example
+     * // Delete one OfferProduct
+     * const OfferProduct = await prisma.offerProduct.delete({
+     *   where: {
+     *     // ... filter to delete one OfferProduct
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OfferProductDeleteArgs>(args: SelectSubset<T, OfferProductDeleteArgs<ExtArgs>>): Prisma__OfferProductClient<$Result.GetResult<Prisma.$OfferProductPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one OfferProduct.
+     * @param {OfferProductUpdateArgs} args - Arguments to update one OfferProduct.
+     * @example
+     * // Update one OfferProduct
+     * const offerProduct = await prisma.offerProduct.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OfferProductUpdateArgs>(args: SelectSubset<T, OfferProductUpdateArgs<ExtArgs>>): Prisma__OfferProductClient<$Result.GetResult<Prisma.$OfferProductPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more OfferProducts.
+     * @param {OfferProductDeleteManyArgs} args - Arguments to filter OfferProducts to delete.
+     * @example
+     * // Delete a few OfferProducts
+     * const { count } = await prisma.offerProduct.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OfferProductDeleteManyArgs>(args?: SelectSubset<T, OfferProductDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OfferProducts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferProductUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OfferProducts
+     * const offerProduct = await prisma.offerProduct.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OfferProductUpdateManyArgs>(args: SelectSubset<T, OfferProductUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OfferProducts and returns the data updated in the database.
+     * @param {OfferProductUpdateManyAndReturnArgs} args - Arguments to update many OfferProducts.
+     * @example
+     * // Update many OfferProducts
+     * const offerProduct = await prisma.offerProduct.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more OfferProducts and only return the `id`
+     * const offerProductWithIdOnly = await prisma.offerProduct.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends OfferProductUpdateManyAndReturnArgs>(args: SelectSubset<T, OfferProductUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferProductPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one OfferProduct.
+     * @param {OfferProductUpsertArgs} args - Arguments to update or create a OfferProduct.
+     * @example
+     * // Update or create a OfferProduct
+     * const offerProduct = await prisma.offerProduct.upsert({
+     *   create: {
+     *     // ... data to create a OfferProduct
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OfferProduct we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OfferProductUpsertArgs>(args: SelectSubset<T, OfferProductUpsertArgs<ExtArgs>>): Prisma__OfferProductClient<$Result.GetResult<Prisma.$OfferProductPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of OfferProducts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferProductCountArgs} args - Arguments to filter OfferProducts to count.
+     * @example
+     * // Count the number of OfferProducts
+     * const count = await prisma.offerProduct.count({
+     *   where: {
+     *     // ... the filter for the OfferProducts we want to count
+     *   }
+     * })
+    **/
+    count<T extends OfferProductCountArgs>(
+      args?: Subset<T, OfferProductCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OfferProductCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OfferProduct.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferProductAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OfferProductAggregateArgs>(args: Subset<T, OfferProductAggregateArgs>): Prisma.PrismaPromise<GetOfferProductAggregateType<T>>
+
+    /**
+     * Group by OfferProduct.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferProductGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OfferProductGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OfferProductGroupByArgs['orderBy'] }
+        : { orderBy?: OfferProductGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OfferProductGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOfferProductGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OfferProduct model
+   */
+  readonly fields: OfferProductFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OfferProduct.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OfferProductClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    offer<T extends OfferDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OfferDefaultArgs<ExtArgs>>): Prisma__OfferClient<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OfferProduct model
+   */
+  interface OfferProductFieldRefs {
+    readonly id: FieldRef<"OfferProduct", 'String'>
+    readonly offerId: FieldRef<"OfferProduct", 'String'>
+    readonly productId: FieldRef<"OfferProduct", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OfferProduct findUnique
+   */
+  export type OfferProductFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferProduct
+     */
+    select?: OfferProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferProduct
+     */
+    omit?: OfferProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferProductInclude<ExtArgs> | null
+    /**
+     * Filter, which OfferProduct to fetch.
+     */
+    where: OfferProductWhereUniqueInput
+  }
+
+  /**
+   * OfferProduct findUniqueOrThrow
+   */
+  export type OfferProductFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferProduct
+     */
+    select?: OfferProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferProduct
+     */
+    omit?: OfferProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferProductInclude<ExtArgs> | null
+    /**
+     * Filter, which OfferProduct to fetch.
+     */
+    where: OfferProductWhereUniqueInput
+  }
+
+  /**
+   * OfferProduct findFirst
+   */
+  export type OfferProductFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferProduct
+     */
+    select?: OfferProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferProduct
+     */
+    omit?: OfferProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferProductInclude<ExtArgs> | null
+    /**
+     * Filter, which OfferProduct to fetch.
+     */
+    where?: OfferProductWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OfferProducts to fetch.
+     */
+    orderBy?: OfferProductOrderByWithRelationInput | OfferProductOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OfferProducts.
+     */
+    cursor?: OfferProductWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OfferProducts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OfferProducts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OfferProducts.
+     */
+    distinct?: OfferProductScalarFieldEnum | OfferProductScalarFieldEnum[]
+  }
+
+  /**
+   * OfferProduct findFirstOrThrow
+   */
+  export type OfferProductFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferProduct
+     */
+    select?: OfferProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferProduct
+     */
+    omit?: OfferProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferProductInclude<ExtArgs> | null
+    /**
+     * Filter, which OfferProduct to fetch.
+     */
+    where?: OfferProductWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OfferProducts to fetch.
+     */
+    orderBy?: OfferProductOrderByWithRelationInput | OfferProductOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OfferProducts.
+     */
+    cursor?: OfferProductWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OfferProducts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OfferProducts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OfferProducts.
+     */
+    distinct?: OfferProductScalarFieldEnum | OfferProductScalarFieldEnum[]
+  }
+
+  /**
+   * OfferProduct findMany
+   */
+  export type OfferProductFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferProduct
+     */
+    select?: OfferProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferProduct
+     */
+    omit?: OfferProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferProductInclude<ExtArgs> | null
+    /**
+     * Filter, which OfferProducts to fetch.
+     */
+    where?: OfferProductWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OfferProducts to fetch.
+     */
+    orderBy?: OfferProductOrderByWithRelationInput | OfferProductOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OfferProducts.
+     */
+    cursor?: OfferProductWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OfferProducts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OfferProducts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OfferProducts.
+     */
+    distinct?: OfferProductScalarFieldEnum | OfferProductScalarFieldEnum[]
+  }
+
+  /**
+   * OfferProduct create
+   */
+  export type OfferProductCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferProduct
+     */
+    select?: OfferProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferProduct
+     */
+    omit?: OfferProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferProductInclude<ExtArgs> | null
+    /**
+     * The data needed to create a OfferProduct.
+     */
+    data: XOR<OfferProductCreateInput, OfferProductUncheckedCreateInput>
+  }
+
+  /**
+   * OfferProduct createMany
+   */
+  export type OfferProductCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OfferProducts.
+     */
+    data: OfferProductCreateManyInput | OfferProductCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OfferProduct createManyAndReturn
+   */
+  export type OfferProductCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferProduct
+     */
+    select?: OfferProductSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferProduct
+     */
+    omit?: OfferProductOmit<ExtArgs> | null
+    /**
+     * The data used to create many OfferProducts.
+     */
+    data: OfferProductCreateManyInput | OfferProductCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferProductIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * OfferProduct update
+   */
+  export type OfferProductUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferProduct
+     */
+    select?: OfferProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferProduct
+     */
+    omit?: OfferProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferProductInclude<ExtArgs> | null
+    /**
+     * The data needed to update a OfferProduct.
+     */
+    data: XOR<OfferProductUpdateInput, OfferProductUncheckedUpdateInput>
+    /**
+     * Choose, which OfferProduct to update.
+     */
+    where: OfferProductWhereUniqueInput
+  }
+
+  /**
+   * OfferProduct updateMany
+   */
+  export type OfferProductUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OfferProducts.
+     */
+    data: XOR<OfferProductUpdateManyMutationInput, OfferProductUncheckedUpdateManyInput>
+    /**
+     * Filter which OfferProducts to update
+     */
+    where?: OfferProductWhereInput
+    /**
+     * Limit how many OfferProducts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * OfferProduct updateManyAndReturn
+   */
+  export type OfferProductUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferProduct
+     */
+    select?: OfferProductSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferProduct
+     */
+    omit?: OfferProductOmit<ExtArgs> | null
+    /**
+     * The data used to update OfferProducts.
+     */
+    data: XOR<OfferProductUpdateManyMutationInput, OfferProductUncheckedUpdateManyInput>
+    /**
+     * Filter which OfferProducts to update
+     */
+    where?: OfferProductWhereInput
+    /**
+     * Limit how many OfferProducts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferProductIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * OfferProduct upsert
+   */
+  export type OfferProductUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferProduct
+     */
+    select?: OfferProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferProduct
+     */
+    omit?: OfferProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferProductInclude<ExtArgs> | null
+    /**
+     * The filter to search for the OfferProduct to update in case it exists.
+     */
+    where: OfferProductWhereUniqueInput
+    /**
+     * In case the OfferProduct found by the `where` argument doesn't exist, create a new OfferProduct with this data.
+     */
+    create: XOR<OfferProductCreateInput, OfferProductUncheckedCreateInput>
+    /**
+     * In case the OfferProduct was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OfferProductUpdateInput, OfferProductUncheckedUpdateInput>
+  }
+
+  /**
+   * OfferProduct delete
+   */
+  export type OfferProductDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferProduct
+     */
+    select?: OfferProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferProduct
+     */
+    omit?: OfferProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferProductInclude<ExtArgs> | null
+    /**
+     * Filter which OfferProduct to delete.
+     */
+    where: OfferProductWhereUniqueInput
+  }
+
+  /**
+   * OfferProduct deleteMany
+   */
+  export type OfferProductDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OfferProducts to delete
+     */
+    where?: OfferProductWhereInput
+    /**
+     * Limit how many OfferProducts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * OfferProduct without action
+   */
+  export type OfferProductDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferProduct
+     */
+    select?: OfferProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferProduct
+     */
+    omit?: OfferProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferProductInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model OfferCategory
+   */
+
+  export type AggregateOfferCategory = {
+    _count: OfferCategoryCountAggregateOutputType | null
+    _min: OfferCategoryMinAggregateOutputType | null
+    _max: OfferCategoryMaxAggregateOutputType | null
+  }
+
+  export type OfferCategoryMinAggregateOutputType = {
+    id: string | null
+    offerId: string | null
+    categoryId: string | null
+  }
+
+  export type OfferCategoryMaxAggregateOutputType = {
+    id: string | null
+    offerId: string | null
+    categoryId: string | null
+  }
+
+  export type OfferCategoryCountAggregateOutputType = {
+    id: number
+    offerId: number
+    categoryId: number
+    _all: number
+  }
+
+
+  export type OfferCategoryMinAggregateInputType = {
+    id?: true
+    offerId?: true
+    categoryId?: true
+  }
+
+  export type OfferCategoryMaxAggregateInputType = {
+    id?: true
+    offerId?: true
+    categoryId?: true
+  }
+
+  export type OfferCategoryCountAggregateInputType = {
+    id?: true
+    offerId?: true
+    categoryId?: true
+    _all?: true
+  }
+
+  export type OfferCategoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OfferCategory to aggregate.
+     */
+    where?: OfferCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OfferCategories to fetch.
+     */
+    orderBy?: OfferCategoryOrderByWithRelationInput | OfferCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OfferCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OfferCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OfferCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OfferCategories
+    **/
+    _count?: true | OfferCategoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OfferCategoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OfferCategoryMaxAggregateInputType
+  }
+
+  export type GetOfferCategoryAggregateType<T extends OfferCategoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateOfferCategory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOfferCategory[P]>
+      : GetScalarType<T[P], AggregateOfferCategory[P]>
+  }
+
+
+
+
+  export type OfferCategoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OfferCategoryWhereInput
+    orderBy?: OfferCategoryOrderByWithAggregationInput | OfferCategoryOrderByWithAggregationInput[]
+    by: OfferCategoryScalarFieldEnum[] | OfferCategoryScalarFieldEnum
+    having?: OfferCategoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OfferCategoryCountAggregateInputType | true
+    _min?: OfferCategoryMinAggregateInputType
+    _max?: OfferCategoryMaxAggregateInputType
+  }
+
+  export type OfferCategoryGroupByOutputType = {
+    id: string
+    offerId: string
+    categoryId: string
+    _count: OfferCategoryCountAggregateOutputType | null
+    _min: OfferCategoryMinAggregateOutputType | null
+    _max: OfferCategoryMaxAggregateOutputType | null
+  }
+
+  type GetOfferCategoryGroupByPayload<T extends OfferCategoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OfferCategoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OfferCategoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OfferCategoryGroupByOutputType[P]>
+            : GetScalarType<T[P], OfferCategoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OfferCategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    offerId?: boolean
+    categoryId?: boolean
+    offer?: boolean | OfferDefaultArgs<ExtArgs>
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["offerCategory"]>
+
+  export type OfferCategorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    offerId?: boolean
+    categoryId?: boolean
+    offer?: boolean | OfferDefaultArgs<ExtArgs>
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["offerCategory"]>
+
+  export type OfferCategorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    offerId?: boolean
+    categoryId?: boolean
+    offer?: boolean | OfferDefaultArgs<ExtArgs>
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["offerCategory"]>
+
+  export type OfferCategorySelectScalar = {
+    id?: boolean
+    offerId?: boolean
+    categoryId?: boolean
+  }
+
+  export type OfferCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "offerId" | "categoryId", ExtArgs["result"]["offerCategory"]>
+  export type OfferCategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    offer?: boolean | OfferDefaultArgs<ExtArgs>
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
+  }
+  export type OfferCategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    offer?: boolean | OfferDefaultArgs<ExtArgs>
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
+  }
+  export type OfferCategoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    offer?: boolean | OfferDefaultArgs<ExtArgs>
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
+  }
+
+  export type $OfferCategoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OfferCategory"
+    objects: {
+      offer: Prisma.$OfferPayload<ExtArgs>
+      category: Prisma.$CategoryPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      offerId: string
+      categoryId: string
+    }, ExtArgs["result"]["offerCategory"]>
+    composites: {}
+  }
+
+  type OfferCategoryGetPayload<S extends boolean | null | undefined | OfferCategoryDefaultArgs> = $Result.GetResult<Prisma.$OfferCategoryPayload, S>
+
+  type OfferCategoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<OfferCategoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OfferCategoryCountAggregateInputType | true
+    }
+
+  export interface OfferCategoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OfferCategory'], meta: { name: 'OfferCategory' } }
+    /**
+     * Find zero or one OfferCategory that matches the filter.
+     * @param {OfferCategoryFindUniqueArgs} args - Arguments to find a OfferCategory
+     * @example
+     * // Get one OfferCategory
+     * const offerCategory = await prisma.offerCategory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OfferCategoryFindUniqueArgs>(args: SelectSubset<T, OfferCategoryFindUniqueArgs<ExtArgs>>): Prisma__OfferCategoryClient<$Result.GetResult<Prisma.$OfferCategoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one OfferCategory that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OfferCategoryFindUniqueOrThrowArgs} args - Arguments to find a OfferCategory
+     * @example
+     * // Get one OfferCategory
+     * const offerCategory = await prisma.offerCategory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OfferCategoryFindUniqueOrThrowArgs>(args: SelectSubset<T, OfferCategoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OfferCategoryClient<$Result.GetResult<Prisma.$OfferCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OfferCategory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferCategoryFindFirstArgs} args - Arguments to find a OfferCategory
+     * @example
+     * // Get one OfferCategory
+     * const offerCategory = await prisma.offerCategory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OfferCategoryFindFirstArgs>(args?: SelectSubset<T, OfferCategoryFindFirstArgs<ExtArgs>>): Prisma__OfferCategoryClient<$Result.GetResult<Prisma.$OfferCategoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OfferCategory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferCategoryFindFirstOrThrowArgs} args - Arguments to find a OfferCategory
+     * @example
+     * // Get one OfferCategory
+     * const offerCategory = await prisma.offerCategory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OfferCategoryFindFirstOrThrowArgs>(args?: SelectSubset<T, OfferCategoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__OfferCategoryClient<$Result.GetResult<Prisma.$OfferCategoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more OfferCategories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferCategoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OfferCategories
+     * const offerCategories = await prisma.offerCategory.findMany()
+     * 
+     * // Get first 10 OfferCategories
+     * const offerCategories = await prisma.offerCategory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const offerCategoryWithIdOnly = await prisma.offerCategory.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OfferCategoryFindManyArgs>(args?: SelectSubset<T, OfferCategoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a OfferCategory.
+     * @param {OfferCategoryCreateArgs} args - Arguments to create a OfferCategory.
+     * @example
+     * // Create one OfferCategory
+     * const OfferCategory = await prisma.offerCategory.create({
+     *   data: {
+     *     // ... data to create a OfferCategory
+     *   }
+     * })
+     * 
+     */
+    create<T extends OfferCategoryCreateArgs>(args: SelectSubset<T, OfferCategoryCreateArgs<ExtArgs>>): Prisma__OfferCategoryClient<$Result.GetResult<Prisma.$OfferCategoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many OfferCategories.
+     * @param {OfferCategoryCreateManyArgs} args - Arguments to create many OfferCategories.
+     * @example
+     * // Create many OfferCategories
+     * const offerCategory = await prisma.offerCategory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OfferCategoryCreateManyArgs>(args?: SelectSubset<T, OfferCategoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OfferCategories and returns the data saved in the database.
+     * @param {OfferCategoryCreateManyAndReturnArgs} args - Arguments to create many OfferCategories.
+     * @example
+     * // Create many OfferCategories
+     * const offerCategory = await prisma.offerCategory.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OfferCategories and only return the `id`
+     * const offerCategoryWithIdOnly = await prisma.offerCategory.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OfferCategoryCreateManyAndReturnArgs>(args?: SelectSubset<T, OfferCategoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferCategoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a OfferCategory.
+     * @param {OfferCategoryDeleteArgs} args - Arguments to delete one OfferCategory.
+     * @example
+     * // Delete one OfferCategory
+     * const OfferCategory = await prisma.offerCategory.delete({
+     *   where: {
+     *     // ... filter to delete one OfferCategory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OfferCategoryDeleteArgs>(args: SelectSubset<T, OfferCategoryDeleteArgs<ExtArgs>>): Prisma__OfferCategoryClient<$Result.GetResult<Prisma.$OfferCategoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one OfferCategory.
+     * @param {OfferCategoryUpdateArgs} args - Arguments to update one OfferCategory.
+     * @example
+     * // Update one OfferCategory
+     * const offerCategory = await prisma.offerCategory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OfferCategoryUpdateArgs>(args: SelectSubset<T, OfferCategoryUpdateArgs<ExtArgs>>): Prisma__OfferCategoryClient<$Result.GetResult<Prisma.$OfferCategoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more OfferCategories.
+     * @param {OfferCategoryDeleteManyArgs} args - Arguments to filter OfferCategories to delete.
+     * @example
+     * // Delete a few OfferCategories
+     * const { count } = await prisma.offerCategory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OfferCategoryDeleteManyArgs>(args?: SelectSubset<T, OfferCategoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OfferCategories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferCategoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OfferCategories
+     * const offerCategory = await prisma.offerCategory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OfferCategoryUpdateManyArgs>(args: SelectSubset<T, OfferCategoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OfferCategories and returns the data updated in the database.
+     * @param {OfferCategoryUpdateManyAndReturnArgs} args - Arguments to update many OfferCategories.
+     * @example
+     * // Update many OfferCategories
+     * const offerCategory = await prisma.offerCategory.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more OfferCategories and only return the `id`
+     * const offerCategoryWithIdOnly = await prisma.offerCategory.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends OfferCategoryUpdateManyAndReturnArgs>(args: SelectSubset<T, OfferCategoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferCategoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one OfferCategory.
+     * @param {OfferCategoryUpsertArgs} args - Arguments to update or create a OfferCategory.
+     * @example
+     * // Update or create a OfferCategory
+     * const offerCategory = await prisma.offerCategory.upsert({
+     *   create: {
+     *     // ... data to create a OfferCategory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OfferCategory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OfferCategoryUpsertArgs>(args: SelectSubset<T, OfferCategoryUpsertArgs<ExtArgs>>): Prisma__OfferCategoryClient<$Result.GetResult<Prisma.$OfferCategoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of OfferCategories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferCategoryCountArgs} args - Arguments to filter OfferCategories to count.
+     * @example
+     * // Count the number of OfferCategories
+     * const count = await prisma.offerCategory.count({
+     *   where: {
+     *     // ... the filter for the OfferCategories we want to count
+     *   }
+     * })
+    **/
+    count<T extends OfferCategoryCountArgs>(
+      args?: Subset<T, OfferCategoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OfferCategoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OfferCategory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferCategoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OfferCategoryAggregateArgs>(args: Subset<T, OfferCategoryAggregateArgs>): Prisma.PrismaPromise<GetOfferCategoryAggregateType<T>>
+
+    /**
+     * Group by OfferCategory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfferCategoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OfferCategoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OfferCategoryGroupByArgs['orderBy'] }
+        : { orderBy?: OfferCategoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OfferCategoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOfferCategoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OfferCategory model
+   */
+  readonly fields: OfferCategoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OfferCategory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OfferCategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    offer<T extends OfferDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OfferDefaultArgs<ExtArgs>>): Prisma__OfferClient<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OfferCategory model
+   */
+  interface OfferCategoryFieldRefs {
+    readonly id: FieldRef<"OfferCategory", 'String'>
+    readonly offerId: FieldRef<"OfferCategory", 'String'>
+    readonly categoryId: FieldRef<"OfferCategory", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OfferCategory findUnique
+   */
+  export type OfferCategoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferCategory
+     */
+    select?: OfferCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferCategory
+     */
+    omit?: OfferCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which OfferCategory to fetch.
+     */
+    where: OfferCategoryWhereUniqueInput
+  }
+
+  /**
+   * OfferCategory findUniqueOrThrow
+   */
+  export type OfferCategoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferCategory
+     */
+    select?: OfferCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferCategory
+     */
+    omit?: OfferCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which OfferCategory to fetch.
+     */
+    where: OfferCategoryWhereUniqueInput
+  }
+
+  /**
+   * OfferCategory findFirst
+   */
+  export type OfferCategoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferCategory
+     */
+    select?: OfferCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferCategory
+     */
+    omit?: OfferCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which OfferCategory to fetch.
+     */
+    where?: OfferCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OfferCategories to fetch.
+     */
+    orderBy?: OfferCategoryOrderByWithRelationInput | OfferCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OfferCategories.
+     */
+    cursor?: OfferCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OfferCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OfferCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OfferCategories.
+     */
+    distinct?: OfferCategoryScalarFieldEnum | OfferCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * OfferCategory findFirstOrThrow
+   */
+  export type OfferCategoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferCategory
+     */
+    select?: OfferCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferCategory
+     */
+    omit?: OfferCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which OfferCategory to fetch.
+     */
+    where?: OfferCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OfferCategories to fetch.
+     */
+    orderBy?: OfferCategoryOrderByWithRelationInput | OfferCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OfferCategories.
+     */
+    cursor?: OfferCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OfferCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OfferCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OfferCategories.
+     */
+    distinct?: OfferCategoryScalarFieldEnum | OfferCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * OfferCategory findMany
+   */
+  export type OfferCategoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferCategory
+     */
+    select?: OfferCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferCategory
+     */
+    omit?: OfferCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which OfferCategories to fetch.
+     */
+    where?: OfferCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OfferCategories to fetch.
+     */
+    orderBy?: OfferCategoryOrderByWithRelationInput | OfferCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OfferCategories.
+     */
+    cursor?: OfferCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OfferCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OfferCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OfferCategories.
+     */
+    distinct?: OfferCategoryScalarFieldEnum | OfferCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * OfferCategory create
+   */
+  export type OfferCategoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferCategory
+     */
+    select?: OfferCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferCategory
+     */
+    omit?: OfferCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferCategoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a OfferCategory.
+     */
+    data: XOR<OfferCategoryCreateInput, OfferCategoryUncheckedCreateInput>
+  }
+
+  /**
+   * OfferCategory createMany
+   */
+  export type OfferCategoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OfferCategories.
+     */
+    data: OfferCategoryCreateManyInput | OfferCategoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OfferCategory createManyAndReturn
+   */
+  export type OfferCategoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferCategory
+     */
+    select?: OfferCategorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferCategory
+     */
+    omit?: OfferCategoryOmit<ExtArgs> | null
+    /**
+     * The data used to create many OfferCategories.
+     */
+    data: OfferCategoryCreateManyInput | OfferCategoryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferCategoryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * OfferCategory update
+   */
+  export type OfferCategoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferCategory
+     */
+    select?: OfferCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferCategory
+     */
+    omit?: OfferCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferCategoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a OfferCategory.
+     */
+    data: XOR<OfferCategoryUpdateInput, OfferCategoryUncheckedUpdateInput>
+    /**
+     * Choose, which OfferCategory to update.
+     */
+    where: OfferCategoryWhereUniqueInput
+  }
+
+  /**
+   * OfferCategory updateMany
+   */
+  export type OfferCategoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OfferCategories.
+     */
+    data: XOR<OfferCategoryUpdateManyMutationInput, OfferCategoryUncheckedUpdateManyInput>
+    /**
+     * Filter which OfferCategories to update
+     */
+    where?: OfferCategoryWhereInput
+    /**
+     * Limit how many OfferCategories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * OfferCategory updateManyAndReturn
+   */
+  export type OfferCategoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferCategory
+     */
+    select?: OfferCategorySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferCategory
+     */
+    omit?: OfferCategoryOmit<ExtArgs> | null
+    /**
+     * The data used to update OfferCategories.
+     */
+    data: XOR<OfferCategoryUpdateManyMutationInput, OfferCategoryUncheckedUpdateManyInput>
+    /**
+     * Filter which OfferCategories to update
+     */
+    where?: OfferCategoryWhereInput
+    /**
+     * Limit how many OfferCategories to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferCategoryIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * OfferCategory upsert
+   */
+  export type OfferCategoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferCategory
+     */
+    select?: OfferCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferCategory
+     */
+    omit?: OfferCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferCategoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the OfferCategory to update in case it exists.
+     */
+    where: OfferCategoryWhereUniqueInput
+    /**
+     * In case the OfferCategory found by the `where` argument doesn't exist, create a new OfferCategory with this data.
+     */
+    create: XOR<OfferCategoryCreateInput, OfferCategoryUncheckedCreateInput>
+    /**
+     * In case the OfferCategory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OfferCategoryUpdateInput, OfferCategoryUncheckedUpdateInput>
+  }
+
+  /**
+   * OfferCategory delete
+   */
+  export type OfferCategoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferCategory
+     */
+    select?: OfferCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferCategory
+     */
+    omit?: OfferCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferCategoryInclude<ExtArgs> | null
+    /**
+     * Filter which OfferCategory to delete.
+     */
+    where: OfferCategoryWhereUniqueInput
+  }
+
+  /**
+   * OfferCategory deleteMany
+   */
+  export type OfferCategoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OfferCategories to delete
+     */
+    where?: OfferCategoryWhereInput
+    /**
+     * Limit how many OfferCategories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * OfferCategory without action
+   */
+  export type OfferCategoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferCategory
+     */
+    select?: OfferCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfferCategory
+     */
+    omit?: OfferCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferCategoryInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -9721,6 +13452,43 @@ export namespace Prisma {
   };
 
   export type OrderItemScalarFieldEnum = (typeof OrderItemScalarFieldEnum)[keyof typeof OrderItemScalarFieldEnum]
+
+
+  export const OfferScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    slug: 'slug',
+    description: 'description',
+    discountType: 'discountType',
+    discountValue: 'discountValue',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    isActive: 'isActive',
+    bannerImage: 'bannerImage',
+    applyType: 'applyType',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type OfferScalarFieldEnum = (typeof OfferScalarFieldEnum)[keyof typeof OfferScalarFieldEnum]
+
+
+  export const OfferProductScalarFieldEnum: {
+    id: 'id',
+    offerId: 'offerId',
+    productId: 'productId'
+  };
+
+  export type OfferProductScalarFieldEnum = (typeof OfferProductScalarFieldEnum)[keyof typeof OfferProductScalarFieldEnum]
+
+
+  export const OfferCategoryScalarFieldEnum: {
+    id: 'id',
+    offerId: 'offerId',
+    categoryId: 'categoryId'
+  };
+
+  export type OfferCategoryScalarFieldEnum = (typeof OfferCategoryScalarFieldEnum)[keyof typeof OfferCategoryScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -9855,6 +13623,20 @@ export namespace Prisma {
    */
   export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
+
+
+  /**
+   * Reference to a field of type 'OfferApplyType'
+   */
+  export type EnumOfferApplyTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OfferApplyType'>
+    
+
+
+  /**
+   * Reference to a field of type 'OfferApplyType[]'
+   */
+  export type ListEnumOfferApplyTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OfferApplyType[]'>
+    
   /**
    * Deep Input Types
    */
@@ -9870,6 +13652,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Category"> | Date | string
     updatedAt?: DateTimeFilter<"Category"> | Date | string
     products?: ProductListRelationFilter
+    offers?: OfferCategoryListRelationFilter
   }
 
   export type CategoryOrderByWithRelationInput = {
@@ -9879,6 +13662,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     products?: ProductOrderByRelationAggregateInput
+    offers?: OfferCategoryOrderByRelationAggregateInput
   }
 
   export type CategoryWhereUniqueInput = Prisma.AtLeast<{
@@ -9891,6 +13675,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Category"> | Date | string
     updatedAt?: DateTimeFilter<"Category"> | Date | string
     products?: ProductListRelationFilter
+    offers?: OfferCategoryListRelationFilter
   }, "id" | "slug">
 
   export type CategoryOrderByWithAggregationInput = {
@@ -9930,6 +13715,7 @@ export namespace Prisma {
     description?: StringNullableListFilter<"Product">
     images?: ImageListRelationFilter
     orderItem?: OrderItemListRelationFilter
+    offers?: OfferProductListRelationFilter
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     recommended?: XOR<RecommendedProductNullableScalarRelationFilter, RecommendedProductWhereInput> | null
   }
@@ -9946,6 +13732,7 @@ export namespace Prisma {
     description?: SortOrder
     images?: ImageOrderByRelationAggregateInput
     orderItem?: OrderItemOrderByRelationAggregateInput
+    offers?: OfferProductOrderByRelationAggregateInput
     category?: CategoryOrderByWithRelationInput
     recommended?: RecommendedProductOrderByWithRelationInput
   }
@@ -9965,6 +13752,7 @@ export namespace Prisma {
     description?: StringNullableListFilter<"Product">
     images?: ImageListRelationFilter
     orderItem?: OrderItemListRelationFilter
+    offers?: OfferProductListRelationFilter
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     recommended?: XOR<RecommendedProductNullableScalarRelationFilter, RecommendedProductWhereInput> | null
   }, "id">
@@ -10404,6 +14192,204 @@ export namespace Prisma {
     price?: DecimalWithAggregatesFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
   }
 
+  export type OfferWhereInput = {
+    AND?: OfferWhereInput | OfferWhereInput[]
+    OR?: OfferWhereInput[]
+    NOT?: OfferWhereInput | OfferWhereInput[]
+    id?: StringFilter<"Offer"> | string
+    title?: StringFilter<"Offer"> | string
+    slug?: StringFilter<"Offer"> | string
+    description?: StringNullableFilter<"Offer"> | string | null
+    discountType?: EnumDiscountTypeFilter<"Offer"> | $Enums.DiscountType
+    discountValue?: FloatFilter<"Offer"> | number
+    startDate?: DateTimeFilter<"Offer"> | Date | string
+    endDate?: DateTimeFilter<"Offer"> | Date | string
+    isActive?: BoolFilter<"Offer"> | boolean
+    bannerImage?: StringNullableFilter<"Offer"> | string | null
+    applyType?: EnumOfferApplyTypeFilter<"Offer"> | $Enums.OfferApplyType
+    createdAt?: DateTimeFilter<"Offer"> | Date | string
+    updatedAt?: DateTimeFilter<"Offer"> | Date | string
+    products?: OfferProductListRelationFilter
+    categories?: OfferCategoryListRelationFilter
+  }
+
+  export type OfferOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    description?: SortOrderInput | SortOrder
+    discountType?: SortOrder
+    discountValue?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    isActive?: SortOrder
+    bannerImage?: SortOrderInput | SortOrder
+    applyType?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    products?: OfferProductOrderByRelationAggregateInput
+    categories?: OfferCategoryOrderByRelationAggregateInput
+  }
+
+  export type OfferWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    slug?: string
+    AND?: OfferWhereInput | OfferWhereInput[]
+    OR?: OfferWhereInput[]
+    NOT?: OfferWhereInput | OfferWhereInput[]
+    title?: StringFilter<"Offer"> | string
+    description?: StringNullableFilter<"Offer"> | string | null
+    discountType?: EnumDiscountTypeFilter<"Offer"> | $Enums.DiscountType
+    discountValue?: FloatFilter<"Offer"> | number
+    startDate?: DateTimeFilter<"Offer"> | Date | string
+    endDate?: DateTimeFilter<"Offer"> | Date | string
+    isActive?: BoolFilter<"Offer"> | boolean
+    bannerImage?: StringNullableFilter<"Offer"> | string | null
+    applyType?: EnumOfferApplyTypeFilter<"Offer"> | $Enums.OfferApplyType
+    createdAt?: DateTimeFilter<"Offer"> | Date | string
+    updatedAt?: DateTimeFilter<"Offer"> | Date | string
+    products?: OfferProductListRelationFilter
+    categories?: OfferCategoryListRelationFilter
+  }, "id" | "slug">
+
+  export type OfferOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    description?: SortOrderInput | SortOrder
+    discountType?: SortOrder
+    discountValue?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    isActive?: SortOrder
+    bannerImage?: SortOrderInput | SortOrder
+    applyType?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: OfferCountOrderByAggregateInput
+    _avg?: OfferAvgOrderByAggregateInput
+    _max?: OfferMaxOrderByAggregateInput
+    _min?: OfferMinOrderByAggregateInput
+    _sum?: OfferSumOrderByAggregateInput
+  }
+
+  export type OfferScalarWhereWithAggregatesInput = {
+    AND?: OfferScalarWhereWithAggregatesInput | OfferScalarWhereWithAggregatesInput[]
+    OR?: OfferScalarWhereWithAggregatesInput[]
+    NOT?: OfferScalarWhereWithAggregatesInput | OfferScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Offer"> | string
+    title?: StringWithAggregatesFilter<"Offer"> | string
+    slug?: StringWithAggregatesFilter<"Offer"> | string
+    description?: StringNullableWithAggregatesFilter<"Offer"> | string | null
+    discountType?: EnumDiscountTypeWithAggregatesFilter<"Offer"> | $Enums.DiscountType
+    discountValue?: FloatWithAggregatesFilter<"Offer"> | number
+    startDate?: DateTimeWithAggregatesFilter<"Offer"> | Date | string
+    endDate?: DateTimeWithAggregatesFilter<"Offer"> | Date | string
+    isActive?: BoolWithAggregatesFilter<"Offer"> | boolean
+    bannerImage?: StringNullableWithAggregatesFilter<"Offer"> | string | null
+    applyType?: EnumOfferApplyTypeWithAggregatesFilter<"Offer"> | $Enums.OfferApplyType
+    createdAt?: DateTimeWithAggregatesFilter<"Offer"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Offer"> | Date | string
+  }
+
+  export type OfferProductWhereInput = {
+    AND?: OfferProductWhereInput | OfferProductWhereInput[]
+    OR?: OfferProductWhereInput[]
+    NOT?: OfferProductWhereInput | OfferProductWhereInput[]
+    id?: StringFilter<"OfferProduct"> | string
+    offerId?: StringFilter<"OfferProduct"> | string
+    productId?: StringFilter<"OfferProduct"> | string
+    offer?: XOR<OfferScalarRelationFilter, OfferWhereInput>
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+  }
+
+  export type OfferProductOrderByWithRelationInput = {
+    id?: SortOrder
+    offerId?: SortOrder
+    productId?: SortOrder
+    offer?: OfferOrderByWithRelationInput
+    product?: ProductOrderByWithRelationInput
+  }
+
+  export type OfferProductWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    offerId_productId?: OfferProductOfferIdProductIdCompoundUniqueInput
+    AND?: OfferProductWhereInput | OfferProductWhereInput[]
+    OR?: OfferProductWhereInput[]
+    NOT?: OfferProductWhereInput | OfferProductWhereInput[]
+    offerId?: StringFilter<"OfferProduct"> | string
+    productId?: StringFilter<"OfferProduct"> | string
+    offer?: XOR<OfferScalarRelationFilter, OfferWhereInput>
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+  }, "id" | "offerId_productId">
+
+  export type OfferProductOrderByWithAggregationInput = {
+    id?: SortOrder
+    offerId?: SortOrder
+    productId?: SortOrder
+    _count?: OfferProductCountOrderByAggregateInput
+    _max?: OfferProductMaxOrderByAggregateInput
+    _min?: OfferProductMinOrderByAggregateInput
+  }
+
+  export type OfferProductScalarWhereWithAggregatesInput = {
+    AND?: OfferProductScalarWhereWithAggregatesInput | OfferProductScalarWhereWithAggregatesInput[]
+    OR?: OfferProductScalarWhereWithAggregatesInput[]
+    NOT?: OfferProductScalarWhereWithAggregatesInput | OfferProductScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"OfferProduct"> | string
+    offerId?: StringWithAggregatesFilter<"OfferProduct"> | string
+    productId?: StringWithAggregatesFilter<"OfferProduct"> | string
+  }
+
+  export type OfferCategoryWhereInput = {
+    AND?: OfferCategoryWhereInput | OfferCategoryWhereInput[]
+    OR?: OfferCategoryWhereInput[]
+    NOT?: OfferCategoryWhereInput | OfferCategoryWhereInput[]
+    id?: StringFilter<"OfferCategory"> | string
+    offerId?: StringFilter<"OfferCategory"> | string
+    categoryId?: StringFilter<"OfferCategory"> | string
+    offer?: XOR<OfferScalarRelationFilter, OfferWhereInput>
+    category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
+  }
+
+  export type OfferCategoryOrderByWithRelationInput = {
+    id?: SortOrder
+    offerId?: SortOrder
+    categoryId?: SortOrder
+    offer?: OfferOrderByWithRelationInput
+    category?: CategoryOrderByWithRelationInput
+  }
+
+  export type OfferCategoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    offerId_categoryId?: OfferCategoryOfferIdCategoryIdCompoundUniqueInput
+    AND?: OfferCategoryWhereInput | OfferCategoryWhereInput[]
+    OR?: OfferCategoryWhereInput[]
+    NOT?: OfferCategoryWhereInput | OfferCategoryWhereInput[]
+    offerId?: StringFilter<"OfferCategory"> | string
+    categoryId?: StringFilter<"OfferCategory"> | string
+    offer?: XOR<OfferScalarRelationFilter, OfferWhereInput>
+    category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
+  }, "id" | "offerId_categoryId">
+
+  export type OfferCategoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    offerId?: SortOrder
+    categoryId?: SortOrder
+    _count?: OfferCategoryCountOrderByAggregateInput
+    _max?: OfferCategoryMaxOrderByAggregateInput
+    _min?: OfferCategoryMinOrderByAggregateInput
+  }
+
+  export type OfferCategoryScalarWhereWithAggregatesInput = {
+    AND?: OfferCategoryScalarWhereWithAggregatesInput | OfferCategoryScalarWhereWithAggregatesInput[]
+    OR?: OfferCategoryScalarWhereWithAggregatesInput[]
+    NOT?: OfferCategoryScalarWhereWithAggregatesInput | OfferCategoryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"OfferCategory"> | string
+    offerId?: StringWithAggregatesFilter<"OfferCategory"> | string
+    categoryId?: StringWithAggregatesFilter<"OfferCategory"> | string
+  }
+
   export type CategoryCreateInput = {
     id?: string
     name: string
@@ -10411,6 +14397,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductCreateNestedManyWithoutCategoryInput
+    offers?: OfferCategoryCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoryUncheckedCreateInput = {
@@ -10420,6 +14407,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductUncheckedCreateNestedManyWithoutCategoryInput
+    offers?: OfferCategoryUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoryUpdateInput = {
@@ -10429,6 +14417,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductUpdateManyWithoutCategoryNestedInput
+    offers?: OfferCategoryUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoryUncheckedUpdateInput = {
@@ -10438,6 +14427,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductUncheckedUpdateManyWithoutCategoryNestedInput
+    offers?: OfferCategoryUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoryCreateManyInput = {
@@ -10475,6 +14465,7 @@ export namespace Prisma {
     description?: ProductCreatedescriptionInput | string[]
     images?: ImageCreateNestedManyWithoutProductInput
     orderItem?: OrderItemCreateNestedManyWithoutProductInput
+    offers?: OfferProductCreateNestedManyWithoutProductInput
     category: CategoryCreateNestedOneWithoutProductsInput
     recommended?: RecommendedProductCreateNestedOneWithoutProductInput
   }
@@ -10491,6 +14482,7 @@ export namespace Prisma {
     description?: ProductCreatedescriptionInput | string[]
     images?: ImageUncheckedCreateNestedManyWithoutProductInput
     orderItem?: OrderItemUncheckedCreateNestedManyWithoutProductInput
+    offers?: OfferProductUncheckedCreateNestedManyWithoutProductInput
     recommended?: RecommendedProductUncheckedCreateNestedOneWithoutProductInput
   }
 
@@ -10505,6 +14497,7 @@ export namespace Prisma {
     description?: ProductUpdatedescriptionInput | string[]
     images?: ImageUpdateManyWithoutProductNestedInput
     orderItem?: OrderItemUpdateManyWithoutProductNestedInput
+    offers?: OfferProductUpdateManyWithoutProductNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     recommended?: RecommendedProductUpdateOneWithoutProductNestedInput
   }
@@ -10521,6 +14514,7 @@ export namespace Prisma {
     description?: ProductUpdatedescriptionInput | string[]
     images?: ImageUncheckedUpdateManyWithoutProductNestedInput
     orderItem?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
+    offers?: OfferProductUncheckedUpdateManyWithoutProductNestedInput
     recommended?: RecommendedProductUncheckedUpdateOneWithoutProductNestedInput
   }
 
@@ -11007,6 +15001,206 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
+  export type OfferCreateInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    discountType: $Enums.DiscountType
+    discountValue: number
+    startDate: Date | string
+    endDate: Date | string
+    isActive?: boolean
+    bannerImage?: string | null
+    applyType: $Enums.OfferApplyType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    products?: OfferProductCreateNestedManyWithoutOfferInput
+    categories?: OfferCategoryCreateNestedManyWithoutOfferInput
+  }
+
+  export type OfferUncheckedCreateInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    discountType: $Enums.DiscountType
+    discountValue: number
+    startDate: Date | string
+    endDate: Date | string
+    isActive?: boolean
+    bannerImage?: string | null
+    applyType: $Enums.OfferApplyType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    products?: OfferProductUncheckedCreateNestedManyWithoutOfferInput
+    categories?: OfferCategoryUncheckedCreateNestedManyWithoutOfferInput
+  }
+
+  export type OfferUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    discountType?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+    discountValue?: FloatFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    bannerImage?: NullableStringFieldUpdateOperationsInput | string | null
+    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    products?: OfferProductUpdateManyWithoutOfferNestedInput
+    categories?: OfferCategoryUpdateManyWithoutOfferNestedInput
+  }
+
+  export type OfferUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    discountType?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+    discountValue?: FloatFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    bannerImage?: NullableStringFieldUpdateOperationsInput | string | null
+    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    products?: OfferProductUncheckedUpdateManyWithoutOfferNestedInput
+    categories?: OfferCategoryUncheckedUpdateManyWithoutOfferNestedInput
+  }
+
+  export type OfferCreateManyInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    discountType: $Enums.DiscountType
+    discountValue: number
+    startDate: Date | string
+    endDate: Date | string
+    isActive?: boolean
+    bannerImage?: string | null
+    applyType: $Enums.OfferApplyType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OfferUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    discountType?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+    discountValue?: FloatFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    bannerImage?: NullableStringFieldUpdateOperationsInput | string | null
+    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OfferUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    discountType?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+    discountValue?: FloatFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    bannerImage?: NullableStringFieldUpdateOperationsInput | string | null
+    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OfferProductCreateInput = {
+    id?: string
+    offer: OfferCreateNestedOneWithoutProductsInput
+    product: ProductCreateNestedOneWithoutOffersInput
+  }
+
+  export type OfferProductUncheckedCreateInput = {
+    id?: string
+    offerId: string
+    productId: string
+  }
+
+  export type OfferProductUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offer?: OfferUpdateOneRequiredWithoutProductsNestedInput
+    product?: ProductUpdateOneRequiredWithoutOffersNestedInput
+  }
+
+  export type OfferProductUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerId?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OfferProductCreateManyInput = {
+    id?: string
+    offerId: string
+    productId: string
+  }
+
+  export type OfferProductUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OfferProductUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerId?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OfferCategoryCreateInput = {
+    id?: string
+    offer: OfferCreateNestedOneWithoutCategoriesInput
+    category: CategoryCreateNestedOneWithoutOffersInput
+  }
+
+  export type OfferCategoryUncheckedCreateInput = {
+    id?: string
+    offerId: string
+    categoryId: string
+  }
+
+  export type OfferCategoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offer?: OfferUpdateOneRequiredWithoutCategoriesNestedInput
+    category?: CategoryUpdateOneRequiredWithoutOffersNestedInput
+  }
+
+  export type OfferCategoryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerId?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OfferCategoryCreateManyInput = {
+    id?: string
+    offerId: string
+    categoryId: string
+  }
+
+  export type OfferCategoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OfferCategoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerId?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -11039,7 +15233,17 @@ export namespace Prisma {
     none?: ProductWhereInput
   }
 
+  export type OfferCategoryListRelationFilter = {
+    every?: OfferCategoryWhereInput
+    some?: OfferCategoryWhereInput
+    none?: OfferCategoryWhereInput
+  }
+
   export type ProductOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type OfferCategoryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11141,6 +15345,12 @@ export namespace Prisma {
     none?: OrderItemWhereInput
   }
 
+  export type OfferProductListRelationFilter = {
+    every?: OfferProductWhereInput
+    some?: OfferProductWhereInput
+    none?: OfferProductWhereInput
+  }
+
   export type CategoryScalarRelationFilter = {
     is?: CategoryWhereInput
     isNot?: CategoryWhereInput
@@ -11156,6 +15366,10 @@ export namespace Prisma {
   }
 
   export type OrderItemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type OfferProductOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11653,6 +15867,130 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
+  export type EnumOfferApplyTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.OfferApplyType | EnumOfferApplyTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.OfferApplyType[] | ListEnumOfferApplyTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OfferApplyType[] | ListEnumOfferApplyTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumOfferApplyTypeFilter<$PrismaModel> | $Enums.OfferApplyType
+  }
+
+  export type OfferCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    description?: SortOrder
+    discountType?: SortOrder
+    discountValue?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    isActive?: SortOrder
+    bannerImage?: SortOrder
+    applyType?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OfferAvgOrderByAggregateInput = {
+    discountValue?: SortOrder
+  }
+
+  export type OfferMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    description?: SortOrder
+    discountType?: SortOrder
+    discountValue?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    isActive?: SortOrder
+    bannerImage?: SortOrder
+    applyType?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OfferMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    description?: SortOrder
+    discountType?: SortOrder
+    discountValue?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    isActive?: SortOrder
+    bannerImage?: SortOrder
+    applyType?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OfferSumOrderByAggregateInput = {
+    discountValue?: SortOrder
+  }
+
+  export type EnumOfferApplyTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OfferApplyType | EnumOfferApplyTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.OfferApplyType[] | ListEnumOfferApplyTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OfferApplyType[] | ListEnumOfferApplyTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumOfferApplyTypeWithAggregatesFilter<$PrismaModel> | $Enums.OfferApplyType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumOfferApplyTypeFilter<$PrismaModel>
+    _max?: NestedEnumOfferApplyTypeFilter<$PrismaModel>
+  }
+
+  export type OfferScalarRelationFilter = {
+    is?: OfferWhereInput
+    isNot?: OfferWhereInput
+  }
+
+  export type OfferProductOfferIdProductIdCompoundUniqueInput = {
+    offerId: string
+    productId: string
+  }
+
+  export type OfferProductCountOrderByAggregateInput = {
+    id?: SortOrder
+    offerId?: SortOrder
+    productId?: SortOrder
+  }
+
+  export type OfferProductMaxOrderByAggregateInput = {
+    id?: SortOrder
+    offerId?: SortOrder
+    productId?: SortOrder
+  }
+
+  export type OfferProductMinOrderByAggregateInput = {
+    id?: SortOrder
+    offerId?: SortOrder
+    productId?: SortOrder
+  }
+
+  export type OfferCategoryOfferIdCategoryIdCompoundUniqueInput = {
+    offerId: string
+    categoryId: string
+  }
+
+  export type OfferCategoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    offerId?: SortOrder
+    categoryId?: SortOrder
+  }
+
+  export type OfferCategoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    offerId?: SortOrder
+    categoryId?: SortOrder
+  }
+
+  export type OfferCategoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    offerId?: SortOrder
+    categoryId?: SortOrder
+  }
+
   export type ProductCreateNestedManyWithoutCategoryInput = {
     create?: XOR<ProductCreateWithoutCategoryInput, ProductUncheckedCreateWithoutCategoryInput> | ProductCreateWithoutCategoryInput[] | ProductUncheckedCreateWithoutCategoryInput[]
     connectOrCreate?: ProductCreateOrConnectWithoutCategoryInput | ProductCreateOrConnectWithoutCategoryInput[]
@@ -11660,11 +15998,25 @@ export namespace Prisma {
     connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
   }
 
+  export type OfferCategoryCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<OfferCategoryCreateWithoutCategoryInput, OfferCategoryUncheckedCreateWithoutCategoryInput> | OfferCategoryCreateWithoutCategoryInput[] | OfferCategoryUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: OfferCategoryCreateOrConnectWithoutCategoryInput | OfferCategoryCreateOrConnectWithoutCategoryInput[]
+    createMany?: OfferCategoryCreateManyCategoryInputEnvelope
+    connect?: OfferCategoryWhereUniqueInput | OfferCategoryWhereUniqueInput[]
+  }
+
   export type ProductUncheckedCreateNestedManyWithoutCategoryInput = {
     create?: XOR<ProductCreateWithoutCategoryInput, ProductUncheckedCreateWithoutCategoryInput> | ProductCreateWithoutCategoryInput[] | ProductUncheckedCreateWithoutCategoryInput[]
     connectOrCreate?: ProductCreateOrConnectWithoutCategoryInput | ProductCreateOrConnectWithoutCategoryInput[]
     createMany?: ProductCreateManyCategoryInputEnvelope
     connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+  }
+
+  export type OfferCategoryUncheckedCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<OfferCategoryCreateWithoutCategoryInput, OfferCategoryUncheckedCreateWithoutCategoryInput> | OfferCategoryCreateWithoutCategoryInput[] | OfferCategoryUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: OfferCategoryCreateOrConnectWithoutCategoryInput | OfferCategoryCreateOrConnectWithoutCategoryInput[]
+    createMany?: OfferCategoryCreateManyCategoryInputEnvelope
+    connect?: OfferCategoryWhereUniqueInput | OfferCategoryWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -11689,6 +16041,20 @@ export namespace Prisma {
     deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
   }
 
+  export type OfferCategoryUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<OfferCategoryCreateWithoutCategoryInput, OfferCategoryUncheckedCreateWithoutCategoryInput> | OfferCategoryCreateWithoutCategoryInput[] | OfferCategoryUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: OfferCategoryCreateOrConnectWithoutCategoryInput | OfferCategoryCreateOrConnectWithoutCategoryInput[]
+    upsert?: OfferCategoryUpsertWithWhereUniqueWithoutCategoryInput | OfferCategoryUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: OfferCategoryCreateManyCategoryInputEnvelope
+    set?: OfferCategoryWhereUniqueInput | OfferCategoryWhereUniqueInput[]
+    disconnect?: OfferCategoryWhereUniqueInput | OfferCategoryWhereUniqueInput[]
+    delete?: OfferCategoryWhereUniqueInput | OfferCategoryWhereUniqueInput[]
+    connect?: OfferCategoryWhereUniqueInput | OfferCategoryWhereUniqueInput[]
+    update?: OfferCategoryUpdateWithWhereUniqueWithoutCategoryInput | OfferCategoryUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: OfferCategoryUpdateManyWithWhereWithoutCategoryInput | OfferCategoryUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: OfferCategoryScalarWhereInput | OfferCategoryScalarWhereInput[]
+  }
+
   export type ProductUncheckedUpdateManyWithoutCategoryNestedInput = {
     create?: XOR<ProductCreateWithoutCategoryInput, ProductUncheckedCreateWithoutCategoryInput> | ProductCreateWithoutCategoryInput[] | ProductUncheckedCreateWithoutCategoryInput[]
     connectOrCreate?: ProductCreateOrConnectWithoutCategoryInput | ProductCreateOrConnectWithoutCategoryInput[]
@@ -11701,6 +16067,20 @@ export namespace Prisma {
     update?: ProductUpdateWithWhereUniqueWithoutCategoryInput | ProductUpdateWithWhereUniqueWithoutCategoryInput[]
     updateMany?: ProductUpdateManyWithWhereWithoutCategoryInput | ProductUpdateManyWithWhereWithoutCategoryInput[]
     deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
+  }
+
+  export type OfferCategoryUncheckedUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<OfferCategoryCreateWithoutCategoryInput, OfferCategoryUncheckedCreateWithoutCategoryInput> | OfferCategoryCreateWithoutCategoryInput[] | OfferCategoryUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: OfferCategoryCreateOrConnectWithoutCategoryInput | OfferCategoryCreateOrConnectWithoutCategoryInput[]
+    upsert?: OfferCategoryUpsertWithWhereUniqueWithoutCategoryInput | OfferCategoryUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: OfferCategoryCreateManyCategoryInputEnvelope
+    set?: OfferCategoryWhereUniqueInput | OfferCategoryWhereUniqueInput[]
+    disconnect?: OfferCategoryWhereUniqueInput | OfferCategoryWhereUniqueInput[]
+    delete?: OfferCategoryWhereUniqueInput | OfferCategoryWhereUniqueInput[]
+    connect?: OfferCategoryWhereUniqueInput | OfferCategoryWhereUniqueInput[]
+    update?: OfferCategoryUpdateWithWhereUniqueWithoutCategoryInput | OfferCategoryUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: OfferCategoryUpdateManyWithWhereWithoutCategoryInput | OfferCategoryUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: OfferCategoryScalarWhereInput | OfferCategoryScalarWhereInput[]
   }
 
   export type ProductCreatehighlightsInput = {
@@ -11723,6 +16103,13 @@ export namespace Prisma {
     connectOrCreate?: OrderItemCreateOrConnectWithoutProductInput | OrderItemCreateOrConnectWithoutProductInput[]
     createMany?: OrderItemCreateManyProductInputEnvelope
     connect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
+  }
+
+  export type OfferProductCreateNestedManyWithoutProductInput = {
+    create?: XOR<OfferProductCreateWithoutProductInput, OfferProductUncheckedCreateWithoutProductInput> | OfferProductCreateWithoutProductInput[] | OfferProductUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: OfferProductCreateOrConnectWithoutProductInput | OfferProductCreateOrConnectWithoutProductInput[]
+    createMany?: OfferProductCreateManyProductInputEnvelope
+    connect?: OfferProductWhereUniqueInput | OfferProductWhereUniqueInput[]
   }
 
   export type CategoryCreateNestedOneWithoutProductsInput = {
@@ -11749,6 +16136,13 @@ export namespace Prisma {
     connectOrCreate?: OrderItemCreateOrConnectWithoutProductInput | OrderItemCreateOrConnectWithoutProductInput[]
     createMany?: OrderItemCreateManyProductInputEnvelope
     connect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
+  }
+
+  export type OfferProductUncheckedCreateNestedManyWithoutProductInput = {
+    create?: XOR<OfferProductCreateWithoutProductInput, OfferProductUncheckedCreateWithoutProductInput> | OfferProductCreateWithoutProductInput[] | OfferProductUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: OfferProductCreateOrConnectWithoutProductInput | OfferProductCreateOrConnectWithoutProductInput[]
+    createMany?: OfferProductCreateManyProductInputEnvelope
+    connect?: OfferProductWhereUniqueInput | OfferProductWhereUniqueInput[]
   }
 
   export type RecommendedProductUncheckedCreateNestedOneWithoutProductInput = {
@@ -11811,6 +16205,20 @@ export namespace Prisma {
     deleteMany?: OrderItemScalarWhereInput | OrderItemScalarWhereInput[]
   }
 
+  export type OfferProductUpdateManyWithoutProductNestedInput = {
+    create?: XOR<OfferProductCreateWithoutProductInput, OfferProductUncheckedCreateWithoutProductInput> | OfferProductCreateWithoutProductInput[] | OfferProductUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: OfferProductCreateOrConnectWithoutProductInput | OfferProductCreateOrConnectWithoutProductInput[]
+    upsert?: OfferProductUpsertWithWhereUniqueWithoutProductInput | OfferProductUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: OfferProductCreateManyProductInputEnvelope
+    set?: OfferProductWhereUniqueInput | OfferProductWhereUniqueInput[]
+    disconnect?: OfferProductWhereUniqueInput | OfferProductWhereUniqueInput[]
+    delete?: OfferProductWhereUniqueInput | OfferProductWhereUniqueInput[]
+    connect?: OfferProductWhereUniqueInput | OfferProductWhereUniqueInput[]
+    update?: OfferProductUpdateWithWhereUniqueWithoutProductInput | OfferProductUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: OfferProductUpdateManyWithWhereWithoutProductInput | OfferProductUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: OfferProductScalarWhereInput | OfferProductScalarWhereInput[]
+  }
+
   export type CategoryUpdateOneRequiredWithoutProductsNestedInput = {
     create?: XOR<CategoryCreateWithoutProductsInput, CategoryUncheckedCreateWithoutProductsInput>
     connectOrCreate?: CategoryCreateOrConnectWithoutProductsInput
@@ -11855,6 +16263,20 @@ export namespace Prisma {
     update?: OrderItemUpdateWithWhereUniqueWithoutProductInput | OrderItemUpdateWithWhereUniqueWithoutProductInput[]
     updateMany?: OrderItemUpdateManyWithWhereWithoutProductInput | OrderItemUpdateManyWithWhereWithoutProductInput[]
     deleteMany?: OrderItemScalarWhereInput | OrderItemScalarWhereInput[]
+  }
+
+  export type OfferProductUncheckedUpdateManyWithoutProductNestedInput = {
+    create?: XOR<OfferProductCreateWithoutProductInput, OfferProductUncheckedCreateWithoutProductInput> | OfferProductCreateWithoutProductInput[] | OfferProductUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: OfferProductCreateOrConnectWithoutProductInput | OfferProductCreateOrConnectWithoutProductInput[]
+    upsert?: OfferProductUpsertWithWhereUniqueWithoutProductInput | OfferProductUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: OfferProductCreateManyProductInputEnvelope
+    set?: OfferProductWhereUniqueInput | OfferProductWhereUniqueInput[]
+    disconnect?: OfferProductWhereUniqueInput | OfferProductWhereUniqueInput[]
+    delete?: OfferProductWhereUniqueInput | OfferProductWhereUniqueInput[]
+    connect?: OfferProductWhereUniqueInput | OfferProductWhereUniqueInput[]
+    update?: OfferProductUpdateWithWhereUniqueWithoutProductInput | OfferProductUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: OfferProductUpdateManyWithWhereWithoutProductInput | OfferProductUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: OfferProductScalarWhereInput | OfferProductScalarWhereInput[]
   }
 
   export type RecommendedProductUncheckedUpdateOneWithoutProductNestedInput = {
@@ -12003,6 +16425,150 @@ export namespace Prisma {
     upsert?: ProductUpsertWithoutOrderItemInput
     connect?: ProductWhereUniqueInput
     update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutOrderItemInput, ProductUpdateWithoutOrderItemInput>, ProductUncheckedUpdateWithoutOrderItemInput>
+  }
+
+  export type OfferProductCreateNestedManyWithoutOfferInput = {
+    create?: XOR<OfferProductCreateWithoutOfferInput, OfferProductUncheckedCreateWithoutOfferInput> | OfferProductCreateWithoutOfferInput[] | OfferProductUncheckedCreateWithoutOfferInput[]
+    connectOrCreate?: OfferProductCreateOrConnectWithoutOfferInput | OfferProductCreateOrConnectWithoutOfferInput[]
+    createMany?: OfferProductCreateManyOfferInputEnvelope
+    connect?: OfferProductWhereUniqueInput | OfferProductWhereUniqueInput[]
+  }
+
+  export type OfferCategoryCreateNestedManyWithoutOfferInput = {
+    create?: XOR<OfferCategoryCreateWithoutOfferInput, OfferCategoryUncheckedCreateWithoutOfferInput> | OfferCategoryCreateWithoutOfferInput[] | OfferCategoryUncheckedCreateWithoutOfferInput[]
+    connectOrCreate?: OfferCategoryCreateOrConnectWithoutOfferInput | OfferCategoryCreateOrConnectWithoutOfferInput[]
+    createMany?: OfferCategoryCreateManyOfferInputEnvelope
+    connect?: OfferCategoryWhereUniqueInput | OfferCategoryWhereUniqueInput[]
+  }
+
+  export type OfferProductUncheckedCreateNestedManyWithoutOfferInput = {
+    create?: XOR<OfferProductCreateWithoutOfferInput, OfferProductUncheckedCreateWithoutOfferInput> | OfferProductCreateWithoutOfferInput[] | OfferProductUncheckedCreateWithoutOfferInput[]
+    connectOrCreate?: OfferProductCreateOrConnectWithoutOfferInput | OfferProductCreateOrConnectWithoutOfferInput[]
+    createMany?: OfferProductCreateManyOfferInputEnvelope
+    connect?: OfferProductWhereUniqueInput | OfferProductWhereUniqueInput[]
+  }
+
+  export type OfferCategoryUncheckedCreateNestedManyWithoutOfferInput = {
+    create?: XOR<OfferCategoryCreateWithoutOfferInput, OfferCategoryUncheckedCreateWithoutOfferInput> | OfferCategoryCreateWithoutOfferInput[] | OfferCategoryUncheckedCreateWithoutOfferInput[]
+    connectOrCreate?: OfferCategoryCreateOrConnectWithoutOfferInput | OfferCategoryCreateOrConnectWithoutOfferInput[]
+    createMany?: OfferCategoryCreateManyOfferInputEnvelope
+    connect?: OfferCategoryWhereUniqueInput | OfferCategoryWhereUniqueInput[]
+  }
+
+  export type EnumOfferApplyTypeFieldUpdateOperationsInput = {
+    set?: $Enums.OfferApplyType
+  }
+
+  export type OfferProductUpdateManyWithoutOfferNestedInput = {
+    create?: XOR<OfferProductCreateWithoutOfferInput, OfferProductUncheckedCreateWithoutOfferInput> | OfferProductCreateWithoutOfferInput[] | OfferProductUncheckedCreateWithoutOfferInput[]
+    connectOrCreate?: OfferProductCreateOrConnectWithoutOfferInput | OfferProductCreateOrConnectWithoutOfferInput[]
+    upsert?: OfferProductUpsertWithWhereUniqueWithoutOfferInput | OfferProductUpsertWithWhereUniqueWithoutOfferInput[]
+    createMany?: OfferProductCreateManyOfferInputEnvelope
+    set?: OfferProductWhereUniqueInput | OfferProductWhereUniqueInput[]
+    disconnect?: OfferProductWhereUniqueInput | OfferProductWhereUniqueInput[]
+    delete?: OfferProductWhereUniqueInput | OfferProductWhereUniqueInput[]
+    connect?: OfferProductWhereUniqueInput | OfferProductWhereUniqueInput[]
+    update?: OfferProductUpdateWithWhereUniqueWithoutOfferInput | OfferProductUpdateWithWhereUniqueWithoutOfferInput[]
+    updateMany?: OfferProductUpdateManyWithWhereWithoutOfferInput | OfferProductUpdateManyWithWhereWithoutOfferInput[]
+    deleteMany?: OfferProductScalarWhereInput | OfferProductScalarWhereInput[]
+  }
+
+  export type OfferCategoryUpdateManyWithoutOfferNestedInput = {
+    create?: XOR<OfferCategoryCreateWithoutOfferInput, OfferCategoryUncheckedCreateWithoutOfferInput> | OfferCategoryCreateWithoutOfferInput[] | OfferCategoryUncheckedCreateWithoutOfferInput[]
+    connectOrCreate?: OfferCategoryCreateOrConnectWithoutOfferInput | OfferCategoryCreateOrConnectWithoutOfferInput[]
+    upsert?: OfferCategoryUpsertWithWhereUniqueWithoutOfferInput | OfferCategoryUpsertWithWhereUniqueWithoutOfferInput[]
+    createMany?: OfferCategoryCreateManyOfferInputEnvelope
+    set?: OfferCategoryWhereUniqueInput | OfferCategoryWhereUniqueInput[]
+    disconnect?: OfferCategoryWhereUniqueInput | OfferCategoryWhereUniqueInput[]
+    delete?: OfferCategoryWhereUniqueInput | OfferCategoryWhereUniqueInput[]
+    connect?: OfferCategoryWhereUniqueInput | OfferCategoryWhereUniqueInput[]
+    update?: OfferCategoryUpdateWithWhereUniqueWithoutOfferInput | OfferCategoryUpdateWithWhereUniqueWithoutOfferInput[]
+    updateMany?: OfferCategoryUpdateManyWithWhereWithoutOfferInput | OfferCategoryUpdateManyWithWhereWithoutOfferInput[]
+    deleteMany?: OfferCategoryScalarWhereInput | OfferCategoryScalarWhereInput[]
+  }
+
+  export type OfferProductUncheckedUpdateManyWithoutOfferNestedInput = {
+    create?: XOR<OfferProductCreateWithoutOfferInput, OfferProductUncheckedCreateWithoutOfferInput> | OfferProductCreateWithoutOfferInput[] | OfferProductUncheckedCreateWithoutOfferInput[]
+    connectOrCreate?: OfferProductCreateOrConnectWithoutOfferInput | OfferProductCreateOrConnectWithoutOfferInput[]
+    upsert?: OfferProductUpsertWithWhereUniqueWithoutOfferInput | OfferProductUpsertWithWhereUniqueWithoutOfferInput[]
+    createMany?: OfferProductCreateManyOfferInputEnvelope
+    set?: OfferProductWhereUniqueInput | OfferProductWhereUniqueInput[]
+    disconnect?: OfferProductWhereUniqueInput | OfferProductWhereUniqueInput[]
+    delete?: OfferProductWhereUniqueInput | OfferProductWhereUniqueInput[]
+    connect?: OfferProductWhereUniqueInput | OfferProductWhereUniqueInput[]
+    update?: OfferProductUpdateWithWhereUniqueWithoutOfferInput | OfferProductUpdateWithWhereUniqueWithoutOfferInput[]
+    updateMany?: OfferProductUpdateManyWithWhereWithoutOfferInput | OfferProductUpdateManyWithWhereWithoutOfferInput[]
+    deleteMany?: OfferProductScalarWhereInput | OfferProductScalarWhereInput[]
+  }
+
+  export type OfferCategoryUncheckedUpdateManyWithoutOfferNestedInput = {
+    create?: XOR<OfferCategoryCreateWithoutOfferInput, OfferCategoryUncheckedCreateWithoutOfferInput> | OfferCategoryCreateWithoutOfferInput[] | OfferCategoryUncheckedCreateWithoutOfferInput[]
+    connectOrCreate?: OfferCategoryCreateOrConnectWithoutOfferInput | OfferCategoryCreateOrConnectWithoutOfferInput[]
+    upsert?: OfferCategoryUpsertWithWhereUniqueWithoutOfferInput | OfferCategoryUpsertWithWhereUniqueWithoutOfferInput[]
+    createMany?: OfferCategoryCreateManyOfferInputEnvelope
+    set?: OfferCategoryWhereUniqueInput | OfferCategoryWhereUniqueInput[]
+    disconnect?: OfferCategoryWhereUniqueInput | OfferCategoryWhereUniqueInput[]
+    delete?: OfferCategoryWhereUniqueInput | OfferCategoryWhereUniqueInput[]
+    connect?: OfferCategoryWhereUniqueInput | OfferCategoryWhereUniqueInput[]
+    update?: OfferCategoryUpdateWithWhereUniqueWithoutOfferInput | OfferCategoryUpdateWithWhereUniqueWithoutOfferInput[]
+    updateMany?: OfferCategoryUpdateManyWithWhereWithoutOfferInput | OfferCategoryUpdateManyWithWhereWithoutOfferInput[]
+    deleteMany?: OfferCategoryScalarWhereInput | OfferCategoryScalarWhereInput[]
+  }
+
+  export type OfferCreateNestedOneWithoutProductsInput = {
+    create?: XOR<OfferCreateWithoutProductsInput, OfferUncheckedCreateWithoutProductsInput>
+    connectOrCreate?: OfferCreateOrConnectWithoutProductsInput
+    connect?: OfferWhereUniqueInput
+  }
+
+  export type ProductCreateNestedOneWithoutOffersInput = {
+    create?: XOR<ProductCreateWithoutOffersInput, ProductUncheckedCreateWithoutOffersInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutOffersInput
+    connect?: ProductWhereUniqueInput
+  }
+
+  export type OfferUpdateOneRequiredWithoutProductsNestedInput = {
+    create?: XOR<OfferCreateWithoutProductsInput, OfferUncheckedCreateWithoutProductsInput>
+    connectOrCreate?: OfferCreateOrConnectWithoutProductsInput
+    upsert?: OfferUpsertWithoutProductsInput
+    connect?: OfferWhereUniqueInput
+    update?: XOR<XOR<OfferUpdateToOneWithWhereWithoutProductsInput, OfferUpdateWithoutProductsInput>, OfferUncheckedUpdateWithoutProductsInput>
+  }
+
+  export type ProductUpdateOneRequiredWithoutOffersNestedInput = {
+    create?: XOR<ProductCreateWithoutOffersInput, ProductUncheckedCreateWithoutOffersInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutOffersInput
+    upsert?: ProductUpsertWithoutOffersInput
+    connect?: ProductWhereUniqueInput
+    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutOffersInput, ProductUpdateWithoutOffersInput>, ProductUncheckedUpdateWithoutOffersInput>
+  }
+
+  export type OfferCreateNestedOneWithoutCategoriesInput = {
+    create?: XOR<OfferCreateWithoutCategoriesInput, OfferUncheckedCreateWithoutCategoriesInput>
+    connectOrCreate?: OfferCreateOrConnectWithoutCategoriesInput
+    connect?: OfferWhereUniqueInput
+  }
+
+  export type CategoryCreateNestedOneWithoutOffersInput = {
+    create?: XOR<CategoryCreateWithoutOffersInput, CategoryUncheckedCreateWithoutOffersInput>
+    connectOrCreate?: CategoryCreateOrConnectWithoutOffersInput
+    connect?: CategoryWhereUniqueInput
+  }
+
+  export type OfferUpdateOneRequiredWithoutCategoriesNestedInput = {
+    create?: XOR<OfferCreateWithoutCategoriesInput, OfferUncheckedCreateWithoutCategoriesInput>
+    connectOrCreate?: OfferCreateOrConnectWithoutCategoriesInput
+    upsert?: OfferUpsertWithoutCategoriesInput
+    connect?: OfferWhereUniqueInput
+    update?: XOR<XOR<OfferUpdateToOneWithWhereWithoutCategoriesInput, OfferUpdateWithoutCategoriesInput>, OfferUncheckedUpdateWithoutCategoriesInput>
+  }
+
+  export type CategoryUpdateOneRequiredWithoutOffersNestedInput = {
+    create?: XOR<CategoryCreateWithoutOffersInput, CategoryUncheckedCreateWithoutOffersInput>
+    connectOrCreate?: CategoryCreateOrConnectWithoutOffersInput
+    upsert?: CategoryUpsertWithoutOffersInput
+    connect?: CategoryWhereUniqueInput
+    update?: XOR<XOR<CategoryUpdateToOneWithWhereWithoutOffersInput, CategoryUpdateWithoutOffersInput>, CategoryUncheckedUpdateWithoutOffersInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -12274,6 +16840,23 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
+  export type NestedEnumOfferApplyTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.OfferApplyType | EnumOfferApplyTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.OfferApplyType[] | ListEnumOfferApplyTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OfferApplyType[] | ListEnumOfferApplyTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumOfferApplyTypeFilter<$PrismaModel> | $Enums.OfferApplyType
+  }
+
+  export type NestedEnumOfferApplyTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OfferApplyType | EnumOfferApplyTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.OfferApplyType[] | ListEnumOfferApplyTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OfferApplyType[] | ListEnumOfferApplyTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumOfferApplyTypeWithAggregatesFilter<$PrismaModel> | $Enums.OfferApplyType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumOfferApplyTypeFilter<$PrismaModel>
+    _max?: NestedEnumOfferApplyTypeFilter<$PrismaModel>
+  }
+
   export type ProductCreateWithoutCategoryInput = {
     id?: string
     name: string
@@ -12285,6 +16868,7 @@ export namespace Prisma {
     description?: ProductCreatedescriptionInput | string[]
     images?: ImageCreateNestedManyWithoutProductInput
     orderItem?: OrderItemCreateNestedManyWithoutProductInput
+    offers?: OfferProductCreateNestedManyWithoutProductInput
     recommended?: RecommendedProductCreateNestedOneWithoutProductInput
   }
 
@@ -12299,6 +16883,7 @@ export namespace Prisma {
     description?: ProductCreatedescriptionInput | string[]
     images?: ImageUncheckedCreateNestedManyWithoutProductInput
     orderItem?: OrderItemUncheckedCreateNestedManyWithoutProductInput
+    offers?: OfferProductUncheckedCreateNestedManyWithoutProductInput
     recommended?: RecommendedProductUncheckedCreateNestedOneWithoutProductInput
   }
 
@@ -12309,6 +16894,26 @@ export namespace Prisma {
 
   export type ProductCreateManyCategoryInputEnvelope = {
     data: ProductCreateManyCategoryInput | ProductCreateManyCategoryInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OfferCategoryCreateWithoutCategoryInput = {
+    id?: string
+    offer: OfferCreateNestedOneWithoutCategoriesInput
+  }
+
+  export type OfferCategoryUncheckedCreateWithoutCategoryInput = {
+    id?: string
+    offerId: string
+  }
+
+  export type OfferCategoryCreateOrConnectWithoutCategoryInput = {
+    where: OfferCategoryWhereUniqueInput
+    create: XOR<OfferCategoryCreateWithoutCategoryInput, OfferCategoryUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type OfferCategoryCreateManyCategoryInputEnvelope = {
+    data: OfferCategoryCreateManyCategoryInput | OfferCategoryCreateManyCategoryInput[]
     skipDuplicates?: boolean
   }
 
@@ -12341,6 +16946,31 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Product"> | Date | string
     highlights?: StringNullableListFilter<"Product">
     description?: StringNullableListFilter<"Product">
+  }
+
+  export type OfferCategoryUpsertWithWhereUniqueWithoutCategoryInput = {
+    where: OfferCategoryWhereUniqueInput
+    update: XOR<OfferCategoryUpdateWithoutCategoryInput, OfferCategoryUncheckedUpdateWithoutCategoryInput>
+    create: XOR<OfferCategoryCreateWithoutCategoryInput, OfferCategoryUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type OfferCategoryUpdateWithWhereUniqueWithoutCategoryInput = {
+    where: OfferCategoryWhereUniqueInput
+    data: XOR<OfferCategoryUpdateWithoutCategoryInput, OfferCategoryUncheckedUpdateWithoutCategoryInput>
+  }
+
+  export type OfferCategoryUpdateManyWithWhereWithoutCategoryInput = {
+    where: OfferCategoryScalarWhereInput
+    data: XOR<OfferCategoryUpdateManyMutationInput, OfferCategoryUncheckedUpdateManyWithoutCategoryInput>
+  }
+
+  export type OfferCategoryScalarWhereInput = {
+    AND?: OfferCategoryScalarWhereInput | OfferCategoryScalarWhereInput[]
+    OR?: OfferCategoryScalarWhereInput[]
+    NOT?: OfferCategoryScalarWhereInput | OfferCategoryScalarWhereInput[]
+    id?: StringFilter<"OfferCategory"> | string
+    offerId?: StringFilter<"OfferCategory"> | string
+    categoryId?: StringFilter<"OfferCategory"> | string
   }
 
   export type ImageCreateWithoutProductInput = {
@@ -12405,12 +17035,33 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type OfferProductCreateWithoutProductInput = {
+    id?: string
+    offer: OfferCreateNestedOneWithoutProductsInput
+  }
+
+  export type OfferProductUncheckedCreateWithoutProductInput = {
+    id?: string
+    offerId: string
+  }
+
+  export type OfferProductCreateOrConnectWithoutProductInput = {
+    where: OfferProductWhereUniqueInput
+    create: XOR<OfferProductCreateWithoutProductInput, OfferProductUncheckedCreateWithoutProductInput>
+  }
+
+  export type OfferProductCreateManyProductInputEnvelope = {
+    data: OfferProductCreateManyProductInput | OfferProductCreateManyProductInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CategoryCreateWithoutProductsInput = {
     id?: string
     name: string
     slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    offers?: OfferCategoryCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoryUncheckedCreateWithoutProductsInput = {
@@ -12419,6 +17070,7 @@ export namespace Prisma {
     slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    offers?: OfferCategoryUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoryCreateOrConnectWithoutProductsInput = {
@@ -12504,6 +17156,31 @@ export namespace Prisma {
     price?: DecimalFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
   }
 
+  export type OfferProductUpsertWithWhereUniqueWithoutProductInput = {
+    where: OfferProductWhereUniqueInput
+    update: XOR<OfferProductUpdateWithoutProductInput, OfferProductUncheckedUpdateWithoutProductInput>
+    create: XOR<OfferProductCreateWithoutProductInput, OfferProductUncheckedCreateWithoutProductInput>
+  }
+
+  export type OfferProductUpdateWithWhereUniqueWithoutProductInput = {
+    where: OfferProductWhereUniqueInput
+    data: XOR<OfferProductUpdateWithoutProductInput, OfferProductUncheckedUpdateWithoutProductInput>
+  }
+
+  export type OfferProductUpdateManyWithWhereWithoutProductInput = {
+    where: OfferProductScalarWhereInput
+    data: XOR<OfferProductUpdateManyMutationInput, OfferProductUncheckedUpdateManyWithoutProductInput>
+  }
+
+  export type OfferProductScalarWhereInput = {
+    AND?: OfferProductScalarWhereInput | OfferProductScalarWhereInput[]
+    OR?: OfferProductScalarWhereInput[]
+    NOT?: OfferProductScalarWhereInput | OfferProductScalarWhereInput[]
+    id?: StringFilter<"OfferProduct"> | string
+    offerId?: StringFilter<"OfferProduct"> | string
+    productId?: StringFilter<"OfferProduct"> | string
+  }
+
   export type CategoryUpsertWithoutProductsInput = {
     update: XOR<CategoryUpdateWithoutProductsInput, CategoryUncheckedUpdateWithoutProductsInput>
     create: XOR<CategoryCreateWithoutProductsInput, CategoryUncheckedCreateWithoutProductsInput>
@@ -12521,6 +17198,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    offers?: OfferCategoryUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoryUncheckedUpdateWithoutProductsInput = {
@@ -12529,6 +17207,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    offers?: OfferCategoryUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type RecommendedProductUpsertWithoutProductInput = {
@@ -12564,6 +17243,7 @@ export namespace Prisma {
     highlights?: ProductCreatehighlightsInput | string[]
     description?: ProductCreatedescriptionInput | string[]
     orderItem?: OrderItemCreateNestedManyWithoutProductInput
+    offers?: OfferProductCreateNestedManyWithoutProductInput
     category: CategoryCreateNestedOneWithoutProductsInput
     recommended?: RecommendedProductCreateNestedOneWithoutProductInput
   }
@@ -12579,6 +17259,7 @@ export namespace Prisma {
     highlights?: ProductCreatehighlightsInput | string[]
     description?: ProductCreatedescriptionInput | string[]
     orderItem?: OrderItemUncheckedCreateNestedManyWithoutProductInput
+    offers?: OfferProductUncheckedCreateNestedManyWithoutProductInput
     recommended?: RecommendedProductUncheckedCreateNestedOneWithoutProductInput
   }
 
@@ -12608,6 +17289,7 @@ export namespace Prisma {
     highlights?: ProductUpdatehighlightsInput | string[]
     description?: ProductUpdatedescriptionInput | string[]
     orderItem?: OrderItemUpdateManyWithoutProductNestedInput
+    offers?: OfferProductUpdateManyWithoutProductNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     recommended?: RecommendedProductUpdateOneWithoutProductNestedInput
   }
@@ -12623,6 +17305,7 @@ export namespace Prisma {
     highlights?: ProductUpdatehighlightsInput | string[]
     description?: ProductUpdatedescriptionInput | string[]
     orderItem?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
+    offers?: OfferProductUncheckedUpdateManyWithoutProductNestedInput
     recommended?: RecommendedProductUncheckedUpdateOneWithoutProductNestedInput
   }
 
@@ -12637,6 +17320,7 @@ export namespace Prisma {
     description?: ProductCreatedescriptionInput | string[]
     images?: ImageCreateNestedManyWithoutProductInput
     orderItem?: OrderItemCreateNestedManyWithoutProductInput
+    offers?: OfferProductCreateNestedManyWithoutProductInput
     category: CategoryCreateNestedOneWithoutProductsInput
   }
 
@@ -12652,6 +17336,7 @@ export namespace Prisma {
     description?: ProductCreatedescriptionInput | string[]
     images?: ImageUncheckedCreateNestedManyWithoutProductInput
     orderItem?: OrderItemUncheckedCreateNestedManyWithoutProductInput
+    offers?: OfferProductUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutRecommendedInput = {
@@ -12681,6 +17366,7 @@ export namespace Prisma {
     description?: ProductUpdatedescriptionInput | string[]
     images?: ImageUpdateManyWithoutProductNestedInput
     orderItem?: OrderItemUpdateManyWithoutProductNestedInput
+    offers?: OfferProductUpdateManyWithoutProductNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
   }
 
@@ -12696,6 +17382,7 @@ export namespace Prisma {
     description?: ProductUpdatedescriptionInput | string[]
     images?: ImageUncheckedUpdateManyWithoutProductNestedInput
     orderItem?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
+    offers?: OfferProductUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type OrderItemCreateWithoutOrderInput = {
@@ -12789,6 +17476,7 @@ export namespace Prisma {
     highlights?: ProductCreatehighlightsInput | string[]
     description?: ProductCreatedescriptionInput | string[]
     images?: ImageCreateNestedManyWithoutProductInput
+    offers?: OfferProductCreateNestedManyWithoutProductInput
     category: CategoryCreateNestedOneWithoutProductsInput
     recommended?: RecommendedProductCreateNestedOneWithoutProductInput
   }
@@ -12804,6 +17492,7 @@ export namespace Prisma {
     highlights?: ProductCreatehighlightsInput | string[]
     description?: ProductCreatedescriptionInput | string[]
     images?: ImageUncheckedCreateNestedManyWithoutProductInput
+    offers?: OfferProductUncheckedCreateNestedManyWithoutProductInput
     recommended?: RecommendedProductUncheckedCreateNestedOneWithoutProductInput
   }
 
@@ -12880,6 +17569,7 @@ export namespace Prisma {
     highlights?: ProductUpdatehighlightsInput | string[]
     description?: ProductUpdatedescriptionInput | string[]
     images?: ImageUpdateManyWithoutProductNestedInput
+    offers?: OfferProductUpdateManyWithoutProductNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     recommended?: RecommendedProductUpdateOneWithoutProductNestedInput
   }
@@ -12895,7 +17585,376 @@ export namespace Prisma {
     highlights?: ProductUpdatehighlightsInput | string[]
     description?: ProductUpdatedescriptionInput | string[]
     images?: ImageUncheckedUpdateManyWithoutProductNestedInput
+    offers?: OfferProductUncheckedUpdateManyWithoutProductNestedInput
     recommended?: RecommendedProductUncheckedUpdateOneWithoutProductNestedInput
+  }
+
+  export type OfferProductCreateWithoutOfferInput = {
+    id?: string
+    product: ProductCreateNestedOneWithoutOffersInput
+  }
+
+  export type OfferProductUncheckedCreateWithoutOfferInput = {
+    id?: string
+    productId: string
+  }
+
+  export type OfferProductCreateOrConnectWithoutOfferInput = {
+    where: OfferProductWhereUniqueInput
+    create: XOR<OfferProductCreateWithoutOfferInput, OfferProductUncheckedCreateWithoutOfferInput>
+  }
+
+  export type OfferProductCreateManyOfferInputEnvelope = {
+    data: OfferProductCreateManyOfferInput | OfferProductCreateManyOfferInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OfferCategoryCreateWithoutOfferInput = {
+    id?: string
+    category: CategoryCreateNestedOneWithoutOffersInput
+  }
+
+  export type OfferCategoryUncheckedCreateWithoutOfferInput = {
+    id?: string
+    categoryId: string
+  }
+
+  export type OfferCategoryCreateOrConnectWithoutOfferInput = {
+    where: OfferCategoryWhereUniqueInput
+    create: XOR<OfferCategoryCreateWithoutOfferInput, OfferCategoryUncheckedCreateWithoutOfferInput>
+  }
+
+  export type OfferCategoryCreateManyOfferInputEnvelope = {
+    data: OfferCategoryCreateManyOfferInput | OfferCategoryCreateManyOfferInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OfferProductUpsertWithWhereUniqueWithoutOfferInput = {
+    where: OfferProductWhereUniqueInput
+    update: XOR<OfferProductUpdateWithoutOfferInput, OfferProductUncheckedUpdateWithoutOfferInput>
+    create: XOR<OfferProductCreateWithoutOfferInput, OfferProductUncheckedCreateWithoutOfferInput>
+  }
+
+  export type OfferProductUpdateWithWhereUniqueWithoutOfferInput = {
+    where: OfferProductWhereUniqueInput
+    data: XOR<OfferProductUpdateWithoutOfferInput, OfferProductUncheckedUpdateWithoutOfferInput>
+  }
+
+  export type OfferProductUpdateManyWithWhereWithoutOfferInput = {
+    where: OfferProductScalarWhereInput
+    data: XOR<OfferProductUpdateManyMutationInput, OfferProductUncheckedUpdateManyWithoutOfferInput>
+  }
+
+  export type OfferCategoryUpsertWithWhereUniqueWithoutOfferInput = {
+    where: OfferCategoryWhereUniqueInput
+    update: XOR<OfferCategoryUpdateWithoutOfferInput, OfferCategoryUncheckedUpdateWithoutOfferInput>
+    create: XOR<OfferCategoryCreateWithoutOfferInput, OfferCategoryUncheckedCreateWithoutOfferInput>
+  }
+
+  export type OfferCategoryUpdateWithWhereUniqueWithoutOfferInput = {
+    where: OfferCategoryWhereUniqueInput
+    data: XOR<OfferCategoryUpdateWithoutOfferInput, OfferCategoryUncheckedUpdateWithoutOfferInput>
+  }
+
+  export type OfferCategoryUpdateManyWithWhereWithoutOfferInput = {
+    where: OfferCategoryScalarWhereInput
+    data: XOR<OfferCategoryUpdateManyMutationInput, OfferCategoryUncheckedUpdateManyWithoutOfferInput>
+  }
+
+  export type OfferCreateWithoutProductsInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    discountType: $Enums.DiscountType
+    discountValue: number
+    startDate: Date | string
+    endDate: Date | string
+    isActive?: boolean
+    bannerImage?: string | null
+    applyType: $Enums.OfferApplyType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    categories?: OfferCategoryCreateNestedManyWithoutOfferInput
+  }
+
+  export type OfferUncheckedCreateWithoutProductsInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    discountType: $Enums.DiscountType
+    discountValue: number
+    startDate: Date | string
+    endDate: Date | string
+    isActive?: boolean
+    bannerImage?: string | null
+    applyType: $Enums.OfferApplyType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    categories?: OfferCategoryUncheckedCreateNestedManyWithoutOfferInput
+  }
+
+  export type OfferCreateOrConnectWithoutProductsInput = {
+    where: OfferWhereUniqueInput
+    create: XOR<OfferCreateWithoutProductsInput, OfferUncheckedCreateWithoutProductsInput>
+  }
+
+  export type ProductCreateWithoutOffersInput = {
+    id?: string
+    name: string
+    price: number
+    stock?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    highlights?: ProductCreatehighlightsInput | string[]
+    description?: ProductCreatedescriptionInput | string[]
+    images?: ImageCreateNestedManyWithoutProductInput
+    orderItem?: OrderItemCreateNestedManyWithoutProductInput
+    category: CategoryCreateNestedOneWithoutProductsInput
+    recommended?: RecommendedProductCreateNestedOneWithoutProductInput
+  }
+
+  export type ProductUncheckedCreateWithoutOffersInput = {
+    id?: string
+    name: string
+    price: number
+    stock?: number
+    categoryId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    highlights?: ProductCreatehighlightsInput | string[]
+    description?: ProductCreatedescriptionInput | string[]
+    images?: ImageUncheckedCreateNestedManyWithoutProductInput
+    orderItem?: OrderItemUncheckedCreateNestedManyWithoutProductInput
+    recommended?: RecommendedProductUncheckedCreateNestedOneWithoutProductInput
+  }
+
+  export type ProductCreateOrConnectWithoutOffersInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutOffersInput, ProductUncheckedCreateWithoutOffersInput>
+  }
+
+  export type OfferUpsertWithoutProductsInput = {
+    update: XOR<OfferUpdateWithoutProductsInput, OfferUncheckedUpdateWithoutProductsInput>
+    create: XOR<OfferCreateWithoutProductsInput, OfferUncheckedCreateWithoutProductsInput>
+    where?: OfferWhereInput
+  }
+
+  export type OfferUpdateToOneWithWhereWithoutProductsInput = {
+    where?: OfferWhereInput
+    data: XOR<OfferUpdateWithoutProductsInput, OfferUncheckedUpdateWithoutProductsInput>
+  }
+
+  export type OfferUpdateWithoutProductsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    discountType?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+    discountValue?: FloatFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    bannerImage?: NullableStringFieldUpdateOperationsInput | string | null
+    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categories?: OfferCategoryUpdateManyWithoutOfferNestedInput
+  }
+
+  export type OfferUncheckedUpdateWithoutProductsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    discountType?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+    discountValue?: FloatFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    bannerImage?: NullableStringFieldUpdateOperationsInput | string | null
+    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categories?: OfferCategoryUncheckedUpdateManyWithoutOfferNestedInput
+  }
+
+  export type ProductUpsertWithoutOffersInput = {
+    update: XOR<ProductUpdateWithoutOffersInput, ProductUncheckedUpdateWithoutOffersInput>
+    create: XOR<ProductCreateWithoutOffersInput, ProductUncheckedCreateWithoutOffersInput>
+    where?: ProductWhereInput
+  }
+
+  export type ProductUpdateToOneWithWhereWithoutOffersInput = {
+    where?: ProductWhereInput
+    data: XOR<ProductUpdateWithoutOffersInput, ProductUncheckedUpdateWithoutOffersInput>
+  }
+
+  export type ProductUpdateWithoutOffersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    highlights?: ProductUpdatehighlightsInput | string[]
+    description?: ProductUpdatedescriptionInput | string[]
+    images?: ImageUpdateManyWithoutProductNestedInput
+    orderItem?: OrderItemUpdateManyWithoutProductNestedInput
+    category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
+    recommended?: RecommendedProductUpdateOneWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateWithoutOffersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
+    categoryId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    highlights?: ProductUpdatehighlightsInput | string[]
+    description?: ProductUpdatedescriptionInput | string[]
+    images?: ImageUncheckedUpdateManyWithoutProductNestedInput
+    orderItem?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
+    recommended?: RecommendedProductUncheckedUpdateOneWithoutProductNestedInput
+  }
+
+  export type OfferCreateWithoutCategoriesInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    discountType: $Enums.DiscountType
+    discountValue: number
+    startDate: Date | string
+    endDate: Date | string
+    isActive?: boolean
+    bannerImage?: string | null
+    applyType: $Enums.OfferApplyType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    products?: OfferProductCreateNestedManyWithoutOfferInput
+  }
+
+  export type OfferUncheckedCreateWithoutCategoriesInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    discountType: $Enums.DiscountType
+    discountValue: number
+    startDate: Date | string
+    endDate: Date | string
+    isActive?: boolean
+    bannerImage?: string | null
+    applyType: $Enums.OfferApplyType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    products?: OfferProductUncheckedCreateNestedManyWithoutOfferInput
+  }
+
+  export type OfferCreateOrConnectWithoutCategoriesInput = {
+    where: OfferWhereUniqueInput
+    create: XOR<OfferCreateWithoutCategoriesInput, OfferUncheckedCreateWithoutCategoriesInput>
+  }
+
+  export type CategoryCreateWithoutOffersInput = {
+    id?: string
+    name: string
+    slug: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    products?: ProductCreateNestedManyWithoutCategoryInput
+  }
+
+  export type CategoryUncheckedCreateWithoutOffersInput = {
+    id?: string
+    name: string
+    slug: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    products?: ProductUncheckedCreateNestedManyWithoutCategoryInput
+  }
+
+  export type CategoryCreateOrConnectWithoutOffersInput = {
+    where: CategoryWhereUniqueInput
+    create: XOR<CategoryCreateWithoutOffersInput, CategoryUncheckedCreateWithoutOffersInput>
+  }
+
+  export type OfferUpsertWithoutCategoriesInput = {
+    update: XOR<OfferUpdateWithoutCategoriesInput, OfferUncheckedUpdateWithoutCategoriesInput>
+    create: XOR<OfferCreateWithoutCategoriesInput, OfferUncheckedCreateWithoutCategoriesInput>
+    where?: OfferWhereInput
+  }
+
+  export type OfferUpdateToOneWithWhereWithoutCategoriesInput = {
+    where?: OfferWhereInput
+    data: XOR<OfferUpdateWithoutCategoriesInput, OfferUncheckedUpdateWithoutCategoriesInput>
+  }
+
+  export type OfferUpdateWithoutCategoriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    discountType?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+    discountValue?: FloatFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    bannerImage?: NullableStringFieldUpdateOperationsInput | string | null
+    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    products?: OfferProductUpdateManyWithoutOfferNestedInput
+  }
+
+  export type OfferUncheckedUpdateWithoutCategoriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    discountType?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+    discountValue?: FloatFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    bannerImage?: NullableStringFieldUpdateOperationsInput | string | null
+    applyType?: EnumOfferApplyTypeFieldUpdateOperationsInput | $Enums.OfferApplyType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    products?: OfferProductUncheckedUpdateManyWithoutOfferNestedInput
+  }
+
+  export type CategoryUpsertWithoutOffersInput = {
+    update: XOR<CategoryUpdateWithoutOffersInput, CategoryUncheckedUpdateWithoutOffersInput>
+    create: XOR<CategoryCreateWithoutOffersInput, CategoryUncheckedCreateWithoutOffersInput>
+    where?: CategoryWhereInput
+  }
+
+  export type CategoryUpdateToOneWithWhereWithoutOffersInput = {
+    where?: CategoryWhereInput
+    data: XOR<CategoryUpdateWithoutOffersInput, CategoryUncheckedUpdateWithoutOffersInput>
+  }
+
+  export type CategoryUpdateWithoutOffersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    products?: ProductUpdateManyWithoutCategoryNestedInput
+  }
+
+  export type CategoryUncheckedUpdateWithoutOffersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    products?: ProductUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type ProductCreateManyCategoryInput = {
@@ -12909,6 +17968,11 @@ export namespace Prisma {
     description?: ProductCreatedescriptionInput | string[]
   }
 
+  export type OfferCategoryCreateManyCategoryInput = {
+    id?: string
+    offerId: string
+  }
+
   export type ProductUpdateWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -12920,6 +17984,7 @@ export namespace Prisma {
     description?: ProductUpdatedescriptionInput | string[]
     images?: ImageUpdateManyWithoutProductNestedInput
     orderItem?: OrderItemUpdateManyWithoutProductNestedInput
+    offers?: OfferProductUpdateManyWithoutProductNestedInput
     recommended?: RecommendedProductUpdateOneWithoutProductNestedInput
   }
 
@@ -12934,6 +17999,7 @@ export namespace Prisma {
     description?: ProductUpdatedescriptionInput | string[]
     images?: ImageUncheckedUpdateManyWithoutProductNestedInput
     orderItem?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
+    offers?: OfferProductUncheckedUpdateManyWithoutProductNestedInput
     recommended?: RecommendedProductUncheckedUpdateOneWithoutProductNestedInput
   }
 
@@ -12946,6 +18012,21 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     highlights?: ProductUpdatehighlightsInput | string[]
     description?: ProductUpdatedescriptionInput | string[]
+  }
+
+  export type OfferCategoryUpdateWithoutCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offer?: OfferUpdateOneRequiredWithoutCategoriesNestedInput
+  }
+
+  export type OfferCategoryUncheckedUpdateWithoutCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OfferCategoryUncheckedUpdateManyWithoutCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ImageCreateManyProductInput = {
@@ -12967,6 +18048,11 @@ export namespace Prisma {
     orderId: string
     quantity: number
     price: Decimal | DecimalJsLike | number | string
+  }
+
+  export type OfferProductCreateManyProductInput = {
+    id?: string
+    offerId: string
   }
 
   export type ImageUpdateWithoutProductInput = {
@@ -13032,6 +18118,21 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
+  export type OfferProductUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offer?: OfferUpdateOneRequiredWithoutProductsNestedInput
+  }
+
+  export type OfferProductUncheckedUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OfferProductUncheckedUpdateManyWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type OrderItemCreateManyOrderInput = {
     id?: string
     productId: string
@@ -13058,6 +18159,46 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type OfferProductCreateManyOfferInput = {
+    id?: string
+    productId: string
+  }
+
+  export type OfferCategoryCreateManyOfferInput = {
+    id?: string
+    categoryId: string
+  }
+
+  export type OfferProductUpdateWithoutOfferInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    product?: ProductUpdateOneRequiredWithoutOffersNestedInput
+  }
+
+  export type OfferProductUncheckedUpdateWithoutOfferInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OfferProductUncheckedUpdateManyWithoutOfferInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OfferCategoryUpdateWithoutOfferInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: CategoryUpdateOneRequiredWithoutOffersNestedInput
+  }
+
+  export type OfferCategoryUncheckedUpdateWithoutOfferInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OfferCategoryUncheckedUpdateManyWithoutOfferInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
   }
 
 
