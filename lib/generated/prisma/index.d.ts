@@ -28,6 +28,11 @@ export type product_images = $Result.DefaultSelection<Prisma.$product_imagesPayl
  * 
  */
 export type products = $Result.DefaultSelection<Prisma.$productsPayload>
+/**
+ * Model recommended_products
+ * 
+ */
+export type recommended_products = $Result.DefaultSelection<Prisma.$recommended_productsPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -179,6 +184,16 @@ export class PrismaClient<
     * ```
     */
   get products(): Prisma.productsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.recommended_products`: Exposes CRUD operations for the **recommended_products** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Recommended_products
+    * const recommended_products = await prisma.recommended_products.findMany()
+    * ```
+    */
+  get recommended_products(): Prisma.recommended_productsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -615,7 +630,8 @@ export namespace Prisma {
   export const ModelName: {
     categories: 'categories',
     product_images: 'product_images',
-    products: 'products'
+    products: 'products',
+    recommended_products: 'recommended_products'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -631,7 +647,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "categories" | "product_images" | "products"
+      modelProps: "categories" | "product_images" | "products" | "recommended_products"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -857,6 +873,80 @@ export namespace Prisma {
           }
         }
       }
+      recommended_products: {
+        payload: Prisma.$recommended_productsPayload<ExtArgs>
+        fields: Prisma.recommended_productsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.recommended_productsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$recommended_productsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.recommended_productsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$recommended_productsPayload>
+          }
+          findFirst: {
+            args: Prisma.recommended_productsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$recommended_productsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.recommended_productsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$recommended_productsPayload>
+          }
+          findMany: {
+            args: Prisma.recommended_productsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$recommended_productsPayload>[]
+          }
+          create: {
+            args: Prisma.recommended_productsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$recommended_productsPayload>
+          }
+          createMany: {
+            args: Prisma.recommended_productsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.recommended_productsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$recommended_productsPayload>[]
+          }
+          delete: {
+            args: Prisma.recommended_productsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$recommended_productsPayload>
+          }
+          update: {
+            args: Prisma.recommended_productsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$recommended_productsPayload>
+          }
+          deleteMany: {
+            args: Prisma.recommended_productsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.recommended_productsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.recommended_productsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$recommended_productsPayload>[]
+          }
+          upsert: {
+            args: Prisma.recommended_productsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$recommended_productsPayload>
+          }
+          aggregate: {
+            args: Prisma.Recommended_productsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRecommended_products>
+          }
+          groupBy: {
+            args: Prisma.recommended_productsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Recommended_productsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.recommended_productsCountArgs<ExtArgs>
+            result: $Utils.Optional<Recommended_productsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -968,6 +1058,7 @@ export namespace Prisma {
     categories?: categoriesOmit
     product_images?: product_imagesOmit
     products?: productsOmit
+    recommended_products?: recommended_productsOmit
   }
 
   /* Types for Logging */
@@ -1080,10 +1171,12 @@ export namespace Prisma {
 
   export type ProductsCountOutputType = {
     product_images: number
+    recommended_products: number
   }
 
   export type ProductsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     product_images?: boolean | ProductsCountOutputTypeCountProduct_imagesArgs
+    recommended_products?: boolean | ProductsCountOutputTypeCountRecommended_productsArgs
   }
 
   // Custom InputTypes
@@ -1102,6 +1195,13 @@ export namespace Prisma {
    */
   export type ProductsCountOutputTypeCountProduct_imagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: product_imagesWhereInput
+  }
+
+  /**
+   * ProductsCountOutputType without action
+   */
+  export type ProductsCountOutputTypeCountRecommended_productsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: recommended_productsWhereInput
   }
 
 
@@ -3396,6 +3496,7 @@ export namespace Prisma {
     Category?: boolean
     product_images?: boolean | products$product_imagesArgs<ExtArgs>
     categories?: boolean | categoriesDefaultArgs<ExtArgs>
+    recommended_products?: boolean | products$recommended_productsArgs<ExtArgs>
     _count?: boolean | ProductsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["products"]>
 
@@ -3447,6 +3548,7 @@ export namespace Prisma {
   export type productsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     product_images?: boolean | products$product_imagesArgs<ExtArgs>
     categories?: boolean | categoriesDefaultArgs<ExtArgs>
+    recommended_products?: boolean | products$recommended_productsArgs<ExtArgs>
     _count?: boolean | ProductsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type productsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3461,6 +3563,7 @@ export namespace Prisma {
     objects: {
       product_images: Prisma.$product_imagesPayload<ExtArgs>[]
       categories: Prisma.$categoriesPayload<ExtArgs>
+      recommended_products: Prisma.$recommended_productsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3870,6 +3973,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     product_images<T extends products$product_imagesArgs<ExtArgs> = {}>(args?: Subset<T, products$product_imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$product_imagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     categories<T extends categoriesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, categoriesDefaultArgs<ExtArgs>>): Prisma__categoriesClient<$Result.GetResult<Prisma.$categoriesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    recommended_products<T extends products$recommended_productsArgs<ExtArgs> = {}>(args?: Subset<T, products$recommended_productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$recommended_productsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4335,6 +4439,30 @@ export namespace Prisma {
   }
 
   /**
+   * products.recommended_products
+   */
+  export type products$recommended_productsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommended_products
+     */
+    select?: recommended_productsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommended_products
+     */
+    omit?: recommended_productsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommended_productsInclude<ExtArgs> | null
+    where?: recommended_productsWhereInput
+    orderBy?: recommended_productsOrderByWithRelationInput | recommended_productsOrderByWithRelationInput[]
+    cursor?: recommended_productsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Recommended_productsScalarFieldEnum | Recommended_productsScalarFieldEnum[]
+  }
+
+  /**
    * products without action
    */
   export type productsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4350,6 +4478,1030 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: productsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model recommended_products
+   */
+
+  export type AggregateRecommended_products = {
+    _count: Recommended_productsCountAggregateOutputType | null
+    _min: Recommended_productsMinAggregateOutputType | null
+    _max: Recommended_productsMaxAggregateOutputType | null
+  }
+
+  export type Recommended_productsMinAggregateOutputType = {
+    id: string | null
+    productId: string | null
+  }
+
+  export type Recommended_productsMaxAggregateOutputType = {
+    id: string | null
+    productId: string | null
+  }
+
+  export type Recommended_productsCountAggregateOutputType = {
+    id: number
+    productId: number
+    _all: number
+  }
+
+
+  export type Recommended_productsMinAggregateInputType = {
+    id?: true
+    productId?: true
+  }
+
+  export type Recommended_productsMaxAggregateInputType = {
+    id?: true
+    productId?: true
+  }
+
+  export type Recommended_productsCountAggregateInputType = {
+    id?: true
+    productId?: true
+    _all?: true
+  }
+
+  export type Recommended_productsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which recommended_products to aggregate.
+     */
+    where?: recommended_productsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of recommended_products to fetch.
+     */
+    orderBy?: recommended_productsOrderByWithRelationInput | recommended_productsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: recommended_productsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` recommended_products from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` recommended_products.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned recommended_products
+    **/
+    _count?: true | Recommended_productsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Recommended_productsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Recommended_productsMaxAggregateInputType
+  }
+
+  export type GetRecommended_productsAggregateType<T extends Recommended_productsAggregateArgs> = {
+        [P in keyof T & keyof AggregateRecommended_products]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRecommended_products[P]>
+      : GetScalarType<T[P], AggregateRecommended_products[P]>
+  }
+
+
+
+
+  export type recommended_productsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: recommended_productsWhereInput
+    orderBy?: recommended_productsOrderByWithAggregationInput | recommended_productsOrderByWithAggregationInput[]
+    by: Recommended_productsScalarFieldEnum[] | Recommended_productsScalarFieldEnum
+    having?: recommended_productsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Recommended_productsCountAggregateInputType | true
+    _min?: Recommended_productsMinAggregateInputType
+    _max?: Recommended_productsMaxAggregateInputType
+  }
+
+  export type Recommended_productsGroupByOutputType = {
+    id: string
+    productId: string
+    _count: Recommended_productsCountAggregateOutputType | null
+    _min: Recommended_productsMinAggregateOutputType | null
+    _max: Recommended_productsMaxAggregateOutputType | null
+  }
+
+  type GetRecommended_productsGroupByPayload<T extends recommended_productsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Recommended_productsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Recommended_productsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Recommended_productsGroupByOutputType[P]>
+            : GetScalarType<T[P], Recommended_productsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type recommended_productsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    productId?: boolean
+    products?: boolean | productsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["recommended_products"]>
+
+  export type recommended_productsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    productId?: boolean
+    products?: boolean | productsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["recommended_products"]>
+
+  export type recommended_productsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    productId?: boolean
+    products?: boolean | productsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["recommended_products"]>
+
+  export type recommended_productsSelectScalar = {
+    id?: boolean
+    productId?: boolean
+  }
+
+  export type recommended_productsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "productId", ExtArgs["result"]["recommended_products"]>
+  export type recommended_productsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    products?: boolean | productsDefaultArgs<ExtArgs>
+  }
+  export type recommended_productsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    products?: boolean | productsDefaultArgs<ExtArgs>
+  }
+  export type recommended_productsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    products?: boolean | productsDefaultArgs<ExtArgs>
+  }
+
+  export type $recommended_productsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "recommended_products"
+    objects: {
+      products: Prisma.$productsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      productId: string
+    }, ExtArgs["result"]["recommended_products"]>
+    composites: {}
+  }
+
+  type recommended_productsGetPayload<S extends boolean | null | undefined | recommended_productsDefaultArgs> = $Result.GetResult<Prisma.$recommended_productsPayload, S>
+
+  type recommended_productsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<recommended_productsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Recommended_productsCountAggregateInputType | true
+    }
+
+  export interface recommended_productsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['recommended_products'], meta: { name: 'recommended_products' } }
+    /**
+     * Find zero or one Recommended_products that matches the filter.
+     * @param {recommended_productsFindUniqueArgs} args - Arguments to find a Recommended_products
+     * @example
+     * // Get one Recommended_products
+     * const recommended_products = await prisma.recommended_products.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends recommended_productsFindUniqueArgs>(args: SelectSubset<T, recommended_productsFindUniqueArgs<ExtArgs>>): Prisma__recommended_productsClient<$Result.GetResult<Prisma.$recommended_productsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Recommended_products that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {recommended_productsFindUniqueOrThrowArgs} args - Arguments to find a Recommended_products
+     * @example
+     * // Get one Recommended_products
+     * const recommended_products = await prisma.recommended_products.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends recommended_productsFindUniqueOrThrowArgs>(args: SelectSubset<T, recommended_productsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__recommended_productsClient<$Result.GetResult<Prisma.$recommended_productsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Recommended_products that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {recommended_productsFindFirstArgs} args - Arguments to find a Recommended_products
+     * @example
+     * // Get one Recommended_products
+     * const recommended_products = await prisma.recommended_products.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends recommended_productsFindFirstArgs>(args?: SelectSubset<T, recommended_productsFindFirstArgs<ExtArgs>>): Prisma__recommended_productsClient<$Result.GetResult<Prisma.$recommended_productsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Recommended_products that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {recommended_productsFindFirstOrThrowArgs} args - Arguments to find a Recommended_products
+     * @example
+     * // Get one Recommended_products
+     * const recommended_products = await prisma.recommended_products.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends recommended_productsFindFirstOrThrowArgs>(args?: SelectSubset<T, recommended_productsFindFirstOrThrowArgs<ExtArgs>>): Prisma__recommended_productsClient<$Result.GetResult<Prisma.$recommended_productsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Recommended_products that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {recommended_productsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Recommended_products
+     * const recommended_products = await prisma.recommended_products.findMany()
+     * 
+     * // Get first 10 Recommended_products
+     * const recommended_products = await prisma.recommended_products.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const recommended_productsWithIdOnly = await prisma.recommended_products.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends recommended_productsFindManyArgs>(args?: SelectSubset<T, recommended_productsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$recommended_productsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Recommended_products.
+     * @param {recommended_productsCreateArgs} args - Arguments to create a Recommended_products.
+     * @example
+     * // Create one Recommended_products
+     * const Recommended_products = await prisma.recommended_products.create({
+     *   data: {
+     *     // ... data to create a Recommended_products
+     *   }
+     * })
+     * 
+     */
+    create<T extends recommended_productsCreateArgs>(args: SelectSubset<T, recommended_productsCreateArgs<ExtArgs>>): Prisma__recommended_productsClient<$Result.GetResult<Prisma.$recommended_productsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Recommended_products.
+     * @param {recommended_productsCreateManyArgs} args - Arguments to create many Recommended_products.
+     * @example
+     * // Create many Recommended_products
+     * const recommended_products = await prisma.recommended_products.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends recommended_productsCreateManyArgs>(args?: SelectSubset<T, recommended_productsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Recommended_products and returns the data saved in the database.
+     * @param {recommended_productsCreateManyAndReturnArgs} args - Arguments to create many Recommended_products.
+     * @example
+     * // Create many Recommended_products
+     * const recommended_products = await prisma.recommended_products.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Recommended_products and only return the `id`
+     * const recommended_productsWithIdOnly = await prisma.recommended_products.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends recommended_productsCreateManyAndReturnArgs>(args?: SelectSubset<T, recommended_productsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$recommended_productsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Recommended_products.
+     * @param {recommended_productsDeleteArgs} args - Arguments to delete one Recommended_products.
+     * @example
+     * // Delete one Recommended_products
+     * const Recommended_products = await prisma.recommended_products.delete({
+     *   where: {
+     *     // ... filter to delete one Recommended_products
+     *   }
+     * })
+     * 
+     */
+    delete<T extends recommended_productsDeleteArgs>(args: SelectSubset<T, recommended_productsDeleteArgs<ExtArgs>>): Prisma__recommended_productsClient<$Result.GetResult<Prisma.$recommended_productsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Recommended_products.
+     * @param {recommended_productsUpdateArgs} args - Arguments to update one Recommended_products.
+     * @example
+     * // Update one Recommended_products
+     * const recommended_products = await prisma.recommended_products.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends recommended_productsUpdateArgs>(args: SelectSubset<T, recommended_productsUpdateArgs<ExtArgs>>): Prisma__recommended_productsClient<$Result.GetResult<Prisma.$recommended_productsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Recommended_products.
+     * @param {recommended_productsDeleteManyArgs} args - Arguments to filter Recommended_products to delete.
+     * @example
+     * // Delete a few Recommended_products
+     * const { count } = await prisma.recommended_products.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends recommended_productsDeleteManyArgs>(args?: SelectSubset<T, recommended_productsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Recommended_products.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {recommended_productsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Recommended_products
+     * const recommended_products = await prisma.recommended_products.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends recommended_productsUpdateManyArgs>(args: SelectSubset<T, recommended_productsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Recommended_products and returns the data updated in the database.
+     * @param {recommended_productsUpdateManyAndReturnArgs} args - Arguments to update many Recommended_products.
+     * @example
+     * // Update many Recommended_products
+     * const recommended_products = await prisma.recommended_products.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Recommended_products and only return the `id`
+     * const recommended_productsWithIdOnly = await prisma.recommended_products.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends recommended_productsUpdateManyAndReturnArgs>(args: SelectSubset<T, recommended_productsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$recommended_productsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Recommended_products.
+     * @param {recommended_productsUpsertArgs} args - Arguments to update or create a Recommended_products.
+     * @example
+     * // Update or create a Recommended_products
+     * const recommended_products = await prisma.recommended_products.upsert({
+     *   create: {
+     *     // ... data to create a Recommended_products
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Recommended_products we want to update
+     *   }
+     * })
+     */
+    upsert<T extends recommended_productsUpsertArgs>(args: SelectSubset<T, recommended_productsUpsertArgs<ExtArgs>>): Prisma__recommended_productsClient<$Result.GetResult<Prisma.$recommended_productsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Recommended_products.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {recommended_productsCountArgs} args - Arguments to filter Recommended_products to count.
+     * @example
+     * // Count the number of Recommended_products
+     * const count = await prisma.recommended_products.count({
+     *   where: {
+     *     // ... the filter for the Recommended_products we want to count
+     *   }
+     * })
+    **/
+    count<T extends recommended_productsCountArgs>(
+      args?: Subset<T, recommended_productsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Recommended_productsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Recommended_products.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Recommended_productsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Recommended_productsAggregateArgs>(args: Subset<T, Recommended_productsAggregateArgs>): Prisma.PrismaPromise<GetRecommended_productsAggregateType<T>>
+
+    /**
+     * Group by Recommended_products.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {recommended_productsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends recommended_productsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: recommended_productsGroupByArgs['orderBy'] }
+        : { orderBy?: recommended_productsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, recommended_productsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRecommended_productsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the recommended_products model
+   */
+  readonly fields: recommended_productsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for recommended_products.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__recommended_productsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    products<T extends productsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, productsDefaultArgs<ExtArgs>>): Prisma__productsClient<$Result.GetResult<Prisma.$productsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the recommended_products model
+   */
+  interface recommended_productsFieldRefs {
+    readonly id: FieldRef<"recommended_products", 'String'>
+    readonly productId: FieldRef<"recommended_products", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * recommended_products findUnique
+   */
+  export type recommended_productsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommended_products
+     */
+    select?: recommended_productsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommended_products
+     */
+    omit?: recommended_productsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommended_productsInclude<ExtArgs> | null
+    /**
+     * Filter, which recommended_products to fetch.
+     */
+    where: recommended_productsWhereUniqueInput
+  }
+
+  /**
+   * recommended_products findUniqueOrThrow
+   */
+  export type recommended_productsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommended_products
+     */
+    select?: recommended_productsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommended_products
+     */
+    omit?: recommended_productsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommended_productsInclude<ExtArgs> | null
+    /**
+     * Filter, which recommended_products to fetch.
+     */
+    where: recommended_productsWhereUniqueInput
+  }
+
+  /**
+   * recommended_products findFirst
+   */
+  export type recommended_productsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommended_products
+     */
+    select?: recommended_productsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommended_products
+     */
+    omit?: recommended_productsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommended_productsInclude<ExtArgs> | null
+    /**
+     * Filter, which recommended_products to fetch.
+     */
+    where?: recommended_productsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of recommended_products to fetch.
+     */
+    orderBy?: recommended_productsOrderByWithRelationInput | recommended_productsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for recommended_products.
+     */
+    cursor?: recommended_productsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` recommended_products from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` recommended_products.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of recommended_products.
+     */
+    distinct?: Recommended_productsScalarFieldEnum | Recommended_productsScalarFieldEnum[]
+  }
+
+  /**
+   * recommended_products findFirstOrThrow
+   */
+  export type recommended_productsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommended_products
+     */
+    select?: recommended_productsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommended_products
+     */
+    omit?: recommended_productsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommended_productsInclude<ExtArgs> | null
+    /**
+     * Filter, which recommended_products to fetch.
+     */
+    where?: recommended_productsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of recommended_products to fetch.
+     */
+    orderBy?: recommended_productsOrderByWithRelationInput | recommended_productsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for recommended_products.
+     */
+    cursor?: recommended_productsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` recommended_products from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` recommended_products.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of recommended_products.
+     */
+    distinct?: Recommended_productsScalarFieldEnum | Recommended_productsScalarFieldEnum[]
+  }
+
+  /**
+   * recommended_products findMany
+   */
+  export type recommended_productsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommended_products
+     */
+    select?: recommended_productsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommended_products
+     */
+    omit?: recommended_productsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommended_productsInclude<ExtArgs> | null
+    /**
+     * Filter, which recommended_products to fetch.
+     */
+    where?: recommended_productsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of recommended_products to fetch.
+     */
+    orderBy?: recommended_productsOrderByWithRelationInput | recommended_productsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing recommended_products.
+     */
+    cursor?: recommended_productsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` recommended_products from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` recommended_products.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of recommended_products.
+     */
+    distinct?: Recommended_productsScalarFieldEnum | Recommended_productsScalarFieldEnum[]
+  }
+
+  /**
+   * recommended_products create
+   */
+  export type recommended_productsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommended_products
+     */
+    select?: recommended_productsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommended_products
+     */
+    omit?: recommended_productsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommended_productsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a recommended_products.
+     */
+    data: XOR<recommended_productsCreateInput, recommended_productsUncheckedCreateInput>
+  }
+
+  /**
+   * recommended_products createMany
+   */
+  export type recommended_productsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many recommended_products.
+     */
+    data: recommended_productsCreateManyInput | recommended_productsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * recommended_products createManyAndReturn
+   */
+  export type recommended_productsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommended_products
+     */
+    select?: recommended_productsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommended_products
+     */
+    omit?: recommended_productsOmit<ExtArgs> | null
+    /**
+     * The data used to create many recommended_products.
+     */
+    data: recommended_productsCreateManyInput | recommended_productsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommended_productsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * recommended_products update
+   */
+  export type recommended_productsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommended_products
+     */
+    select?: recommended_productsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommended_products
+     */
+    omit?: recommended_productsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommended_productsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a recommended_products.
+     */
+    data: XOR<recommended_productsUpdateInput, recommended_productsUncheckedUpdateInput>
+    /**
+     * Choose, which recommended_products to update.
+     */
+    where: recommended_productsWhereUniqueInput
+  }
+
+  /**
+   * recommended_products updateMany
+   */
+  export type recommended_productsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update recommended_products.
+     */
+    data: XOR<recommended_productsUpdateManyMutationInput, recommended_productsUncheckedUpdateManyInput>
+    /**
+     * Filter which recommended_products to update
+     */
+    where?: recommended_productsWhereInput
+    /**
+     * Limit how many recommended_products to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * recommended_products updateManyAndReturn
+   */
+  export type recommended_productsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommended_products
+     */
+    select?: recommended_productsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommended_products
+     */
+    omit?: recommended_productsOmit<ExtArgs> | null
+    /**
+     * The data used to update recommended_products.
+     */
+    data: XOR<recommended_productsUpdateManyMutationInput, recommended_productsUncheckedUpdateManyInput>
+    /**
+     * Filter which recommended_products to update
+     */
+    where?: recommended_productsWhereInput
+    /**
+     * Limit how many recommended_products to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommended_productsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * recommended_products upsert
+   */
+  export type recommended_productsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommended_products
+     */
+    select?: recommended_productsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommended_products
+     */
+    omit?: recommended_productsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommended_productsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the recommended_products to update in case it exists.
+     */
+    where: recommended_productsWhereUniqueInput
+    /**
+     * In case the recommended_products found by the `where` argument doesn't exist, create a new recommended_products with this data.
+     */
+    create: XOR<recommended_productsCreateInput, recommended_productsUncheckedCreateInput>
+    /**
+     * In case the recommended_products was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<recommended_productsUpdateInput, recommended_productsUncheckedUpdateInput>
+  }
+
+  /**
+   * recommended_products delete
+   */
+  export type recommended_productsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommended_products
+     */
+    select?: recommended_productsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommended_products
+     */
+    omit?: recommended_productsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommended_productsInclude<ExtArgs> | null
+    /**
+     * Filter which recommended_products to delete.
+     */
+    where: recommended_productsWhereUniqueInput
+  }
+
+  /**
+   * recommended_products deleteMany
+   */
+  export type recommended_productsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which recommended_products to delete
+     */
+    where?: recommended_productsWhereInput
+    /**
+     * Limit how many recommended_products to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * recommended_products without action
+   */
+  export type recommended_productsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommended_products
+     */
+    select?: recommended_productsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommended_products
+     */
+    omit?: recommended_productsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommended_productsInclude<ExtArgs> | null
   }
 
 
@@ -4399,6 +5551,14 @@ export namespace Prisma {
   };
 
   export type ProductsScalarFieldEnum = (typeof ProductsScalarFieldEnum)[keyof typeof ProductsScalarFieldEnum]
+
+
+  export const Recommended_productsScalarFieldEnum: {
+    id: 'id',
+    productId: 'productId'
+  };
+
+  export type Recommended_productsScalarFieldEnum = (typeof Recommended_productsScalarFieldEnum)[keyof typeof Recommended_productsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4563,6 +5723,7 @@ export namespace Prisma {
     Category?: StringFilter<"products"> | string
     product_images?: Product_imagesListRelationFilter
     categories?: XOR<CategoriesScalarRelationFilter, categoriesWhereInput>
+    recommended_products?: Recommended_productsListRelationFilter
   }
 
   export type productsOrderByWithRelationInput = {
@@ -4579,6 +5740,7 @@ export namespace Prisma {
     Category?: SortOrder
     product_images?: product_imagesOrderByRelationAggregateInput
     categories?: categoriesOrderByWithRelationInput
+    recommended_products?: recommended_productsOrderByRelationAggregateInput
   }
 
   export type productsWhereUniqueInput = Prisma.AtLeast<{
@@ -4598,6 +5760,7 @@ export namespace Prisma {
     Category?: StringFilter<"products"> | string
     product_images?: Product_imagesListRelationFilter
     categories?: XOR<CategoriesScalarRelationFilter, categoriesWhereInput>
+    recommended_products?: Recommended_productsListRelationFilter
   }, "id">
 
   export type productsOrderByWithAggregationInput = {
@@ -4632,6 +5795,46 @@ export namespace Prisma {
     Package_Size?: StringNullableWithAggregatesFilter<"products"> | string | null
     appearance?: StringNullableWithAggregatesFilter<"products"> | string | null
     Category?: StringWithAggregatesFilter<"products"> | string
+  }
+
+  export type recommended_productsWhereInput = {
+    AND?: recommended_productsWhereInput | recommended_productsWhereInput[]
+    OR?: recommended_productsWhereInput[]
+    NOT?: recommended_productsWhereInput | recommended_productsWhereInput[]
+    id?: StringFilter<"recommended_products"> | string
+    productId?: StringFilter<"recommended_products"> | string
+    products?: XOR<ProductsScalarRelationFilter, productsWhereInput>
+  }
+
+  export type recommended_productsOrderByWithRelationInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    products?: productsOrderByWithRelationInput
+  }
+
+  export type recommended_productsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    productId?: string
+    AND?: recommended_productsWhereInput | recommended_productsWhereInput[]
+    OR?: recommended_productsWhereInput[]
+    NOT?: recommended_productsWhereInput | recommended_productsWhereInput[]
+    products?: XOR<ProductsScalarRelationFilter, productsWhereInput>
+  }, "id" | "productId">
+
+  export type recommended_productsOrderByWithAggregationInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    _count?: recommended_productsCountOrderByAggregateInput
+    _max?: recommended_productsMaxOrderByAggregateInput
+    _min?: recommended_productsMinOrderByAggregateInput
+  }
+
+  export type recommended_productsScalarWhereWithAggregatesInput = {
+    AND?: recommended_productsScalarWhereWithAggregatesInput | recommended_productsScalarWhereWithAggregatesInput[]
+    OR?: recommended_productsScalarWhereWithAggregatesInput[]
+    NOT?: recommended_productsScalarWhereWithAggregatesInput | recommended_productsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"recommended_products"> | string
+    productId?: StringWithAggregatesFilter<"recommended_products"> | string
   }
 
   export type categoriesCreateInput = {
@@ -4727,6 +5930,7 @@ export namespace Prisma {
     appearance?: string | null
     product_images?: product_imagesCreateNestedManyWithoutProductsInput
     categories: categoriesCreateNestedOneWithoutProductsInput
+    recommended_products?: recommended_productsCreateNestedManyWithoutProductsInput
   }
 
   export type productsUncheckedCreateInput = {
@@ -4742,6 +5946,7 @@ export namespace Prisma {
     appearance?: string | null
     Category: string
     product_images?: product_imagesUncheckedCreateNestedManyWithoutProductsInput
+    recommended_products?: recommended_productsUncheckedCreateNestedManyWithoutProductsInput
   }
 
   export type productsUpdateInput = {
@@ -4757,6 +5962,7 @@ export namespace Prisma {
     appearance?: NullableStringFieldUpdateOperationsInput | string | null
     product_images?: product_imagesUpdateManyWithoutProductsNestedInput
     categories?: categoriesUpdateOneRequiredWithoutProductsNestedInput
+    recommended_products?: recommended_productsUpdateManyWithoutProductsNestedInput
   }
 
   export type productsUncheckedUpdateInput = {
@@ -4772,6 +5978,7 @@ export namespace Prisma {
     appearance?: NullableStringFieldUpdateOperationsInput | string | null
     Category?: StringFieldUpdateOperationsInput | string
     product_images?: product_imagesUncheckedUpdateManyWithoutProductsNestedInput
+    recommended_products?: recommended_productsUncheckedUpdateManyWithoutProductsNestedInput
   }
 
   export type productsCreateManyInput = {
@@ -4813,6 +6020,40 @@ export namespace Prisma {
     Package_Size?: NullableStringFieldUpdateOperationsInput | string | null
     appearance?: NullableStringFieldUpdateOperationsInput | string | null
     Category?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type recommended_productsCreateInput = {
+    id: string
+    products: productsCreateNestedOneWithoutRecommended_productsInput
+  }
+
+  export type recommended_productsUncheckedCreateInput = {
+    id: string
+    productId: string
+  }
+
+  export type recommended_productsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    products?: productsUpdateOneRequiredWithoutRecommended_productsNestedInput
+  }
+
+  export type recommended_productsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type recommended_productsCreateManyInput = {
+    id: string
+    productId: string
+  }
+
+  export type recommended_productsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type recommended_productsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -4922,12 +6163,22 @@ export namespace Prisma {
     isNot?: categoriesWhereInput
   }
 
+  export type Recommended_productsListRelationFilter = {
+    every?: recommended_productsWhereInput
+    some?: recommended_productsWhereInput
+    none?: recommended_productsWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type product_imagesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type recommended_productsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -4989,6 +6240,21 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type recommended_productsCountOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+  }
+
+  export type recommended_productsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+  }
+
+  export type recommended_productsMinOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
   }
 
   export type productsCreateNestedManyWithoutCategoriesInput = {
@@ -5064,11 +6330,25 @@ export namespace Prisma {
     connect?: categoriesWhereUniqueInput
   }
 
+  export type recommended_productsCreateNestedManyWithoutProductsInput = {
+    create?: XOR<recommended_productsCreateWithoutProductsInput, recommended_productsUncheckedCreateWithoutProductsInput> | recommended_productsCreateWithoutProductsInput[] | recommended_productsUncheckedCreateWithoutProductsInput[]
+    connectOrCreate?: recommended_productsCreateOrConnectWithoutProductsInput | recommended_productsCreateOrConnectWithoutProductsInput[]
+    createMany?: recommended_productsCreateManyProductsInputEnvelope
+    connect?: recommended_productsWhereUniqueInput | recommended_productsWhereUniqueInput[]
+  }
+
   export type product_imagesUncheckedCreateNestedManyWithoutProductsInput = {
     create?: XOR<product_imagesCreateWithoutProductsInput, product_imagesUncheckedCreateWithoutProductsInput> | product_imagesCreateWithoutProductsInput[] | product_imagesUncheckedCreateWithoutProductsInput[]
     connectOrCreate?: product_imagesCreateOrConnectWithoutProductsInput | product_imagesCreateOrConnectWithoutProductsInput[]
     createMany?: product_imagesCreateManyProductsInputEnvelope
     connect?: product_imagesWhereUniqueInput | product_imagesWhereUniqueInput[]
+  }
+
+  export type recommended_productsUncheckedCreateNestedManyWithoutProductsInput = {
+    create?: XOR<recommended_productsCreateWithoutProductsInput, recommended_productsUncheckedCreateWithoutProductsInput> | recommended_productsCreateWithoutProductsInput[] | recommended_productsUncheckedCreateWithoutProductsInput[]
+    connectOrCreate?: recommended_productsCreateOrConnectWithoutProductsInput | recommended_productsCreateOrConnectWithoutProductsInput[]
+    createMany?: recommended_productsCreateManyProductsInputEnvelope
+    connect?: recommended_productsWhereUniqueInput | recommended_productsWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -5097,6 +6377,20 @@ export namespace Prisma {
     update?: XOR<XOR<categoriesUpdateToOneWithWhereWithoutProductsInput, categoriesUpdateWithoutProductsInput>, categoriesUncheckedUpdateWithoutProductsInput>
   }
 
+  export type recommended_productsUpdateManyWithoutProductsNestedInput = {
+    create?: XOR<recommended_productsCreateWithoutProductsInput, recommended_productsUncheckedCreateWithoutProductsInput> | recommended_productsCreateWithoutProductsInput[] | recommended_productsUncheckedCreateWithoutProductsInput[]
+    connectOrCreate?: recommended_productsCreateOrConnectWithoutProductsInput | recommended_productsCreateOrConnectWithoutProductsInput[]
+    upsert?: recommended_productsUpsertWithWhereUniqueWithoutProductsInput | recommended_productsUpsertWithWhereUniqueWithoutProductsInput[]
+    createMany?: recommended_productsCreateManyProductsInputEnvelope
+    set?: recommended_productsWhereUniqueInput | recommended_productsWhereUniqueInput[]
+    disconnect?: recommended_productsWhereUniqueInput | recommended_productsWhereUniqueInput[]
+    delete?: recommended_productsWhereUniqueInput | recommended_productsWhereUniqueInput[]
+    connect?: recommended_productsWhereUniqueInput | recommended_productsWhereUniqueInput[]
+    update?: recommended_productsUpdateWithWhereUniqueWithoutProductsInput | recommended_productsUpdateWithWhereUniqueWithoutProductsInput[]
+    updateMany?: recommended_productsUpdateManyWithWhereWithoutProductsInput | recommended_productsUpdateManyWithWhereWithoutProductsInput[]
+    deleteMany?: recommended_productsScalarWhereInput | recommended_productsScalarWhereInput[]
+  }
+
   export type product_imagesUncheckedUpdateManyWithoutProductsNestedInput = {
     create?: XOR<product_imagesCreateWithoutProductsInput, product_imagesUncheckedCreateWithoutProductsInput> | product_imagesCreateWithoutProductsInput[] | product_imagesUncheckedCreateWithoutProductsInput[]
     connectOrCreate?: product_imagesCreateOrConnectWithoutProductsInput | product_imagesCreateOrConnectWithoutProductsInput[]
@@ -5109,6 +6403,34 @@ export namespace Prisma {
     update?: product_imagesUpdateWithWhereUniqueWithoutProductsInput | product_imagesUpdateWithWhereUniqueWithoutProductsInput[]
     updateMany?: product_imagesUpdateManyWithWhereWithoutProductsInput | product_imagesUpdateManyWithWhereWithoutProductsInput[]
     deleteMany?: product_imagesScalarWhereInput | product_imagesScalarWhereInput[]
+  }
+
+  export type recommended_productsUncheckedUpdateManyWithoutProductsNestedInput = {
+    create?: XOR<recommended_productsCreateWithoutProductsInput, recommended_productsUncheckedCreateWithoutProductsInput> | recommended_productsCreateWithoutProductsInput[] | recommended_productsUncheckedCreateWithoutProductsInput[]
+    connectOrCreate?: recommended_productsCreateOrConnectWithoutProductsInput | recommended_productsCreateOrConnectWithoutProductsInput[]
+    upsert?: recommended_productsUpsertWithWhereUniqueWithoutProductsInput | recommended_productsUpsertWithWhereUniqueWithoutProductsInput[]
+    createMany?: recommended_productsCreateManyProductsInputEnvelope
+    set?: recommended_productsWhereUniqueInput | recommended_productsWhereUniqueInput[]
+    disconnect?: recommended_productsWhereUniqueInput | recommended_productsWhereUniqueInput[]
+    delete?: recommended_productsWhereUniqueInput | recommended_productsWhereUniqueInput[]
+    connect?: recommended_productsWhereUniqueInput | recommended_productsWhereUniqueInput[]
+    update?: recommended_productsUpdateWithWhereUniqueWithoutProductsInput | recommended_productsUpdateWithWhereUniqueWithoutProductsInput[]
+    updateMany?: recommended_productsUpdateManyWithWhereWithoutProductsInput | recommended_productsUpdateManyWithWhereWithoutProductsInput[]
+    deleteMany?: recommended_productsScalarWhereInput | recommended_productsScalarWhereInput[]
+  }
+
+  export type productsCreateNestedOneWithoutRecommended_productsInput = {
+    create?: XOR<productsCreateWithoutRecommended_productsInput, productsUncheckedCreateWithoutRecommended_productsInput>
+    connectOrCreate?: productsCreateOrConnectWithoutRecommended_productsInput
+    connect?: productsWhereUniqueInput
+  }
+
+  export type productsUpdateOneRequiredWithoutRecommended_productsNestedInput = {
+    create?: XOR<productsCreateWithoutRecommended_productsInput, productsUncheckedCreateWithoutRecommended_productsInput>
+    connectOrCreate?: productsCreateOrConnectWithoutRecommended_productsInput
+    upsert?: productsUpsertWithoutRecommended_productsInput
+    connect?: productsWhereUniqueInput
+    update?: XOR<XOR<productsUpdateToOneWithWhereWithoutRecommended_productsInput, productsUpdateWithoutRecommended_productsInput>, productsUncheckedUpdateWithoutRecommended_productsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -5207,6 +6529,7 @@ export namespace Prisma {
     Package_Size?: string | null
     appearance?: string | null
     product_images?: product_imagesCreateNestedManyWithoutProductsInput
+    recommended_products?: recommended_productsCreateNestedManyWithoutProductsInput
   }
 
   export type productsUncheckedCreateWithoutCategoriesInput = {
@@ -5221,6 +6544,7 @@ export namespace Prisma {
     Package_Size?: string | null
     appearance?: string | null
     product_images?: product_imagesUncheckedCreateNestedManyWithoutProductsInput
+    recommended_products?: recommended_productsUncheckedCreateNestedManyWithoutProductsInput
   }
 
   export type productsCreateOrConnectWithoutCategoriesInput = {
@@ -5278,6 +6602,7 @@ export namespace Prisma {
     Package_Size?: string | null
     appearance?: string | null
     categories: categoriesCreateNestedOneWithoutProductsInput
+    recommended_products?: recommended_productsCreateNestedManyWithoutProductsInput
   }
 
   export type productsUncheckedCreateWithoutProduct_imagesInput = {
@@ -5292,6 +6617,7 @@ export namespace Prisma {
     Package_Size?: string | null
     appearance?: string | null
     Category: string
+    recommended_products?: recommended_productsUncheckedCreateNestedManyWithoutProductsInput
   }
 
   export type productsCreateOrConnectWithoutProduct_imagesInput = {
@@ -5322,6 +6648,7 @@ export namespace Prisma {
     Package_Size?: NullableStringFieldUpdateOperationsInput | string | null
     appearance?: NullableStringFieldUpdateOperationsInput | string | null
     categories?: categoriesUpdateOneRequiredWithoutProductsNestedInput
+    recommended_products?: recommended_productsUpdateManyWithoutProductsNestedInput
   }
 
   export type productsUncheckedUpdateWithoutProduct_imagesInput = {
@@ -5336,6 +6663,7 @@ export namespace Prisma {
     Package_Size?: NullableStringFieldUpdateOperationsInput | string | null
     appearance?: NullableStringFieldUpdateOperationsInput | string | null
     Category?: StringFieldUpdateOperationsInput | string
+    recommended_products?: recommended_productsUncheckedUpdateManyWithoutProductsNestedInput
   }
 
   export type product_imagesCreateWithoutProductsInput = {
@@ -5371,6 +6699,24 @@ export namespace Prisma {
   export type categoriesCreateOrConnectWithoutProductsInput = {
     where: categoriesWhereUniqueInput
     create: XOR<categoriesCreateWithoutProductsInput, categoriesUncheckedCreateWithoutProductsInput>
+  }
+
+  export type recommended_productsCreateWithoutProductsInput = {
+    id: string
+  }
+
+  export type recommended_productsUncheckedCreateWithoutProductsInput = {
+    id: string
+  }
+
+  export type recommended_productsCreateOrConnectWithoutProductsInput = {
+    where: recommended_productsWhereUniqueInput
+    create: XOR<recommended_productsCreateWithoutProductsInput, recommended_productsUncheckedCreateWithoutProductsInput>
+  }
+
+  export type recommended_productsCreateManyProductsInputEnvelope = {
+    data: recommended_productsCreateManyProductsInput | recommended_productsCreateManyProductsInput[]
+    skipDuplicates?: boolean
   }
 
   export type product_imagesUpsertWithWhereUniqueWithoutProductsInput = {
@@ -5419,6 +6765,106 @@ export namespace Prisma {
     category_name?: StringFieldUpdateOperationsInput | string
   }
 
+  export type recommended_productsUpsertWithWhereUniqueWithoutProductsInput = {
+    where: recommended_productsWhereUniqueInput
+    update: XOR<recommended_productsUpdateWithoutProductsInput, recommended_productsUncheckedUpdateWithoutProductsInput>
+    create: XOR<recommended_productsCreateWithoutProductsInput, recommended_productsUncheckedCreateWithoutProductsInput>
+  }
+
+  export type recommended_productsUpdateWithWhereUniqueWithoutProductsInput = {
+    where: recommended_productsWhereUniqueInput
+    data: XOR<recommended_productsUpdateWithoutProductsInput, recommended_productsUncheckedUpdateWithoutProductsInput>
+  }
+
+  export type recommended_productsUpdateManyWithWhereWithoutProductsInput = {
+    where: recommended_productsScalarWhereInput
+    data: XOR<recommended_productsUpdateManyMutationInput, recommended_productsUncheckedUpdateManyWithoutProductsInput>
+  }
+
+  export type recommended_productsScalarWhereInput = {
+    AND?: recommended_productsScalarWhereInput | recommended_productsScalarWhereInput[]
+    OR?: recommended_productsScalarWhereInput[]
+    NOT?: recommended_productsScalarWhereInput | recommended_productsScalarWhereInput[]
+    id?: StringFilter<"recommended_products"> | string
+    productId?: StringFilter<"recommended_products"> | string
+  }
+
+  export type productsCreateWithoutRecommended_productsInput = {
+    id: string
+    Extract_Name: string
+    Botanical_Name?: string | null
+    Part_Used?: string | null
+    Typical_Extraction_Ratio?: string | null
+    Active_Compound?: string | null
+    Primary_Benefit?: string | null
+    Unit_in_Order?: string | null
+    Package_Size?: string | null
+    appearance?: string | null
+    product_images?: product_imagesCreateNestedManyWithoutProductsInput
+    categories: categoriesCreateNestedOneWithoutProductsInput
+  }
+
+  export type productsUncheckedCreateWithoutRecommended_productsInput = {
+    id: string
+    Extract_Name: string
+    Botanical_Name?: string | null
+    Part_Used?: string | null
+    Typical_Extraction_Ratio?: string | null
+    Active_Compound?: string | null
+    Primary_Benefit?: string | null
+    Unit_in_Order?: string | null
+    Package_Size?: string | null
+    appearance?: string | null
+    Category: string
+    product_images?: product_imagesUncheckedCreateNestedManyWithoutProductsInput
+  }
+
+  export type productsCreateOrConnectWithoutRecommended_productsInput = {
+    where: productsWhereUniqueInput
+    create: XOR<productsCreateWithoutRecommended_productsInput, productsUncheckedCreateWithoutRecommended_productsInput>
+  }
+
+  export type productsUpsertWithoutRecommended_productsInput = {
+    update: XOR<productsUpdateWithoutRecommended_productsInput, productsUncheckedUpdateWithoutRecommended_productsInput>
+    create: XOR<productsCreateWithoutRecommended_productsInput, productsUncheckedCreateWithoutRecommended_productsInput>
+    where?: productsWhereInput
+  }
+
+  export type productsUpdateToOneWithWhereWithoutRecommended_productsInput = {
+    where?: productsWhereInput
+    data: XOR<productsUpdateWithoutRecommended_productsInput, productsUncheckedUpdateWithoutRecommended_productsInput>
+  }
+
+  export type productsUpdateWithoutRecommended_productsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    Extract_Name?: StringFieldUpdateOperationsInput | string
+    Botanical_Name?: NullableStringFieldUpdateOperationsInput | string | null
+    Part_Used?: NullableStringFieldUpdateOperationsInput | string | null
+    Typical_Extraction_Ratio?: NullableStringFieldUpdateOperationsInput | string | null
+    Active_Compound?: NullableStringFieldUpdateOperationsInput | string | null
+    Primary_Benefit?: NullableStringFieldUpdateOperationsInput | string | null
+    Unit_in_Order?: NullableStringFieldUpdateOperationsInput | string | null
+    Package_Size?: NullableStringFieldUpdateOperationsInput | string | null
+    appearance?: NullableStringFieldUpdateOperationsInput | string | null
+    product_images?: product_imagesUpdateManyWithoutProductsNestedInput
+    categories?: categoriesUpdateOneRequiredWithoutProductsNestedInput
+  }
+
+  export type productsUncheckedUpdateWithoutRecommended_productsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    Extract_Name?: StringFieldUpdateOperationsInput | string
+    Botanical_Name?: NullableStringFieldUpdateOperationsInput | string | null
+    Part_Used?: NullableStringFieldUpdateOperationsInput | string | null
+    Typical_Extraction_Ratio?: NullableStringFieldUpdateOperationsInput | string | null
+    Active_Compound?: NullableStringFieldUpdateOperationsInput | string | null
+    Primary_Benefit?: NullableStringFieldUpdateOperationsInput | string | null
+    Unit_in_Order?: NullableStringFieldUpdateOperationsInput | string | null
+    Package_Size?: NullableStringFieldUpdateOperationsInput | string | null
+    appearance?: NullableStringFieldUpdateOperationsInput | string | null
+    Category?: StringFieldUpdateOperationsInput | string
+    product_images?: product_imagesUncheckedUpdateManyWithoutProductsNestedInput
+  }
+
   export type productsCreateManyCategoriesInput = {
     id: string
     Extract_Name: string
@@ -5444,6 +6890,7 @@ export namespace Prisma {
     Package_Size?: NullableStringFieldUpdateOperationsInput | string | null
     appearance?: NullableStringFieldUpdateOperationsInput | string | null
     product_images?: product_imagesUpdateManyWithoutProductsNestedInput
+    recommended_products?: recommended_productsUpdateManyWithoutProductsNestedInput
   }
 
   export type productsUncheckedUpdateWithoutCategoriesInput = {
@@ -5458,6 +6905,7 @@ export namespace Prisma {
     Package_Size?: NullableStringFieldUpdateOperationsInput | string | null
     appearance?: NullableStringFieldUpdateOperationsInput | string | null
     product_images?: product_imagesUncheckedUpdateManyWithoutProductsNestedInput
+    recommended_products?: recommended_productsUncheckedUpdateManyWithoutProductsNestedInput
   }
 
   export type productsUncheckedUpdateManyWithoutCategoriesInput = {
@@ -5478,6 +6926,10 @@ export namespace Prisma {
     url: string
   }
 
+  export type recommended_productsCreateManyProductsInput = {
+    id: string
+  }
+
   export type product_imagesUpdateWithoutProductsInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
@@ -5491,6 +6943,18 @@ export namespace Prisma {
   export type product_imagesUncheckedUpdateManyWithoutProductsInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type recommended_productsUpdateWithoutProductsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type recommended_productsUncheckedUpdateWithoutProductsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type recommended_productsUncheckedUpdateManyWithoutProductsInput = {
+    id?: StringFieldUpdateOperationsInput | string
   }
 
 
