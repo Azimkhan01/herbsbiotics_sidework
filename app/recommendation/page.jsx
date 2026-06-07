@@ -281,7 +281,7 @@ export default function RecommendProducts() {
                     </div>
 
                     <button
-                      onClick={() =>
+                 onClick={() =>
                         toggleRecommend(
                           product.id
                         )
