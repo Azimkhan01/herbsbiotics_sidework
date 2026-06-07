@@ -1,29 +1,52 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-// CREATE
+// CREATE CATEGORY
 export async function POST(req) {
   try {
     const body = await req.json();
 
-    const category = await prisma.category.create({
+    const category = await prisma.categories.create({
       data: {
-        name: body.name,
-        slug: body.slug,
+        category_id: body.category_id,
+        category_name: body.category_name,
       },
     });
 
     return NextResponse.json(category);
-  } catch (err) {
-    return NextResponse.json({ error: "Create failed" }, { status: 500 });
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      { error: "Failed to create category" },
+      { status: 500 }
+    );
   }
 }
 
-// GET ALL
+// GET ALL CATEGORIES
 export async function GET() {
-  const categories = await prisma.category.findMany({
-    orderBy: { createdAt: "desc" },
-  });
+  try {
+    const categories = await prisma.categories.findMany({
+      include: {
+        _count: {
+          select: {
+            products: true,
+          },
+        },
+      },
+      orderBy: {
+        category_name: "asc",
+      },
+    });
 
-  return NextResponse.json(categories);
+    return NextResponse.json(categories);
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      { error: "Failed to fetch categories" },
+      { status: 500 }
+    );
+  }
 }

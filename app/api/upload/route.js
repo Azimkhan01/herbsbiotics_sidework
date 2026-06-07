@@ -1,6 +1,7 @@
 import cloudinary from "@/lib/cloudinary";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { randomUUID } from "crypto";
 
 export async function POST(req) {
   try {
@@ -16,60 +17,56 @@ export async function POST(req) {
       );
     }
 
-    // ✅ LIMIT CHECK
-    const count = await prisma.image.count({
-      where: { productId },
+    // Max 5 images
+    const count = await prisma.product_images.count({
+      where: {
+        productId,
+      },
     });
 
     if (count >= 5) {
       return NextResponse.json(
-        { error: "Max 5 images allowed" },
+        { error: "Maximum 5 images allowed" },
         { status: 400 }
       );
     }
 
-    // ✅ CONVERT FILE → BUFFER
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // ✅ UPLOAD TO CLOUDINARY
-    const uploadResult = await new Promise((resolve, reject) => {
-      const stream = cloudinary.uploader.upload_stream(
-        {
-          folder: "products", // optional but good
-          resource_type: "image", // ✅ IMPORTANT
+    const uploadResult = await new Promise(
+      (resolve, reject) => {
+        const stream =
+          cloudinary.uploader.upload_stream(
+            {
+              folder: "products",
+              resource_type: "image",
+            },
+            (error, result) => {
+              if (error) reject(error);
+              else resolve(result);
+            }
+          );
+
+        stream.end(buffer);
+      }
+    );
+
+    const image =
+      await prisma.product_images.create({
+        data: {
+          id: randomUUID(),
+          url: uploadResult.secure_url,
+          productId,
         },
-        (error, result) => {
-          if (error) {
-            console.error("Cloudinary Error:", error);
-            reject(error);
-          } else {
-            resolve(result);
-          }
-        }
-      );
+      });
 
-      stream.end(buffer);
-    });
+    return NextResponse.json(image);
+  } catch (error) {
+    console.error(error);
 
-    // ✅ SAVE TO DB
-    const savedImage = await prisma.image.create({
-      data: {
-        productId,
-        url: uploadResult.secure_url,
-        publicId: uploadResult.public_id,
-        format: uploadResult.format,
-        width: uploadResult.width,
-        height: uploadResult.height,
-        size: uploadResult.bytes,
-      },
-    });
-
-    return NextResponse.json(savedImage);
-  } catch (err) {
-    console.error("UPLOAD ERROR:", err); // 🔥 IMPORTANT
     return NextResponse.json(
-      { error: err.message || "Upload failed" },
+      { error: "Upload failed" },
       { status: 500 }
     );
   }

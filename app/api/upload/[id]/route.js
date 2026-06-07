@@ -1,15 +1,19 @@
-import cloudinary from "@/lib/cloudinary";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-export async function DELETE(req, context) {
+export async function DELETE(
+  req,
+  context
+) {
   try {
     const { id } = await context.params;
 
-    // 🔥 FIND IMAGE FIRST
-    const image = await prisma.image.findUnique({
-      where: { id },
-    });
+    const image =
+      await prisma.product_images.findUnique({
+        where: {
+          id,
+        },
+      });
 
     if (!image) {
       return NextResponse.json(
@@ -18,17 +22,18 @@ export async function DELETE(req, context) {
       );
     }
 
-    // 🔥 DELETE FROM CLOUDINARY
-    await cloudinary.uploader.destroy(image.publicId);
-
-    // 🔥 DELETE FROM DB
-    await prisma.image.delete({
-      where: { id },
+    await prisma.product_images.delete({
+      where: {
+        id,
+      },
     });
 
-    return NextResponse.json({ success: true });
-  } catch (err) {
-    console.error("DELETE IMAGE ERROR:", err);
+    return NextResponse.json({
+      success: true,
+    });
+  } catch (error) {
+    console.error(error);
+
     return NextResponse.json(
       { error: "Delete failed" },
       { status: 500 }

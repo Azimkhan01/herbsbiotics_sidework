@@ -11,7 +11,7 @@ function page() {
     <section
       className={`${lobster.className} flex justify-center items-center h-screen w-full text-6xl md:text-9xl bg-gradient-to-r from-pink-500 to-yellow-500 bg-clip-text text-transparent hover:animate-pulse `}
     >
-      Ohosehat
+      Herbs Biotics
     </section>
   )
 }

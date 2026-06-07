@@ -1,77 +1,91 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { randomUUID } from "crypto";
 
-// ✅ GET all recommended products
+// GET ALL
 export async function GET() {
   try {
-    const data = await prisma.recommendedProduct.findMany({
-      include: {
-        product: {
-          include: {
-            images: true,
-            category: true,
+    const data =
+      await prisma.recommended_products.findMany({
+        include: {
+          products: {
+            include: {
+              product_images: true,
+              categories: true,
+            },
           },
         },
-      },
-    });
+      });
 
     return NextResponse.json(data);
-  } catch (err) {
-    return NextResponse.json({ error: "Fetch failed" }, { status: 500 });
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      { error: "Fetch failed" },
+      { status: 500 }
+    );
   }
 }
 
-// ✅ ADD recommendation
+// ADD
 export async function POST(req) {
   try {
     const body = await req.json();
 
-    const created = await prisma.recommendedProduct.create({
-      data: {
-        productId: body.productId,
-        status: true,
-      },
-    });
+    const exists =
+      await prisma.recommended_products.findUnique({
+        where: {
+          productId: body.productId,
+        },
+      });
 
-    return NextResponse.json(created);
-  } catch (err) {
-    return NextResponse.json({ error: "Create failed" }, { status: 500 });
+    if (exists) {
+      return NextResponse.json(
+        { error: "Already recommended" },
+        { status: 400 }
+      );
+    }
+
+    const recommendation =
+      await prisma.recommended_products.create({
+        data: {
+          id: randomUUID(),
+          productId: body.productId,
+        },
+      });
+
+    return NextResponse.json(recommendation);
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      { error: "Create failed" },
+      { status: 500 }
+    );
   }
 }
 
-// ✅ UPDATE (toggle status)
-export async function PATCH(req) {
-  try {
-    const body = await req.json();
-
-    const updated = await prisma.recommendedProduct.update({
-      where: {
-        productId: body.productId,
-      },
-      data: {
-        status: body.status,
-      },
-    });
-
-    return NextResponse.json(updated);
-  } catch (err) {
-    return NextResponse.json({ error: "Update failed" }, { status: 500 });
-  }
-}
-
-// ✅ DELETE recommendation
+// DELETE
 export async function DELETE(req) {
   try {
     const body = await req.json();
 
-    await prisma.recommendedProduct.delete({
+    await prisma.recommended_products.delete({
       where: {
         productId: body.productId,
       },
     });
 
-    return NextResponse.json({ message: "Deleted" });
-  } catch (err) {
-    return NextResponse.json({ error: "Delete failed" }, { status: 500 });
+    return NextResponse.json({
+      success: true,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      { error: "Delete failed" },
+      { status: 500 }
+    );
   }
 }

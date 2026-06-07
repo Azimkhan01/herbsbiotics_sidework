@@ -7,6 +7,10 @@ export default function RecommendProducts() {
   const [recommended, setRecommended] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] =
+    useState("all");
+
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -24,7 +28,10 @@ export default function RecommendProducts() {
       }
 
       if (Array.isArray(recData)) {
-        const ids = recData.map((item) => item.productId);
+        const ids = recData.map(
+          (item) => item.productId
+        );
+
         setRecommended(ids);
       }
     } catch (err) {
@@ -38,8 +45,11 @@ export default function RecommendProducts() {
     fetchData();
   }, []);
 
-  const toggleRecommend = async (productId) => {
-    const isRecommended = recommended.includes(productId);
+  const toggleRecommend = async (
+    productId
+  ) => {
+    const isRecommended =
+      recommended.includes(productId);
 
     setRecommended((prev) =>
       isRecommended
@@ -48,83 +58,251 @@ export default function RecommendProducts() {
     );
 
     try {
-      await fetch("/api/recommendation", {
-        method: isRecommended ? "DELETE" : "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ productId }),
-      });
+      const res = await fetch(
+        "/api/recommendation",
+        {
+          method: isRecommended
+            ? "DELETE"
+            : "POST",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify({
+            productId,
+          }),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error();
+      }
     } catch (err) {
       console.error(err);
       fetchData();
     }
   };
 
-  // 🔹 Skeleton Loader (Responsive)
+  // Categories for dropdown
+  const categories = [
+    "all",
+    ...new Set(
+      products
+        .map(
+          (product) =>
+            product?.categories
+              ?.category_name
+        )
+        .filter(Boolean)
+    ),
+  ];
+
+  // Search + Category Filter
+  const filteredProducts =
+    products.filter((product) => {
+      const matchesSearch =
+        product.Extract_Name
+          ?.toLowerCase()
+          .includes(
+            search.toLowerCase()
+          ) ||
+        product.Botanical_Name
+          ?.toLowerCase()
+          .includes(
+            search.toLowerCase()
+          ) ||
+        product.Primary_Benefit
+          ?.toLowerCase()
+          .includes(
+            search.toLowerCase()
+          );
+
+      const matchesCategory =
+        selectedCategory === "all" ||
+        product.categories
+          ?.category_name ===
+          selectedCategory;
+
+      return (
+        matchesSearch &&
+        matchesCategory
+      );
+    });
+
+  // Loading Skeleton
   if (loading) {
     return (
-      <div className="p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div
-            key={i}
-            className="animate-pulse border p-4 rounded-lg"
-          >
-            <div className="h-40 bg-gray-300 rounded"></div>
-            <div className="h-4 bg-gray-300 mt-3 w-3/4"></div>
-            <div className="h-4 bg-gray-200 mt-2 w-1/2"></div>
-            <div className="h-10 bg-gray-300 mt-4 rounded"></div>
-          </div>
-        ))}
+      <div className="max-w-7xl mx-auto p-6">
+        <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-5">
+          {Array.from({ length: 8 }).map(
+            (_, i) => (
+              <div
+                key={i}
+                className="border rounded-xl p-4 animate-pulse"
+              >
+                <div className="h-44 bg-gray-300 rounded-lg"></div>
+
+                <div className="h-5 bg-gray-300 mt-4 rounded"></div>
+
+                <div className="h-4 bg-gray-200 mt-2 rounded"></div>
+
+                <div className="h-10 bg-gray-300 mt-4 rounded"></div>
+              </div>
+            )
+          )}
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="p-4 sm:p-6 max-w-7xl mx-auto">
-      <h1 className="text-xl sm:text-2xl font-bold mb-4">
-        Manage Recommended Products
-      </h1>
+    <div className="max-w-7xl mx-auto p-6">
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-        {products.map((product) => {
-          const isRecommended = recommended.includes(product.id);
+      {/* HEADER */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold">
+          Recommended Products
+        </h1>
 
-          return (
-            <div
-              key={product.id}
-              className="border p-3 sm:p-4 rounded-lg shadow-sm hover:shadow-md transition"
-            >
-              <img
-                src={product.images?.[0]?.url}
-                alt={product.name}
-                className="h-40 sm:h-44 w-full object-cover rounded"
-              />
+        <p className="text-gray-500 mt-1">
+          Select products that should
+          appear in recommendations.
+        </p>
 
-              <h2 className="font-semibold mt-2 text-sm sm:text-base line-clamp-1">
-                {product.name}
-              </h2>
+        {/* SEARCH + FILTER */}
+        <div className="flex flex-col md:flex-row gap-4 mt-6">
 
-              <p className="text-sm text-gray-500">
-                ₹{product.price}
-              </p>
+          <input
+            type="text"
+            placeholder="Search by Extract Name, Botanical Name, Benefit..."
+            value={search}
+            onChange={(e) =>
+              setSearch(e.target.value)
+            }
+            className="flex-1 border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
 
-              <button
-                onClick={() => toggleRecommend(product.id)}
-                className={`mt-3 w-full py-2.5 text-sm sm:text-base rounded font-medium transition ${
-                  isRecommended
-                    ? "bg-red-500 active:bg-red-600"
-                    : "bg-green-500 active:bg-green-600"
-                } text-white`}
+          <select
+            value={selectedCategory}
+            onChange={(e) =>
+              setSelectedCategory(
+                e.target.value
+              )
+            }
+            className="border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+          >
+            {categories.map((category) => (
+              <option
+                key={category}
+                value={category}
               >
-                {isRecommended
-                  ? "Remove"
-                  : "Recommend"}
-              </button>
-            </div>
-          );
-        })}
+                {category === "all"
+                  ? "All Categories"
+                  : category}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <p className="text-sm text-gray-500 mt-3">
+          Showing{" "}
+          {filteredProducts.length} of{" "}
+          {products.length} products
+        </p>
       </div>
+
+      {/* EMPTY STATE */}
+      {filteredProducts.length === 0 ? (
+        <div className="bg-white rounded-xl p-10 text-center shadow">
+          <h2 className="text-lg font-semibold">
+            No matching products found
+          </h2>
+
+          <p className="text-gray-500 mt-2">
+            Try changing search keywords
+            or category filter.
+          </p>
+        </div>
+      ) : (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredProducts.map(
+            (product) => {
+              const isRecommended =
+                recommended.includes(
+                  product.id
+                );
+
+              return (
+                <div
+                  key={product.id}
+                  className="bg-white border rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition"
+                >
+                  {/* IMAGE */}
+                  <div className="h-52 bg-gray-100">
+                    <img
+                      src={
+                        product
+                          ?.product_images?.[0]
+                          ?.url ||
+                        "/placeholder.png"
+                      }
+                      alt={
+                        product.Extract_Name
+                      }
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+
+                  {/* CONTENT */}
+                  <div className="p-4">
+                    <h2 className="font-bold text-lg line-clamp-1">
+                      {
+                        product.Extract_Name
+                      }
+                    </h2>
+
+                    <p className="text-sm text-gray-500 mt-1 line-clamp-1">
+                      {product.Botanical_Name ||
+                        "No Botanical Name"}
+                    </p>
+
+                    <p className="text-sm text-gray-600 mt-2 min-h-[40px] line-clamp-2">
+                      {product.Primary_Benefit ||
+                        "No primary benefit available"}
+                    </p>
+
+                    <div className="mt-3">
+                      <span className="inline-flex px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs">
+                        {product
+                          ?.categories
+                          ?.category_name ||
+                          "Uncategorized"}
+                      </span>
+                    </div>
+
+                    <button
+                      onClick={() =>
+                        toggleRecommend(
+                          product.id
+                        )
+                      }
+                      className={`w-full mt-4 py-2 rounded-lg font-medium transition ${
+                        isRecommended
+                          ? "bg-red-500 hover:bg-red-600 text-white"
+                          : "bg-green-500 hover:bg-green-600 text-white"
+                      }`}
+                    >
+                      {isRecommended
+                        ? "Remove Recommendation"
+                        : "Recommend Product"}
+                    </button>
+                  </div>
+                </div>
+              );
+            }
+          )}
+        </div>
+      )}
     </div>
   );
 }
