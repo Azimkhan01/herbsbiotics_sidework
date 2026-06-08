@@ -14,10 +14,19 @@ model categories {
 }
 
 model product_images {
-  id        String   @id
-  url       String
+  id String @id @default(cuid())
+
+  url      String
+  publicId String
+
+  format String?
+  width  Int?
+  height Int?
+  size   Int?
+
   productId String
-  products  products @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  products products @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model products {
